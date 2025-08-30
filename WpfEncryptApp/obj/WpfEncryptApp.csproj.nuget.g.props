@@ -13,4 +13,9 @@
     <SourceRoot Include="C:\Users\Rhian\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">C:\Users\Rhian\.nuget\packages\awssdk.core\3.7.300.2</PkgAWSSDK_Core>
+    <PkgAWSSDK_KeyManagementService Condition=" '$(PkgAWSSDK_KeyManagementService)' == '' ">C:\Users\Rhian\.nuget\packages\awssdk.keymanagementservice\3.7.300.2</PkgAWSSDK_KeyManagementService>
+    <PkgAWSSDK_DynamoDBv2 Condition=" '$(PkgAWSSDK_DynamoDBv2)' == '' ">C:\Users\Rhian\.nuget\packages\awssdk.dynamodbv2\3.7.300.2</PkgAWSSDK_DynamoDBv2>
+  </PropertyGroup>
 </Project>

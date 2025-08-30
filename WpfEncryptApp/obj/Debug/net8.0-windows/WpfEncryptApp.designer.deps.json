@@ -5,7 +5,423 @@
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v8.0": {}
+    ".NETCoreApp,Version=v8.0": {
+      "AWS.Cryptography.EncryptionSDK/4.1.0": {
+        "dependencies": {
+          "AWS.Cryptography.MaterialProviders": "1.3.0",
+          "AWSSDK.Core": "3.7.300.2",
+          "BouncyCastle.Cryptography": "2.2.1",
+          "DafnyRuntime": "4.2.0",
+          "System.Collections.Immutable": "1.7.0",
+          "System.ValueTuple": "4.5.0"
+        },
+        "runtime": {
+          "lib/net6.0/AWS.Cryptography.EncryptionSDK.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "AWS.Cryptography.Internal.AwsCryptographyPrimitives/1.3.0": {
+        "dependencies": {
+          "AWS.Cryptography.Internal.StandardLibrary": "1.3.0",
+          "AWSSDK.Core": "3.7.300.2",
+          "BouncyCastle.Cryptography": "2.2.1",
+          "DafnyRuntime": "4.2.0",
+          "System.Collections.Immutable": "1.7.0",
+          "System.ValueTuple": "4.5.0"
+        },
+        "runtime": {
+          "lib/net6.0/AWS.Cryptography.Internal.AwsCryptographyPrimitives.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "AWS.Cryptography.Internal.ComAmazonawsDynamodb/1.3.0": {
+        "dependencies": {
+          "AWS.Cryptography.Internal.StandardLibrary": "1.3.0",
+          "AWSSDK.Core": "3.7.300.2",
+          "AWSSDK.DynamoDBv2": "3.7.300.2",
+          "DafnyRuntime": "4.2.0",
+          "System.Collections.Immutable": "1.7.0",
+          "System.ValueTuple": "4.5.0"
+        },
+        "runtime": {
+          "lib/net6.0/AWS.Cryptography.Internal.ComAmazonawsDynamodb.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "AWS.Cryptography.Internal.ComAmazonawsKms/1.3.0": {
+        "dependencies": {
+          "AWS.Cryptography.Internal.StandardLibrary": "1.3.0",
+          "AWSSDK.Core": "3.7.300.2",
+          "AWSSDK.KeyManagementService": "3.7.300.2",
+          "DafnyRuntime": "4.2.0",
+          "System.Collections.Immutable": "1.7.0",
+          "System.ValueTuple": "4.5.0"
+        },
+        "runtime": {
+          "lib/net6.0/AWS.Cryptography.Internal.ComAmazonawsKms.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "AWS.Cryptography.Internal.StandardLibrary/1.3.0": {
+        "dependencies": {
+          "DafnyRuntime": "4.2.0",
+          "System.Collections.Immutable": "1.7.0",
+          "System.ValueTuple": "4.5.0"
+        },
+        "runtime": {
+          "lib/net6.0/AWS.Cryptography.Internal.StandardLibrary.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "AWS.Cryptography.MaterialProviders/1.3.0": {
+        "dependencies": {
+          "AWS.Cryptography.Internal.AwsCryptographyPrimitives": "1.3.0",
+          "AWS.Cryptography.Internal.ComAmazonawsDynamodb": "1.3.0",
+          "AWS.Cryptography.Internal.ComAmazonawsKms": "1.3.0",
+          "AWS.Cryptography.Internal.StandardLibrary": "1.3.0",
+          "AWSSDK.Core": "3.7.300.2",
+          "BouncyCastle.Cryptography": "2.2.1",
+          "DafnyRuntime": "4.2.0",
+          "System.Collections.Immutable": "1.7.0",
+          "System.ValueTuple": "4.5.0"
+        },
+        "runtime": {
+          "lib/net6.0/AWS.Cryptography.MaterialProviders.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "AWSSDK.Core/3.7.300.2": {
+        "runtime": {
+          "lib/net8.0/AWSSDK.Core.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.300.2"
+          }
+        }
+      },
+      "AWSSDK.DynamoDBv2/3.7.300.2": {
+        "dependencies": {
+          "AWSSDK.Core": "3.7.300.2"
+        },
+        "runtime": {
+          "lib/net8.0/AWSSDK.DynamoDBv2.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.300.2"
+          }
+        }
+      },
+      "AWSSDK.KeyManagementService/3.7.300.2": {
+        "dependencies": {
+          "AWSSDK.Core": "3.7.300.2"
+        },
+        "runtime": {
+          "lib/net8.0/AWSSDK.KeyManagementService.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.300.2"
+          }
+        }
+      },
+      "BouncyCastle.Cryptography/2.2.1": {
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.2.1.47552"
+          }
+        }
+      },
+      "DafnyRuntime/4.2.0": {
+        "dependencies": {
+          "System.Collections.Immutable": "1.7.0",
+          "System.Runtime.Numerics": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/DafnyRuntime.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Microsoft.NETCore.Platforms/1.1.0": {},
+      "Microsoft.NETCore.Targets/1.1.0": {},
+      "System.Collections.Immutable/1.7.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Collections.Immutable.dll": {
+            "assemblyVersion": "1.2.5.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "System.Globalization/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.IO/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0",
+          "System.Text.Encoding": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        }
+      },
+      "System.Reflection/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.IO": "4.3.0",
+          "System.Reflection.Primitives": "4.3.0",
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Reflection.Primitives/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Resources.ResourceManager/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Globalization": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Runtime/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0"
+        }
+      },
+      "System.Runtime.Extensions/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Runtime.Numerics/4.3.0": {
+        "dependencies": {
+          "System.Globalization": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Runtime.Numerics.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.6.24705.1"
+          }
+        }
+      },
+      "System.Text.Encoding/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Threading.Tasks/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.ValueTuple/4.5.0": {}
+    }
   },
-  "libraries": {}
+  "libraries": {
+    "AWS.Cryptography.EncryptionSDK/4.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Z8hW/7ZwzB+cEHtn0uoc6Jj8TFKVThokIt8+Tp3KzrbXqUP5/ieUOw9QNlsIAzBJgYt8jjhmA2fC8x7Tpxf/RQ==",
+      "path": "aws.cryptography.encryptionsdk/4.1.0",
+      "hashPath": "aws.cryptography.encryptionsdk.4.1.0.nupkg.sha512"
+    },
+    "AWS.Cryptography.Internal.AwsCryptographyPrimitives/1.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Kh8xUiJAoCFDJQWlkN7MO/6FPXv/2+D9ByAfD4w0pD3a9yyKhSqIHIlfuWjh0fWgDt1dGQRgV/nWqwEjfz2vwg==",
+      "path": "aws.cryptography.internal.awscryptographyprimitives/1.3.0",
+      "hashPath": "aws.cryptography.internal.awscryptographyprimitives.1.3.0.nupkg.sha512"
+    },
+    "AWS.Cryptography.Internal.ComAmazonawsDynamodb/1.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XiPJivTdYRH5imA+Kodj7ttswefyswG8pdSbGJf8FkRYGRU+2nPnNw1LLZvYhzrpQqI24uLtJSwV9PvigQ/yBA==",
+      "path": "aws.cryptography.internal.comamazonawsdynamodb/1.3.0",
+      "hashPath": "aws.cryptography.internal.comamazonawsdynamodb.1.3.0.nupkg.sha512"
+    },
+    "AWS.Cryptography.Internal.ComAmazonawsKms/1.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-plZB1VJDriO07v+klRDLsH0MkfdJEkgmqNF57O+WDCOMguTwzwoLGhN+/QfshZNjtpfG7BFNietc0wH6jxQj/Q==",
+      "path": "aws.cryptography.internal.comamazonawskms/1.3.0",
+      "hashPath": "aws.cryptography.internal.comamazonawskms.1.3.0.nupkg.sha512"
+    },
+    "AWS.Cryptography.Internal.StandardLibrary/1.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hPfJWirRM/H1gjXzUkhhlnuHm5KHD8FsI74VExyDgS5KrA7fJ4s008Zfs30N43RZmgWa14IOAYgQprjHT9oHWg==",
+      "path": "aws.cryptography.internal.standardlibrary/1.3.0",
+      "hashPath": "aws.cryptography.internal.standardlibrary.1.3.0.nupkg.sha512"
+    },
+    "AWS.Cryptography.MaterialProviders/1.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-agiO7/hyAeQWTXHlddVe/xbOGK7DCdMSCjfl9Pf0dAyUQhWmbQwKwJtxm2B4ZJvWksnZ6b2hFQIv24yjJC1Pxw==",
+      "path": "aws.cryptography.materialproviders/1.3.0",
+      "hashPath": "aws.cryptography.materialproviders.1.3.0.nupkg.sha512"
+    },
+    "AWSSDK.Core/3.7.300.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5cnuanWJWMEVvSx6XLMrAIgk/l4nztCja/6kxXXA1XkwZ63Dz9eMvCSIaByJI4MwJhTOPkp+GePNwKmoJXWcUA==",
+      "path": "awssdk.core/3.7.300.2",
+      "hashPath": "awssdk.core.3.7.300.2.nupkg.sha512"
+    },
+    "AWSSDK.DynamoDBv2/3.7.300.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ROLolysBKYEe+H4+uOq7W8KtMS1ornA3tsFFhf3FAu7Y5SVIwd2xrPFhMF189jj4Hul435M4++TU58hb2unSkA==",
+      "path": "awssdk.dynamodbv2/3.7.300.2",
+      "hashPath": "awssdk.dynamodbv2.3.7.300.2.nupkg.sha512"
+    },
+    "AWSSDK.KeyManagementService/3.7.300.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-g+RW/e8YbA2qmA91vZ76LpUZov7mHj6Q+Lgc5v4mR1DJjoJ20zyJSEkbP8mhKmLXDzE8mqfQPPsFhHbLCHFbGA==",
+      "path": "awssdk.keymanagementservice/3.7.300.2",
+      "hashPath": "awssdk.keymanagementservice.3.7.300.2.nupkg.sha512"
+    },
+    "BouncyCastle.Cryptography/2.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A6Zr52zVqJKt18ZBsTnX0qhG0kwIQftVAjLmszmkiR/trSp8H+xj1gUOzk7XHwaKgyREMSV1v9XaKrBUeIOdvQ==",
+      "path": "bouncycastle.cryptography/2.2.1",
+      "hashPath": "bouncycastle.cryptography.2.2.1.nupkg.sha512"
+    },
+    "DafnyRuntime/4.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DVE6tDedGYqW6Au+Jn+jW8o/LcwNe6HPqHwAgfwHq3e9LEzoqDddqwlWY/vFlSMtut62TOFVJftmTfZXJT5YzA==",
+      "path": "dafnyruntime/4.2.0",
+      "hashPath": "dafnyruntime.4.2.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+      "path": "microsoft.netcore.platforms/1.1.0",
+      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Targets/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
+      "path": "microsoft.netcore.targets/1.1.0",
+      "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
+    },
+    "System.Collections.Immutable/1.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RVSM6wZUo6L2y6P3vN6gjUtyJ2IF2RVtrepF3J7nrDKfFQd5u/SnSUFclchYQis8/k5scHy9E+fVeKVQLnnkzw==",
+      "path": "system.collections.immutable/1.7.0",
+      "hashPath": "system.collections.immutable.1.7.0.nupkg.sha512"
+    },
+    "System.Globalization/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kYdVd2f2PAdFGblzFswE4hkNANJBKRmsfa2X5LG2AcWE1c7/4t0pYae1L8vfZ5xvE2nK/R9JprtToA61OSHWIg==",
+      "path": "system.globalization/4.3.0",
+      "hashPath": "system.globalization.4.3.0.nupkg.sha512"
+    },
+    "System.IO/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3qjaHvxQPDpSOYICjUoTsmoq5u6QJAFRUITgeT/4gqkF1bajbSmb1kwSxEA8AHlofqgcKJcM8udgieRNhaJ5Cg==",
+      "path": "system.io/4.3.0",
+      "hashPath": "system.io.4.3.0.nupkg.sha512"
+    },
+    "System.Reflection/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KMiAFoW7MfJGa9nDFNcfu+FpEdiHpWgTcS2HdMpDvt9saK3y/G4GwprPyzqjFH9NTaGPQeWNHU+iDlDILj96aQ==",
+      "path": "system.reflection/4.3.0",
+      "hashPath": "system.reflection.4.3.0.nupkg.sha512"
+    },
+    "System.Reflection.Primitives/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5RXItQz5As4xN2/YUDxdpsEkMhvw3e6aNveFXUn4Hl/udNTCNhnKp8lT9fnc3MhvGKh1baak5CovpuQUXHAlIA==",
+      "path": "system.reflection.primitives/4.3.0",
+      "hashPath": "system.reflection.primitives.4.3.0.nupkg.sha512"
+    },
+    "System.Resources.ResourceManager/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/zrcPkkWdZmI4F92gL/TPumP98AVDu/Wxr3CSJGQQ+XN6wbRZcyfSKVoPo17ilb3iOr0cCRqJInGwNMolqhS8A==",
+      "path": "system.resources.resourcemanager/4.3.0",
+      "hashPath": "system.resources.resourcemanager.4.3.0.nupkg.sha512"
+    },
+    "System.Runtime/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JufQi0vPQ0xGnAczR13AUFglDyVYt4Kqnz1AZaiKZ5+GICq0/1MH/mO/eAJHt/mHW1zjKBJd7kV26SrxddAhiw==",
+      "path": "system.runtime/4.3.0",
+      "hashPath": "system.runtime.4.3.0.nupkg.sha512"
+    },
+    "System.Runtime.Extensions/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-guW0uK0fn5fcJJ1tJVXYd7/1h5F+pea1r7FLSOz/f8vPEqbR2ZAknuRDvTQ8PzAilDveOxNjSfr0CHfIQfFk8g==",
+      "path": "system.runtime.extensions/4.3.0",
+      "hashPath": "system.runtime.extensions.4.3.0.nupkg.sha512"
+    },
+    "System.Runtime.Numerics/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yMH+MfdzHjy17l2KESnPiF2dwq7T+xLnSJar7slyimAkUh/gTrS9/UQOtv7xarskJ2/XDSNvfLGOBQPjL7PaHQ==",
+      "path": "system.runtime.numerics/4.3.0",
+      "hashPath": "system.runtime.numerics.4.3.0.nupkg.sha512"
+    },
+    "System.Text.Encoding/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BiIg+KWaSDOITze6jGQynxg64naAPtqGHBwDrLaCtixsa5bKiR8dpPOHA7ge3C0JJQizJE+sfkz1wV+BAKAYZw==",
+      "path": "system.text.encoding/4.3.0",
+      "hashPath": "system.text.encoding.4.3.0.nupkg.sha512"
+    },
+    "System.Threading.Tasks/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LbSxKEdOUhVe8BezB/9uOGGppt+nZf6e1VFyw6v3DN6lqitm0OSn2uXMOdtP0M3W4iMcqcivm2J6UgqiwwnXiA==",
+      "path": "system.threading.tasks/4.3.0",
+      "hashPath": "system.threading.tasks.4.3.0.nupkg.sha512"
+    },
+    "System.ValueTuple/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ==",
+      "path": "system.valuetuple/4.5.0",
+      "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
+    }
+  }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "QNl/fkCDt/geY29X3BCZzY6+8UsHWbF9LctBUCbWN5O/Kg/T1HcvxiUbyzxs8Z6XGE3aFs9BLgCDaENxxZot9g==",
+  "dgSpecHash": "uT2yoxZVXguVbL8xJ2I3NR0oogOPZk1MOw/CEvluQigCYGsHKQKINoA4yYPoivFmZBoQUskWbSsocDIIm5p+xA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\WpfEncryptApp.csproj",
   "expectedPackageFiles": [
@@ -15,11 +15,14 @@
     "C:\\Users\\Rhian\\.nuget\\packages\\awssdk.keymanagementservice\\3.7.300.2\\awssdk.keymanagementservice.3.7.300.2.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\dafnyruntime\\4.2.0\\dafnyruntime.4.2.0.nupkg.sha512",
+    "C:\\Users\\Rhian\\.nuget\\packages\\documentformat.openxml\\3.3.0\\documentformat.openxml.3.3.0.nupkg.sha512",
+    "C:\\Users\\Rhian\\.nuget\\packages\\documentformat.openxml.framework\\3.3.0\\documentformat.openxml.framework.3.3.0.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\system.collections.immutable\\1.7.0\\system.collections.immutable.1.7.0.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\system.globalization\\4.3.0\\system.globalization.4.3.0.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\system.io\\4.3.0\\system.io.4.3.0.nupkg.sha512",
+    "C:\\Users\\Rhian\\.nuget\\packages\\system.io.packaging\\8.0.1\\system.io.packaging.8.0.1.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\system.reflection.primitives\\4.3.0\\system.reflection.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\system.resources.resourcemanager\\4.3.0\\system.resources.resourcemanager.4.3.0.nupkg.sha512",

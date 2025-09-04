@@ -10,6 +10,8 @@
         <TextBlock Text="{Binding MyVariable}" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
-                   FontSize="24"/>
+                   FontSize="24"
+        />
+        <Frame Name="LoginFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

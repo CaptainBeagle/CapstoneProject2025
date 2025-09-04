@@ -86,7 +86,8 @@ namespace WpfEncryptApp
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
+            LoginFrame.Navigate(new LoginPage());
+            DataContext = this;
             // Instantiate the AWS Encryption SDK and material providers
             var esdk = new ESDK(new AwsEncryptionSdkConfig());
             var mpl = new MaterialProviders(new MaterialProvidersConfig());

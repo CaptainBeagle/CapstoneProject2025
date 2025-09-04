@@ -15,12 +15,17 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="75"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="80"/>
 
         </Grid.RowDefinitions>
-        <TextBlock x:Name="Label" Text="Sign In" Grid.Row="0" FontSize="48" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,10" TextWrapping="WrapWithOverflow" Width="146"/>
+        <TextBlock x:Name="Label" Text="Encryption App" Grid.Row="0" FontSize="48" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,10" TextWrapping="WrapWithOverflow" Width="339"/>
         <TextBlock x:Name="UserLabel" Grid.Row="1" Text="Username" FontSize="24" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="106"/>
         <TextBlock x:Name="PassLabel" Grid.Row="3" Text="Password" FontSize="24" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100"/>
         <TextBox x:Name="UserName" Grid.Row="2" TextWrapping="Wrap" AcceptsReturn="True" Margin="260,0,260,0" FontSize="24"/>
-        <PasswordBox x:Name="Password" Grid.Row="5" Margin="260,0,260,0" FontSize="24"/>
+        <PasswordBox x:Name="Password" Grid.Row="4" Margin="260,0,260,0" FontSize="24"/>
+        <TextBlock x:Name="ErrorMsg" Text="Incorrect username or password" Grid.Row="5" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Width="260" Foreground="#FFFFA6A6"/>
+        <Button x:Name="Submit" Grid.Row="7" Content="Sign In" FontSize="25" Click="SignIn" Margin="309,0,327,40"/>
     </Grid>
 </Page>

@@ -22,7 +22,7 @@ namespace WpfEncryptApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged 
+    public partial class MainWindow : Window
     {
         //This code before public MainWindow() should allow MainWindow.xaml to read MyVariable in this file.
         private string _myVariable;

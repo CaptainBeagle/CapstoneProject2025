@@ -22,6 +22,18 @@ namespace WpfEncryptApp
     /// </summary>
     public partial class LoginPage : Page
     {
+        private static string UID;
+        public static string Userid
+        {
+            get { return UID; }
+            set 
+            {
+                if (UID != value)
+                {
+                    UID = value;
+                }
+            }
+        }
         public LoginPage()
         {
             InitializeComponent();
@@ -49,6 +61,7 @@ namespace WpfEncryptApp
                 {
                     connection.Close();
                     ErrorMsg.Visibility = Visibility.Collapsed;
+                    Userid = UserN;
                     //Correct login info. Go to a home page determined by user info
                     NavigationService.Navigate(new Uri("Home.xaml", UriKind.Relative));
                 }

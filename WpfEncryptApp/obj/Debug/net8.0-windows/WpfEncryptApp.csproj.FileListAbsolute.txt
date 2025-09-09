@@ -1,3 +1,10 @@
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp.csproj.AssemblyReference.cache
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\Home.g.cs
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\LoginPage.g.cs
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp_MarkupCompile.cache
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp_MarkupCompile.lref
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\WpfEncryptApp.exe
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\WpfEncryptApp.deps.json
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\WpfEncryptApp.runtimeconfig.json
@@ -40,12 +47,7 @@ C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptAp
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
-C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp.csproj.AssemblyReference.cache
-C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\LoginPage.g.cs
-C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\MainWindow.g.cs
-C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\App.g.cs
-C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp_MarkupCompile.cache
-C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp_MarkupCompile.lref
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\Home.baml
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\LoginPage.baml
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\MainWindow.baml
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp.g.resources
@@ -60,5 +62,3 @@ C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptAp
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp.pdb
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp.genruntimeconfig.cache
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\ref\WpfEncryptApp.dll
-C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\Home.g.cs
-C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\Home.baml

@@ -18,14 +18,14 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="206.077"/>
-                <ColumnDefinition Width="443.923"/>
+                <ColumnDefinition Width="431"/>
+                <ColumnDefinition Width="219"/>
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="Welcome" Text="Welcome" Grid.Row="0" Grid.Column="1" FontSize="48" HorizontalAlignment="Left" Foreground="White"/>
+            <TextBlock x:Name="Welcome" Text="" Grid.Row="0" Grid.Column="1" FontSize="48" HorizontalAlignment="Left" Foreground="White" Width="431"/>
             <TextBlock x:Name="NewF" Text="Send new file" Grid.Row="1" Grid.Column="1" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-            <Button x:Name="Add" Content="+" Grid.Row="2" Grid.Column="1" FontSize="40" Margin="0,0,91,0" Foreground="White" BorderBrush="White" Background="#FF3C3B3B"/>
-            <TextBlock x:Name="Notice" Text="Only accepts docx, xlsx, pdf" Grid.Row="2" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Grid.ColumnSpan="2"/>
+            <Button x:Name="Add" Click ="Add_Click" Content="+" Grid.Row="2" Grid.Column="1" FontSize="40" Margin="0,0,280,0" Foreground="White" BorderBrush="White" Background="#FF3C3B3B"/>
+            <TextBlock x:Name="Notice" Text="Only accepts txt, docx, xlsx, pdf" Grid.Row="2" Grid.Column="1" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Height="61" Width="189" Margin="206,0,0,0" TextWrapping="WrapWithOverflow"/>
             <TextBlock x:Name="Inbox" Text="Inbox/Recieved Files" Grid.Row="3" Grid.Column="1" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
             <Button x:Name="H" Content="Home" Grid.Column="0" FontSize="20" Margin="0,0,0,58" Grid.RowSpan="3"/>
             <Button x:Name="O" Content="Options" Grid.Column="0" FontSize="20" Margin="0,57,0,-51" Grid.RowSpan="3" Grid.Row="2"/>

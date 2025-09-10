@@ -60,6 +60,10 @@
             "MySql.Data": {
               "target": "Package",
               "version": "[9.4.0, )"
+            },
+            "PdfPig": {
+              "target": "Package",
+              "version": "[0.1.11, )"
             }
           },
           "imports": [

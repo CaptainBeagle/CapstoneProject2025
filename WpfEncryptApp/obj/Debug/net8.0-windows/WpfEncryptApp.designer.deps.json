@@ -263,6 +263,38 @@
           }
         }
       },
+      "PdfPig/0.1.11": {
+        "runtime": {
+          "lib/net8.0/UglyToad.PdfPig.Core.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.DocumentLayoutAnalysis.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.Fonts.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.Package.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.Tokenization.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.Tokens.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          }
+        }
+      },
       "System.Buffers/4.5.1": {},
       "System.Collections.Immutable/1.7.0": {
         "runtime": {
@@ -664,6 +696,13 @@
       "sha512": "sha512-yGfcv5TSj72rwUdywZqtM90qlZ9AuSNckG2Fb9OxuXkskhnqi/DGBaOji9z2G4q3BgFfddbm/WmZzFfAggjbSw==",
       "path": "mysql.data/9.4.0",
       "hashPath": "mysql.data.9.4.0.nupkg.sha512"
+    },
+    "PdfPig/0.1.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pGAhccH2pXU5SzNPs94kGD+HnChHWrW/234en2Ky+RSAAui4o7msOiUdePErOmM2FY/wnyfj3MY/WRAhjnlRVw==",
+      "path": "pdfpig/0.1.11",
+      "hashPath": "pdfpig.0.1.11.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",

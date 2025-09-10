@@ -62,3 +62,12 @@ C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptAp
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp.pdb
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp.genruntimeconfig.cache
 C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\ref\WpfEncryptApp.dll
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\FileSendDisplay.g.cs
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\FileSendDisplay.baml
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\UglyToad.PdfPig.Core.dll
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\UglyToad.PdfPig.DocumentLayoutAnalysis.dll
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\UglyToad.PdfPig.Fonts.dll
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\UglyToad.PdfPig.Package.dll
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\UglyToad.PdfPig.Tokenization.dll
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\UglyToad.PdfPig.Tokens.dll
+C:\Users\Rhian\OneDrive\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\UglyToad.PdfPig.dll

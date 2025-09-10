@@ -26,6 +26,8 @@ namespace WpfEncryptApp
     /// </summary>
     public partial class Home : Page
     {
+        public static string filename;
+
         public Home()
         {
             InitializeComponent();
@@ -64,13 +66,18 @@ namespace WpfEncryptApp
             // Process open file dialog box results
             if (result == true)
             {
-                string filename = dialog.FileName; //The full file path
+                filename = dialog.FileName; //The full file path
 
                 //Use file path to open separate window/dialogue box to view file and select recipient
+                FileSendDisplay Win = new FileSendDisplay();
+                bool? Send = Win.ShowDialog();
 
-                //encrypt file
-                //send to recipient
+                if (Send == true) 
+                {
+                    //encrypt file
+                    //send to recipient
                 }
             }
         }
+    }
 }

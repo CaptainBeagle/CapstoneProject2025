@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="WpfEncryptApp.SearchBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfEncryptApp"
+             mc:Ignorable="d" 
+             d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="255" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="Search" Grid.Row="1" Grid.Column="0" Height="30" FontSize="16" BorderBrush="#FF7E7E80" />
+        <Button x:Name="Sbutton" Grid.Row="1" Grid.Column="1" Content="Search" Click="ActiveSearch" />
+        <StackPanel x:Name="Results" Grid.Row="0" Visibility="Collapsed">
+            <TextBlock Text="Sample" Background="#FFFFFEFE" FontSize="16"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

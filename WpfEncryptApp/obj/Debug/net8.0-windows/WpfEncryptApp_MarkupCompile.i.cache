@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Rhian\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\
+C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\
 WpfEncryptApp
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Users\Rhian\Documents\GitRepository\CapstoneProject2025\WpfEncryptApp\App.xaml
-41580834448
+C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\App.xaml
+5-18012890
 
-9-297004458
+10338025272
 225774287671
-FileSendDisplay.xaml;Home.xaml;LoginPage.xaml;MainWindow.xaml;
+FileSendDisplay.xaml;Home.xaml;LoginPage.xaml;MainWindow.xaml;SearchBox.xaml;
 
-False
+True
 

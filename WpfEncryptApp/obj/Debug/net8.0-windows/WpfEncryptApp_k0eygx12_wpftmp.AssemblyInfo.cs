@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WpfEncryptApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8df6e1be603e6018c6d2a83417f3455435fb6c94")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+867c3f493350d42cffa1dfdcf613210684e57081")]
 [assembly: System.Reflection.AssemblyProductAttribute("WpfEncryptApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WpfEncryptApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

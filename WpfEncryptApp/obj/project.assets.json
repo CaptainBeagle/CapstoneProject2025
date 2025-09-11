@@ -2676,11 +2676,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\WpfEncryptApp.csproj",
+      "projectUniqueName": "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\WpfEncryptApp.csproj",
       "projectName": "WpfEncryptApp",
-      "projectPath": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\WpfEncryptApp.csproj",
+      "projectPath": "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\WpfEncryptApp.csproj",
       "packagesPath": "C:\\Users\\Rhian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\obj\\",
+      "outputPath": "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

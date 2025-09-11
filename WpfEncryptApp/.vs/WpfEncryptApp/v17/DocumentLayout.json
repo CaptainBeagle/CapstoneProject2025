@@ -1,37 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\",
+  "WorkspaceRootPath": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\onedrive\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\filesenddisplay.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|solutionrelative:filesenddisplay.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\onedrive\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\filesenddisplay.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\filesenddisplay.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|solutionrelative:filesenddisplay.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\onedrive\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\filesenddisplay.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|solutionrelative:filesenddisplay.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\onedrive\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\onedrive\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\home.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|solutionrelative:home.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\onedrive\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\home.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\home.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|solutionrelative:home.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\onedrive\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\home.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|solutionrelative:home.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|solutionrelative:loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\onedrive\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\loginpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|c:\\users\\rhian\\documents\\gitrepository\\capstoneproject2025\\wpfencryptapp\\loginpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{404C9343-E565-41D6-80F3-29895661D0D1}|WpfEncryptApp.csproj|solutionrelative:loginpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -42,28 +42,28 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAADkAAAAAAAAAAAAYwIcAAAAOAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAIcAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-03T21:59:19.653Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-09-03T21:59:11.873Z",
@@ -73,72 +73,68 @@
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "LoginPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\LoginPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\LoginPage.xaml.cs",
               "RelativeDocumentMoniker": "LoginPage.xaml.cs",
-              "ToolTip": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\LoginPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\LoginPage.xaml.cs",
               "RelativeToolTip": "LoginPage.xaml.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAYwEEAAABXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-03T22:06:40.331Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "LoginPage.xaml",
-              "DocumentMoniker": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\LoginPage.xaml",
-              "RelativeDocumentMoniker": "LoginPage.xaml",
-              "ToolTip": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\LoginPage.xaml",
-              "RelativeToolTip": "LoginPage.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-03T22:05:54.222Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-03T22:06:40.331Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "LoginPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\LoginPage.xaml",
+              "RelativeDocumentMoniker": "LoginPage.xaml",
+              "ToolTip": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\LoginPage.xaml",
+              "RelativeToolTip": "LoginPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-03T22:05:54.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Home.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Home.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Home.xaml.cs",
               "RelativeDocumentMoniker": "Home.xaml.cs",
-              "ToolTip": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Home.xaml.cs",
+              "ToolTip": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Home.xaml.cs",
               "RelativeToolTip": "Home.xaml.cs",
-              "ViewState": "AQIAACsAAAAAAAAAAAAQwEsAAAARAAAA",
+              "ViewState": "AQIAACsAAAAAAAAAAAAQwDwAAACPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-04T23:04:55.07Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-04T23:04:55.07Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "Home.xaml",
-              "DocumentMoniker": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Home.xaml",
+              "DocumentMoniker": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Home.xaml",
               "RelativeDocumentMoniker": "Home.xaml",
-              "ToolTip": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Home.xaml",
+              "ToolTip": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Home.xaml",
               "RelativeToolTip": "Home.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-04T23:04:26.809Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-04T23:04:26.809Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "FileSendDisplay.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\FileSendDisplay.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\FileSendDisplay.xaml.cs",
               "RelativeDocumentMoniker": "FileSendDisplay.xaml.cs",
-              "ToolTip": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\FileSendDisplay.xaml.cs",
+              "ToolTip": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\FileSendDisplay.xaml.cs",
               "RelativeToolTip": "FileSendDisplay.xaml.cs",
-              "ViewState": "AQIAAKAAAAAAAAAAAAAkwMAAAABjAAAA",
+              "ViewState": "AQIAAJoAAAAAAAAAAAAkwMAAAABjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-09T20:00:18.612Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "FileSendDisplay.xaml",
-              "DocumentMoniker": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\FileSendDisplay.xaml",
+              "DocumentMoniker": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\FileSendDisplay.xaml",
               "RelativeDocumentMoniker": "FileSendDisplay.xaml",
-              "ToolTip": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\FileSendDisplay.xaml",
+              "ToolTip": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\FileSendDisplay.xaml",
               "RelativeToolTip": "FileSendDisplay.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-09-09T19:44:22.687Z",

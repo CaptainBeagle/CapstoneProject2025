@@ -57,8 +57,8 @@ namespace WpfEncryptApp
             // Configure open file dialog box
             var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.FileName = "Document"; // Default file name
-            dialog.DefaultExt = ".txt"; // Default file extension
-            dialog.Filter = "Text documents (.txt)|*.txt|Word documents (.docx)|*.docx|Excel spreadsheets (.xlsx)|*.xlsx|PDF documents|*.pdf"; // Filter files by extension
+            dialog.DefaultExt = ".docx"; // Default file extension
+            dialog.Filter = "Word documents (.docx)|*.docx|Excel spreadsheets (.xlsx)|*.xlsx|PDF documents|*.pdf"; // Filter files by extension
 
             // Show open file dialog box
             bool? result = dialog.ShowDialog();

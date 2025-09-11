@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xZc9Yv6ho9qNCtTKqgEuKjUr/FiwC1ypGbEXjXVCY9iAGpKSgaMh2kjHieJ2D2wmtrYHXw3TZRap+BmsLNdDtQ==",
+  "dgSpecHash": "JoRNV2FjCCcL9C1ddBYzAK40QWpOZ0r4QYgWxBAWlasQyGo0KkarbqceTExM5ucT3v6Qi+uu0mC3JxMBMGib2A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Rhian\\OneDrive\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\WpfEncryptApp.csproj",
+  "projectFilePath": "C:\\Users\\Rhian\\Documents\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\WpfEncryptApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rhian\\.nuget\\packages\\aws.cryptography.encryptionsdk\\4.1.0\\aws.cryptography.encryptionsdk.4.1.0.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\aws.cryptography.internal.awscryptographyprimitives\\1.3.0\\aws.cryptography.internal.awscryptographyprimitives.1.3.0.nupkg.sha512",

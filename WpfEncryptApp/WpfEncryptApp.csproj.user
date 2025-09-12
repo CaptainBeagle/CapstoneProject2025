@@ -19,6 +19,9 @@
     <Compile Update="SearchBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="SearchPopupContent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="FileSendDisplay.xaml">
@@ -34,6 +37,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SearchBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SearchPopupContent.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

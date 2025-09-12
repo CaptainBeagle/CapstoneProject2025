@@ -44,7 +44,7 @@ namespace WpfEncryptApp
         {
             string UserN = UserName.Text;
             string Pass = Password.Password.ToString();
-            string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";    //Database credentials. If this were meant to be put into production,
+            string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";    //Database credentials. If this were to be put into production,
                                                                                                     //a secure password would be set up along with other security measures.
             MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);   //setting up the connection
             connection.Open();  //opening the connection

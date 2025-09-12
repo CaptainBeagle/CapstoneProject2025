@@ -13,8 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DocumentFormat.OpenXml.Drawing;
-using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace WpfEncryptApp
 {
@@ -23,46 +22,39 @@ namespace WpfEncryptApp
     /// </summary>
     public partial class SearchBox : UserControl
     {
+        private static string SC;
+        public static string SearchContent
+        {
+            get { return SC; }
+            set
+            {
+                if (SC != value)
+                {
+                    SC = value;
+                }
+            }
+
+        }
+
+        public static readonly RoutedEvent SearchButtonClickEvent =
+        EventManager.RegisterRoutedEvent("SearchButtonClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SearchBox));
+
+        public event RoutedEventHandler SearchButtonClick
+        {
+            add { AddHandler(SearchButtonClickEvent, value); }
+            remove { RemoveHandler(SearchButtonClickEvent, value); }
+        }
+
         public SearchBox()
         {
             InitializeComponent();
-            Results.Visibility = Visibility.Collapsed;
         }
 
         public void ActiveSearch(object sender, EventArgs e)
         {
-            //run a query for users by name.
-            string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";    //Database credentials. If this were meant to be put into production,
-                                                                                                    //a secure password would be set up along with other security measures.
-            MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
-            connection.Open();
-            string query = "SELECT FirstName, LastName WHERE FirstName LIKE @input";
-            using (MySqlCommand command = new MySqlCommand(query, connection))
-            {
-                try
-                {
-                command.Parameters.AddWithValue("@input", Search.Text + "%");
-
-                MySqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    Results.Children.Clear();
-                    Label newLabel = new Label();
-                    newLabel.Content = reader["FirstName"].ToString() + " " + reader["LastName"];
-                    Results.Children.Add(newLabel);
-                }
-                reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-            }
+            Search.Text = SearchContent;
+            RaiseEvent(new RoutedEventArgs(SearchButtonClickEvent));
             //List all users' names that are "like" what is currently in the textbox inside the border as labels.
-
-            //Figure Out Where Fatal Error Is Occuring
-
-            //set border visibility to visible
         }
     }
 }

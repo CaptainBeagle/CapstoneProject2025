@@ -192,5 +192,17 @@ namespace WpfEncryptApp
             //add ability to select recipient and send/cancel
             //Need DB access to query for users in users table (try to add filter/search functions)
         }
+
+        private void SearchBox_SearchButtonClick(object sender, RoutedEventArgs e)
+        {
+            string searchText = (MySearchBox.FindName("SearchContent") as TextBox)?.Text;
+
+            // Pass the text to the popup content control and run the query
+            if (SearchPopup != null)
+            {
+                Results.SearchUsers(searchText);
+                SearchPopup.IsOpen = true;
+            }
+        }
     }
 }

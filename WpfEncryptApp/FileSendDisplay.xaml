@@ -10,7 +10,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="Content" Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Top" Margin="5" FontSize="20"/>
@@ -26,10 +26,15 @@
             </Grid.ColumnDefinitions>
 
             <Label x:Name="UL" Content="Send to: " FontSize="14"/>
-            <local:SearchBox Grid.Row="1" Grid.Column="1" />
-            <ComboBox x:Name="UserList" Grid.Row="1" Grid.Column="2" Margin="10,0,25,0"/>
+            <local:SearchBox x:Name="MySearchBox" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" SearchButtonClick="SearchBox_SearchButtonClick"/>
+            <ComboBox x:Name="FilterList" Grid.Row="1" Grid.Column="2" Margin="10,0,25,0"/>
             <Button x:Name="Send" Content="Send" Grid.Row="1" Grid.Column="3"/>
             <Button x:Name="Cancel" Content="Cancel" Grid.Row="1" Grid.Column="5"/>
+            <Popup x:Name="SearchPopup" Placement="Top"
+           PlacementTarget="{Binding ElementName=SearchBox}"
+           StaysOpen="False" AllowsTransparency="True">
+                <local:SearchPopupContent x:Name="Results"/>
+            </Popup>
         </Grid>
     </Grid>
 </Window>

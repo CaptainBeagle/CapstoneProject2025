@@ -22,18 +22,13 @@ namespace WpfEncryptApp
     /// </summary>
     public partial class SearchBox : UserControl
     {
-        private static string SC;
-        public static string SearchContent
-        {
-            get { return SC; }
-            set
-            {
-                if (SC != value)
-                {
-                    SC = value;
-                }
-            }
+        public static readonly DependencyProperty SearchTextProperty =
+        DependencyProperty.Register("SearchText", typeof(string), typeof(SearchBox), new PropertyMetadata(string.Empty));
 
+        public string SearchText
+        {
+            get { return (string)GetValue(SearchTextProperty); }
+            set { SetValue(SearchTextProperty, value); }
         }
 
         public static readonly RoutedEvent SearchButtonClickEvent =
@@ -52,9 +47,8 @@ namespace WpfEncryptApp
 
         public void ActiveSearch(object sender, EventArgs e)
         {
-            Search.Text = SearchContent;
+            
             RaiseEvent(new RoutedEventArgs(SearchButtonClickEvent));
-            //List all users' names that are "like" what is currently in the textbox inside the border as labels.
         }
     }
 }

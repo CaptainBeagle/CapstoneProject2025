@@ -195,13 +195,15 @@ namespace WpfEncryptApp
 
         private void SearchBox_SearchButtonClick(object sender, RoutedEventArgs e)
         {
-            string searchText = (MySearchBox.FindName("SearchContent") as TextBox)?.Text;
+            SearchPopup.IsOpen = true;
 
-            // Pass the text to the popup content control and run the query
+            string searchText = MySearchBox.SearchText;
+
+            Results.SearchUsers(searchText);
+
             if (SearchPopup != null)
             {
-                Results.SearchUsers(searchText);
-                SearchPopup.IsOpen = true;
+                
             }
         }
     }

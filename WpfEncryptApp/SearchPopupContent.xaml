@@ -11,7 +11,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel x:Name="Results" Grid.Row="0">
-            <TextBlock Text="Sample" Background="#FFFFFEFE" FontSize="16"/>
+            <TextBlock Text="Sample" Background="#FFFFFEFE" FontSize="16" Height="24"/>
             <ListBox x:Name="Users" Height="Auto"/>
         </StackPanel>
     </Grid>

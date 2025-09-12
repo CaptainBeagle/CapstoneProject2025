@@ -35,7 +35,6 @@ namespace WpfEncryptApp
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             using (MySqlCommand command = new MySqlCommand("SELECT FirstName, LastName FROM users WHERE FirstName LIKE @input", connection))
             {
-                MessageBox.Show("Searching for: " + searchText);
                 try
                 {
                     connection.Open();

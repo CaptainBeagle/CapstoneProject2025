@@ -31,8 +31,8 @@
             <Button x:Name="Send" Content="Send" Grid.Row="1" Grid.Column="3"/>
             <Button x:Name="Cancel" Content="Cancel" Grid.Row="1" Grid.Column="5"/>
             <Popup x:Name="SearchPopup" Placement="Top"
-           PlacementTarget="{Binding ElementName=SearchBox}"
-           StaysOpen="False" AllowsTransparency="True">
+           PlacementTarget="{Binding ElementName=MySearchBox}"
+           StaysOpen="True" AllowsTransparency="True">
                 <local:SearchPopupContent x:Name="Results"/>
             </Popup>
         </Grid>

@@ -28,8 +28,8 @@
             <Label x:Name="UL" Content="Send to: " FontSize="14"/>
             <local:SearchBox x:Name="MySearchBox" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" SearchButtonClick="SearchBox_SearchButtonClick"/>
             <ComboBox x:Name="FilterList" Grid.Row="1" Grid.Column="2" Margin="10,0,25,0"/>
-            <Button x:Name="Send" Content="Send" Grid.Row="1" Grid.Column="3"/>
-            <Button x:Name="Cancel" Content="Cancel" Grid.Row="1" Grid.Column="5"/>
+            <Button x:Name="Send" Content="Send" Grid.Row="1" Grid.Column="3" Click="Send_Click"/>
+            <Button x:Name="Cancel" Content="Cancel" Grid.Row="1" Grid.Column="5" Click="Cancel_Click"/>
             <Popup x:Name="SearchPopup" Placement="Top"
            PlacementTarget="{Binding ElementName=MySearchBox}"
            StaysOpen="True" AllowsTransparency="True">

@@ -18,6 +18,8 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Win32;
 using System.IO;
+using AWS.Cryptography.EncryptionSDK;
+using AWS.Cryptography.MaterialProviders;
 
 namespace WpfEncryptApp
 {
@@ -44,6 +46,7 @@ namespace WpfEncryptApp
                 MySqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
+                    //maybe modify query and reader to get both first and lastname for labels in SearchPopupContent
                     Output = reader.GetString(0);
                 }
             }
@@ -74,10 +77,57 @@ namespace WpfEncryptApp
 
                 if (Send == true) 
                 {
-                    //encrypt file
-                    //send to recipient
+                    // Instantiate the AWS Encryption SDK and material providers
+                    var esdk = new ESDK(new AwsEncryptionSdkConfig());
+                    var mpl = new MaterialProviders(new MaterialProvidersConfig());
+
+                    var keyNameSpace = "KeyNS01";   //These values are important identifiers for the encryption key. These same values must be used to generate a corresponding key for decryption.
+                    var keyName = "Key01";
+
+                    //If in production, a key management service like AWS KMS should be used to generate and store keys.
+                    //Unfortunately, I am broke and cannot aford AWS KMS. So I will be generating an AES key in the program to prototype the application.
+
+                    byte[] rawAESkey = new byte[32]; //A 32-byte array to store randomly generated data for the key
+                    System.Security.Cryptography.RandomNumberGenerator.Fill(rawAESkey); //fills the array with random data to be used to create the keyring that will protect the data key
+                                                                                        //The keyring is like a second layer of security on top of the actual key that will encrypt the message
+
+                    var aesWrappingKey = new MemoryStream(rawAESkey);   //Putting the array data into a different form/container so the function can accept it as a parameter
+
+                    var createKeyringInput = new CreateRawAesKeyringInput
+                    {
+                        KeyNamespace = keyNameSpace,
+                        KeyName = keyName,
+                        WrappingKey = aesWrappingKey,
+                        WrappingAlg = AesWrappingAlg.ALG_AES256_GCM_IV12_TAG16
+                    };
+
+                    var keyring = mpl.CreateRawAesKeyring(createKeyringInput);
+
+                    //Define the encryption context
+                    //The AWS website did not say exactly what this does, but I'm assuming it's only for documentation purposes.
+                    var encryptionContext = new Dictionary<string, string>()
+                    {
+                        {"purpose", "Send Message"}
+                    };
+                    byte[] Transfer = Encoding.ASCII.GetBytes(FileSendDisplay.Data);    //Transfering string data into a byte array to be put into a MemoryStream to be accepted by the function. It hopefully works.
+                    MemoryStream message = new(Transfer);                               //This solution is brought to you by the lovely users at stackoverflow.
+                                                                                        //Define the encrypt input object
+                    var encryptInput = new EncryptInput
+                    {
+                        Plaintext = message,
+                        Keyring = keyring,
+                        EncryptionContext = encryptionContext
+                    };
+
+                    //Calling the Encrypt function
+                    var encryptOutput = esdk.Encrypt(encryptInput);
+
+                    var encryptedMessage = encryptOutput.Ciphertext;    //The final encrypted message for storage, transfer, and decryption
+                    //send to recipient/add to DB
+
                 }
             }
         }
+        //add method for displaying recieved data
     }
 }

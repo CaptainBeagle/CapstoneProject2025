@@ -22,7 +22,7 @@ namespace WpfEncryptApp
     /// </summary>
     public partial class SearchBox : UserControl
     {
-        public static readonly DependencyProperty SearchTextProperty =
+        public static DependencyProperty SearchTextProperty =
         DependencyProperty.Register("SearchText", typeof(string), typeof(SearchBox), new PropertyMetadata(string.Empty));
 
         public string SearchText

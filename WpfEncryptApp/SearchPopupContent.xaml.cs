@@ -48,15 +48,32 @@ namespace WpfEncryptApp
                         while (reader.Read())
                         {
                             Label newLabel = new Label();
-                            newLabel.Content = reader["FirstName"].ToString() + " " + reader["LastName"];
+                            newLabel.Content = reader["FirstName"] + " " + reader["LastName"];
+                            newLabel.Background = new SolidColorBrush(Colors.White);
+                            newLabel.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(ClickLabel);
                             Results.Children.Add(newLabel);
+                            //find a way to remove the label that has the current User's name on it
+                            //maybe check if label content is like user name text in Home.xaml.cs
                         }
                     }
+                    connection.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
+            }
+        }
+
+        public void ClickLabel (object sender, MouseButtonEventArgs e)
+        {
+            Label name = sender as Label;
+            
+            FileSendDisplay parentwindow = Window.GetWindow(this) as FileSendDisplay;
+
+            if (name != null)
+            {
+                parentwindow.MySearchBox.SearchText = name.Content.ToString();
             }
         }
     }

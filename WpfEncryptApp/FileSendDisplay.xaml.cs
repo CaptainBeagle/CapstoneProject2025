@@ -27,6 +27,18 @@ namespace WpfEncryptApp
     /// </summary>
     public partial class FileSendDisplay : Window
     {
+        private static string dataContent;
+        private static string Userid;
+        public static string Data
+        {
+            get { return dataContent; }
+            set { dataContent = value; }
+        }
+        public string uID
+        {
+            get { return Userid; } 
+            set { Userid = value; }
+        }
         //extracts text from docx files
         public static string ExtractTextFromDocx(string Path)
         {
@@ -188,9 +200,6 @@ namespace WpfEncryptApp
             {
                 Content.Text = ExtractTextFromPdf(FilePath);
             }
-
-            //add ability to select recipient and send/cancel
-            //Need DB access to query for users in users table (try to add filter/search functions)
         }
 
         private void SearchBox_SearchButtonClick(object sender, RoutedEventArgs e)
@@ -199,12 +208,58 @@ namespace WpfEncryptApp
 
             string searchText = MySearchBox.SearchText;
 
-            Results.SearchUsers(searchText);
-
             if (SearchPopup != null)
             {
-                
+                Results.SearchUsers(searchText);
             }
+        }
+
+        private void Send_Click(object sender, RoutedEventArgs e)
+        {
+            string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";    //Database credentials. If this were to be put into production,
+                                                                                                    //a secure password would be set up along with other security measures.
+
+            string searchText = MySearchBox.SearchText;
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlCommand command = new MySqlCommand("SELECT UserID FROM users WHERE CONCAT(FirstName, ' ', LastName) = @search ", connection))
+            {
+                try
+                {
+                    connection.Open();
+
+                    command.Parameters.AddWithValue("@search", searchText);
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string ID = reader.GetString(0);
+                            if (ID != null)
+                            {
+                                Data = Content.Text;
+                                uID = ID;
+                                this.DialogResult = true;
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Invalid User Credentials. Check for typos");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+
+            }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
         }
     }
 }

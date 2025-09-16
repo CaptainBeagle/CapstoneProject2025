@@ -29,7 +29,7 @@ namespace WpfEncryptApp
     public partial class Home : Page
     {
         public static string filename;
-
+        public static string Output;
         public Home()
         {
             InitializeComponent();
@@ -39,7 +39,7 @@ namespace WpfEncryptApp
             connection.Open();  //opening the connection
             //Grab user data from database using public string Userid
             string query = "SELECT FirstName FROM users WHERE UserID = @Userid";
-            string Output = "";
+            //string Output = "";
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@Userid", LoginPage.Userid);
@@ -75,7 +75,7 @@ namespace WpfEncryptApp
                 FileSendDisplay Win = new FileSendDisplay();
                 bool? Send = Win.ShowDialog();
 
-                if (Send == true) 
+                if (Send == true)
                 {
                     // Instantiate the AWS Encryption SDK and material providers
                     var esdk = new ESDK(new AwsEncryptionSdkConfig());
@@ -123,11 +123,36 @@ namespace WpfEncryptApp
                     var encryptOutput = esdk.Encrypt(encryptInput);
 
                     var encryptedMessage = encryptOutput.Ciphertext;    //The final encrypted message for storage, transfer, and decryption
-                    //send to recipient/add to DB
 
+                    //send to recipient/add to DB
+                    string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
+                    MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+                    connection.Open();
+                    string insert = "INSERT INTO files (IDNum, RecID, Message, SendID) VALUES (NULL, @rec, @msg, @send)";
+                    string rec = FileSendDisplay.uID;
+                    string msg = encryptedMessage.ToString();
+                    string send = LoginPage.Userid;
+
+                    try 
+                    {
+                    using (MySqlCommand command = new MySqlCommand(insert, connection))
+                    {
+                        command.Parameters.AddWithValue("@rec", rec);
+                        command.Parameters.AddWithValue("@msg", msg);
+                        command.Parameters.AddWithValue("@send", send);
+                        command.ExecuteNonQuery();
+                    }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"An error occurred while processing the document: {ex.Message}");
+                    }
                 }
             }
         }
-        //add method for displaying recieved data
+        //add method for displaying recieved data (called after initialization)
+        //recieve data from files table that has RecID the same as Login UID
+        //create something (label or usercontrol) to display the db entry information
+
     }
 }

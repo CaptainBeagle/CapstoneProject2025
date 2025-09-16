@@ -34,7 +34,7 @@ namespace WpfEncryptApp
             get { return dataContent; }
             set { dataContent = value; }
         }
-        public string uID
+        public static string uID
         {
             get { return Userid; } 
             set { Userid = value; }

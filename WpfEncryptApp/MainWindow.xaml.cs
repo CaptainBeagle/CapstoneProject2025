@@ -95,24 +95,21 @@ namespace WpfEncryptApp
             var keyNameSpace = "KeyNS01";   //These values are important identifiers for the encryption key. These same values must be used to generate a corresponding key for decryption.
             var keyName = "Key01";
 
-            //If in production, a key management service like AWS KMS should be used to generate and store keys.
-            //Unfortunately, I am broke and cannot aford AWS KMS. So I will be generating an AES key in the program to prototype the application.
+            //If in production, a key management service like AWS KMS would be used to generate and store keys.
+            //Unfortunately, I am broke and cannot aford AWS KMS. So I will be generating the public and private keys in OpenSSL.
 
-            byte[] rawAESkey = new byte[32]; //A 32-byte array to store randomly generated data for the key
-            System.Security.Cryptography.RandomNumberGenerator.Fill(rawAESkey); //fills the array with random data to be used to create the keyring that will protect the data key
-                                                                                //The keyring is like a second layer of security on top of the actual key that will encrypt the message
+            string publickeypath = "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\public_key.pem";
+            byte[] rawpublickey = System.IO.File.ReadAllBytes(publickeypath);   //getting data from private key file
 
-            var aesWrappingKey = new MemoryStream(rawAESkey);   //Putting the array data into a different form/container so the function can accept it as a parameter
-
-            var createKeyringInput = new CreateRawAesKeyringInput
+            var encryptKeyringInput = new CreateRawRsaKeyringInput
             {
                 KeyNamespace = keyNameSpace,
                 KeyName = keyName,
-                WrappingKey = aesWrappingKey,
-                WrappingAlg = AesWrappingAlg.ALG_AES256_GCM_IV12_TAG16
+                PublicKey = new MemoryStream(rawpublickey),
+                PaddingScheme = PaddingScheme.OAEP_SHA384_MGF1
             };
 
-            var keyring = mpl.CreateRawAesKeyring(createKeyringInput);
+            var ekeyring = mpl.CreateRawRsaKeyring(encryptKeyringInput);
 
             //Define the encryption context
             //The AWS website did not say exactly what this does, but I'm assuming it's only for documentation purposes.
@@ -131,7 +128,7 @@ namespace WpfEncryptApp
             var encryptInput = new EncryptInput
             {
                 Plaintext = message,
-                Keyring = keyring,
+                Keyring = ekeyring,
                 EncryptionContext = encryptionContext
             };
 
@@ -140,11 +137,24 @@ namespace WpfEncryptApp
 
             var encryptedMessage = encryptOutput.Ciphertext;    //The final encrypted message for storage, transfer, and decryption
 
+            string privatekeypath = "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\private_key.pem";
+            byte[] rawprivatekey = System.IO.File.ReadAllBytes(privatekeypath); //getting data from public key file
+
+            var decryptKeyringInput = new CreateRawRsaKeyringInput
+            {
+                KeyNamespace = keyNameSpace,
+                KeyName = keyName,
+                PrivateKey = new MemoryStream(rawprivatekey),
+                PaddingScheme = PaddingScheme.OAEP_SHA384_MGF1
+            };
+            
+            var dkeyring = mpl.CreateRawRsaKeyring(decryptKeyringInput);
+
             //Define the decrypt input object
             var decryptInput = new DecryptInput
             {
                 Ciphertext = encryptedMessage,
-                Keyring = keyring,
+                Keyring = dkeyring,
                 EncryptionContext = encryptionContext
             };
 

@@ -52,7 +52,7 @@ namespace WpfEncryptApp
             }
             Welcome.Text = "Welcome, " + Output + ".";
 
-
+            DisplayRecievedFiledata();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -85,23 +85,21 @@ namespace WpfEncryptApp
                     var keyName = "Key01";
 
                     //If in production, a key management service like AWS KMS should be used to generate and store keys.
-                    //Unfortunately, I am broke and cannot aford AWS KMS. So I will be generating an AES key in the program to prototype the application.
+                    //Unfortunately, I am broke and cannot aford AWS KMS. So I will be generating the public and private keys in the program to prototype the application.
 
-                    byte[] rawAESkey = new byte[32]; //A 32-byte array to store randomly generated data for the key
-                    System.Security.Cryptography.RandomNumberGenerator.Fill(rawAESkey); //fills the array with random data to be used to create the keyring that will protect the data key
-                                                                                        //The keyring is like a second layer of security on top of the actual key that will encrypt the message
+                    string publickeypath = "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\public_key.pem";
+                    byte[] rawpublickey = System.IO.File.ReadAllBytes(publickeypath);   //getting data from private key file
 
-                    var aesWrappingKey = new MemoryStream(rawAESkey);   //Putting the array data into a different form/container so the function can accept it as a parameter
 
-                    var createKeyringInput = new CreateRawAesKeyringInput
+                    var encryptKeyringInput = new CreateRawRsaKeyringInput
                     {
                         KeyNamespace = keyNameSpace,
                         KeyName = keyName,
-                        WrappingKey = aesWrappingKey,
-                        WrappingAlg = AesWrappingAlg.ALG_AES256_GCM_IV12_TAG16
+                        PublicKey = new MemoryStream(rawpublickey),
+                        PaddingScheme = PaddingScheme.OAEP_SHA384_MGF1
                     };
 
-                    var keyring = mpl.CreateRawAesKeyring(createKeyringInput);
+                    var ekeyring = mpl.CreateRawRsaKeyring(encryptKeyringInput);
 
                     //Define the encryption context
                     //The AWS website did not say exactly what this does, but I'm assuming it's only for documentation purposes.
@@ -115,7 +113,7 @@ namespace WpfEncryptApp
                     var encryptInput = new EncryptInput
                     {
                         Plaintext = message,
-                        Keyring = keyring,
+                        Keyring = ekeyring,
                         EncryptionContext = encryptionContext
                     };
 
@@ -130,29 +128,73 @@ namespace WpfEncryptApp
                     connection.Open();
                     string insert = "INSERT INTO files (IDNum, RecID, Message, SendID) VALUES (NULL, @rec, @msg, @send)";
                     string rec = FileSendDisplay.uID;
-                    string msg = encryptedMessage.ToString();
+                    var msg = encryptedMessage;
                     string send = LoginPage.Userid;
 
                     try 
                     {
-                    using (MySqlCommand command = new MySqlCommand(insert, connection))
-                    {
-                        command.Parameters.AddWithValue("@rec", rec);
-                        command.Parameters.AddWithValue("@msg", msg);
-                        command.Parameters.AddWithValue("@send", send);
-                        command.ExecuteNonQuery();
-                    }
+                        using (MySqlCommand command = new MySqlCommand(insert, connection))
+                        {
+                            command.Parameters.AddWithValue("@rec", rec);
+                            command.Parameters.AddWithValue("@msg", msg);
+                            command.Parameters.AddWithValue("@send", send);
+                            command.ExecuteNonQuery();
+                        }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"An error occurred while processing the document: {ex.Message}");
+                        MessageBox.Show("Error: " + ex.Message);
                     }
+                    connection.Close();
                 }
             }
         }
-        //add method for displaying recieved data (called after initialization)
-        //recieve data from files table that has RecID the same as Login UID
-        //create something (label or usercontrol) to display the db entry information
+        
+        //Display recieved data from files table
+        private void DisplayRecievedFiledata()
+        {
+            //recieve data from files table that has RecID the same as Login UID
+            string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
+            MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+            connection.Open();
+            string query = "SELECT Message, SendID FROM files WHERE RecID = @LoginID";
+            string LoginID = LoginPage.Userid;
 
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@LoginID", LoginID);
+                    string SendID = "";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        //find a way to dynamically find an encrpyted document's name
+                        SendID = reader["SendID"].ToString();
+                    }
+                    reader.Close();
+                    string query2 = "SELECT FirstName, LastName FROM users WHERE UserID = @SendID";
+                    using (MySqlCommand cmd = new MySqlCommand(query2, connection))
+                    {
+                        
+                        cmd.Parameters.AddWithValue("@SendID", SendID);
+                        MySqlDataReader reader2 = cmd.ExecuteReader();
+                        while (reader2.Read())
+                        {
+                            RecNotif newRecNotif = new RecNotif("Document", reader2["FirstName"].ToString() + " " + reader2["LastName"].ToString());
+                            HomeGrid.Children.Add(newRecNotif);
+                            Grid.SetColumn(newRecNotif, 1);
+                            Grid.SetRow(newRecNotif, 4);
+                        }
+                        reader2.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            connection.Close();
+        }
     }
 }

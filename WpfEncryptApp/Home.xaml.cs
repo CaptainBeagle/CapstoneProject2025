@@ -20,6 +20,7 @@ using Microsoft.Win32;
 using System.IO;
 using AWS.Cryptography.EncryptionSDK;
 using AWS.Cryptography.MaterialProviders;
+using System.Reflection;
 
 namespace WpfEncryptApp
 {
@@ -30,6 +31,7 @@ namespace WpfEncryptApp
     {
         public static string filename;
         public static string Output;
+        public System.IO.MemoryStream Message;
         public Home()
         {
             InitializeComponent();
@@ -109,7 +111,8 @@ namespace WpfEncryptApp
                     };
                     byte[] Transfer = Encoding.ASCII.GetBytes(FileSendDisplay.Data);    //Transfering string data into a byte array to be put into a MemoryStream to be accepted by the function. It hopefully works.
                     MemoryStream message = new(Transfer);                               //This solution is brought to you by the lovely users at stackoverflow.
-                                                                                        //Define the encrypt input object
+                    
+                    //Define the encrypt input object
                     var encryptInput = new EncryptInput
                     {
                         Plaintext = message,
@@ -171,17 +174,23 @@ namespace WpfEncryptApp
                     {
                         //find a way to dynamically find an encrpyted document's name
                         SendID = reader["SendID"].ToString();
+                        byte[] encryptedBytes = (byte[])reader["Message"];
+
+                        //Retrieving data directly from array to avoid corruption
+                        MemoryStream memstream = new MemoryStream(encryptedBytes);
+                        memstream.Position = 0;
+                        Message = memstream;
                     }
                     reader.Close();
                     string query2 = "SELECT FirstName, LastName FROM users WHERE UserID = @SendID";
                     using (MySqlCommand cmd = new MySqlCommand(query2, connection))
                     {
-                        
                         cmd.Parameters.AddWithValue("@SendID", SendID);
                         MySqlDataReader reader2 = cmd.ExecuteReader();
                         while (reader2.Read())
                         {
-                            RecNotif newRecNotif = new RecNotif("Document", reader2["FirstName"].ToString() + " " + reader2["LastName"].ToString());
+                            RecNotif newRecNotif = new RecNotif("Document", reader2["FirstName"].ToString() + " " + reader2["LastName"].ToString(), Message);
+                            newRecNotif.NotifClick += newRecNotif_OnClick;
                             HomeGrid.Children.Add(newRecNotif);
                             Grid.SetColumn(newRecNotif, 1);
                             Grid.SetRow(newRecNotif, 4);
@@ -195,6 +204,15 @@ namespace WpfEncryptApp
                 MessageBox.Show("Error: " + ex.Message);
             }
             connection.Close();
+        }
+
+        private void newRecNotif_OnClick(object sender, RecNotif.ClickEventArgs e)
+        {
+            MemoryStream DisData = e.data;
+            string senduser = e.user;
+            string fn = e.title;
+            RecievedFileDisplay recfiledis = new RecievedFileDisplay(DisData, senduser, fn);
+            NavigationService.Navigate(recfiledis);
         }
     }
 }

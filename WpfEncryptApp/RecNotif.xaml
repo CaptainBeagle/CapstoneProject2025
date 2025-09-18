@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfEncryptApp"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="700">
-    <Grid>
+    <Grid Background="#FF3C3B3B">
         <Border BorderBrush="#FFC8C8C8" BorderThickness="2">
             <Grid>
             <Grid.ColumnDefinitions>

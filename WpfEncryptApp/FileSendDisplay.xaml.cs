@@ -17,6 +17,8 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
 using UglyToad.PdfPig;
+using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
+using UglyToad.PdfPig.DocumentLayoutAnalysis.WordExtractor;
 using UglyToad.PdfPig.Content;
 
 
@@ -87,7 +89,7 @@ namespace WpfEncryptApp
         {
             if(!File.Exists(Path))
             {
-                Console.WriteLine($"Error: The file was not found at path: {Path}");
+                MessageBox.Show("File not found at path: " + Path);
                 return string.Empty;
             }
 
@@ -99,18 +101,20 @@ namespace WpfEncryptApp
                     //preparing parts of the spreadsheet for display
                     
                     WorkbookPart WBPart = spreadsheet.WorkbookPart;
-                    SharedStringTablePart STPart = WBPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
-                    SharedStringTable StringTable = null;
-                    if ( STPart != null ) 
+                    if (WBPart == null)
                     {
-                        StringTable = STPart.SharedStringTable;
+                        MessageBox.Show("Trouble retrieving Workbook.");
+                        return string.Empty;
                     }
+                    SharedStringTablePart STPart = WBPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
+                    SharedStringTable StringTable = STPart?.SharedStringTable;
 
                     //getting the data in the sheet
-                    foreach (WorksheetPart WSheetPart in WBPart.WorksheetParts) 
-                    { 
-                        Worksheet sheet = WSheetPart.Worksheet;
-                        SheetData SData = sheet.GetFirstChild<SheetData>();
+                    foreach (Sheet sheet in WBPart.Workbook.Descendants<Sheet>()) 
+                    {
+                        WorksheetPart WSheetPart = (WorksheetPart)WBPart.GetPartById(sheet.Id);
+                        Worksheet worksheet = WSheetPart.Worksheet;
+                        SheetData SData = worksheet.GetFirstChild<SheetData>();
 
                         foreach (Row r in SData.Elements<Row>())
                         {
@@ -131,8 +135,7 @@ namespace WpfEncryptApp
             }
             catch (System.Exception ex)
             {
-                //Console log to report the exception.
-                Console.WriteLine($"An error occurred while processing the document: {ex.Message}");
+                MessageBox.Show("An error occurred while processing the document: " + ex.Message);
                 return string.Empty;
             }
             return result.ToString();
@@ -149,7 +152,11 @@ namespace WpfEncryptApp
 
             if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
             {
-                return stringtable.ElementAt(int.Parse(val)).InnerText;
+                if (stringtable != null)
+                {
+                    return stringtable.ElementAt(int.Parse(val)).InnerText;
+                }
+                return string.Empty;
             }
             else
             {
@@ -168,13 +175,35 @@ namespace WpfEncryptApp
 
             StringBuilder result = new StringBuilder();
 
-            using (PdfDocument Pdf = PdfDocument.Open(path))
+            try
             {
-                foreach (UglyToad.PdfPig.Content.Page page in Pdf.GetPages())
+                using (PdfDocument Pdf = PdfDocument.Open(path))
                 {
-                    result = result.Append(page.Text);
-                    result = result.AppendLine();
+                    foreach (UglyToad.PdfPig.Content.Page page in Pdf.GetPages())
+                    {
+                        // Retrieve all words from the page with bounding box information
+                        var words = page.GetWords(NearestNeighbourWordExtractor.Instance);
+
+                        // Group words into lines based on their vertical position
+                        var lines = words
+                            .OrderBy(word => word.BoundingBox.Bottom)
+                            .GroupBy(word => word.BoundingBox.Bottom);
+
+                        foreach (var line in lines)
+                        {
+                            var sortedWordsInLine = line.OrderBy(word => word.BoundingBox.Left);
+                            result.AppendLine(string.Join(" ", sortedWordsInLine.Select(word => word.Text)));
+                        }
+
+                        result.AppendLine();
+                        result.AppendLine();    // Add 2 blank lines between pages
+                    }
                 }
+            }
+            catch
+            {
+                MessageBox.Show("Something went wrong while processing the file");
+                return string.Empty;
             }
             return result.ToString();
         }
@@ -191,7 +220,7 @@ namespace WpfEncryptApp
                 Content.Text = ExtractTextFromDocx(FilePath);
             }
             
-            if (System.IO.Path.GetExtension(FilePath) == ".xlxs")
+            if (System.IO.Path.GetExtension(FilePath) == ".xlsx")
             {
                 Content.Text = ExtractTextFromExcel(FilePath);
             }

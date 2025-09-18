@@ -27,7 +27,7 @@ namespace WpfEncryptApp
         {
             InitializeComponent();
             FileTitle.Text = title;
-            FileSender.Text = sender;
+            FileSender.Text = "From: " + sender;
 
             // Instantiate the AWS Encryption SDK and material providers
             var esdk = new ESDK(new AwsEncryptionSdkConfig());
@@ -41,7 +41,7 @@ namespace WpfEncryptApp
 
             var encryptionContext = new Dictionary<string, string>()
             {
-                {"purpose", "Recieve Message"}
+                {"purpose", "Send Message"}
             };
 
             var decryptKeyringInput = new CreateRawRsaKeyringInput
@@ -75,6 +75,12 @@ namespace WpfEncryptApp
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Home home = new Home();
+            NavigationService.Navigate(home);
         }
     }
 }

@@ -15,12 +15,18 @@
         </Grid.RowDefinitions>
         <Grid Height="100" Grid.Row="0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="FileTitle" Grid.Column="0" Foreground="White" FontSize="24"/>
-            <TextBlock x:Name="FileSender" Grid.Column="1" Foreground="White" FontSize="16" HorizontalAlignment="Right" />
+            <TextBlock x:Name="FileTitle" Grid.Column="1" Foreground="White" FontSize="24"/>
+            <TextBlock x:Name="FileSender" Grid.Column="2" Foreground="White" FontSize="16" HorizontalAlignment="Right"/>
+            <Button x:Name="Back" Margin="10" Content="Home" FontSize="20" Click="Back_Click"/>
         </Grid>
-        <TextBlock x:Name="Content" Grid.Row="1" FontSize="16" Foreground="White"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <StackPanel Grid.Row="1">
+                <TextBlock x:Name="Content" Grid.Row="1" FontSize="16" Foreground="White"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

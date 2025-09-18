@@ -31,6 +31,7 @@ namespace WpfEncryptApp
     {
         public static string filename;
         public static string Output;
+        public string UsableName;
         public System.IO.MemoryStream Message;
         public Home()
         {
@@ -72,6 +73,8 @@ namespace WpfEncryptApp
             if (result == true)
             {
                 filename = dialog.FileName; //The full file path
+
+                UsableName = dialog.SafeFileName;
 
                 //Use file path to open separate window/dialogue box to view file and select recipient
                 FileSendDisplay Win = new FileSendDisplay();
@@ -125,13 +128,16 @@ namespace WpfEncryptApp
 
                     var encryptedMessage = encryptOutput.Ciphertext;    //The final encrypted message for storage, transfer, and decryption
 
+                    //Converting the MemoryStream to a byte array in order to hopefully prevent the data from becoming malformed
+                    byte[] encryptedBytes = encryptedMessage.ToArray();
+
                     //send to recipient/add to DB
                     string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
                     MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
                     connection.Open();
-                    string insert = "INSERT INTO files (IDNum, RecID, Message, SendID) VALUES (NULL, @rec, @msg, @send)";
+                    string insert = "INSERT INTO files (IDNum, RecID, Message, SendID, FileName) VALUES (NULL, @rec, @msg, @send, @fn)";
                     string rec = FileSendDisplay.uID;
-                    var msg = encryptedMessage;
+                    var msg = encryptedBytes;
                     string send = LoginPage.Userid;
 
                     try 
@@ -141,6 +147,7 @@ namespace WpfEncryptApp
                             command.Parameters.AddWithValue("@rec", rec);
                             command.Parameters.AddWithValue("@msg", msg);
                             command.Parameters.AddWithValue("@send", send);
+                            command.Parameters.AddWithValue("@fn", UsableName);
                             command.ExecuteNonQuery();
                         }
                     }
@@ -160,7 +167,7 @@ namespace WpfEncryptApp
             string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
             MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
             connection.Open();
-            string query = "SELECT Message, SendID FROM files WHERE RecID = @LoginID";
+            string query = "SELECT Message, SendID, FileName FROM files WHERE RecID = @LoginID";
             string LoginID = LoginPage.Userid;
 
             try
@@ -175,6 +182,7 @@ namespace WpfEncryptApp
                         //find a way to dynamically find an encrpyted document's name
                         SendID = reader["SendID"].ToString();
                         byte[] encryptedBytes = (byte[])reader["Message"];
+                        UsableName = reader["FileName"].ToString();
 
                         //Retrieving data directly from array to avoid corruption
                         MemoryStream memstream = new MemoryStream(encryptedBytes);
@@ -189,7 +197,7 @@ namespace WpfEncryptApp
                         MySqlDataReader reader2 = cmd.ExecuteReader();
                         while (reader2.Read())
                         {
-                            RecNotif newRecNotif = new RecNotif("Document", reader2["FirstName"].ToString() + " " + reader2["LastName"].ToString(), Message);
+                            RecNotif newRecNotif = new RecNotif(UsableName, reader2["FirstName"].ToString() + " " + reader2["LastName"].ToString(), Message);
                             newRecNotif.NotifClick += newRecNotif_OnClick;
                             HomeGrid.Children.Add(newRecNotif);
                             Grid.SetColumn(newRecNotif, 1);

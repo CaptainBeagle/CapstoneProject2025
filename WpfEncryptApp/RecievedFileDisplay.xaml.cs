@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AWS.Cryptography.EncryptionSDK;
 using AWS.Cryptography.MaterialProviders;
+using MySql.Data.MySqlClient;
 
 namespace WpfEncryptApp
 {
@@ -27,7 +28,14 @@ namespace WpfEncryptApp
         {
             InitializeComponent();
             FileTitle.Text = title;
-            FileSender.Text = "From: " + sender;
+            if (Home.ToOrFrom == false)
+            {
+                FileSender.Text = "From: " + sender;
+            }
+            else
+            {
+                FileSender.Text = "To: " + sender;
+            }
 
             // Instantiate the AWS Encryption SDK and material providers
             var esdk = new ESDK(new AwsEncryptionSdkConfig());
@@ -79,8 +87,16 @@ namespace WpfEncryptApp
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Home home = new Home();
-            NavigationService.Navigate(home);
+            if(Home.ToOrFrom == false)
+            {
+                Home home = new Home();
+                NavigationService.Navigate(home);
+            }
+            else
+            {
+                ViewSentFiles viewsent = new ViewSentFiles();
+                NavigationService.Navigate(viewsent);
+            }
         }
     }
 }

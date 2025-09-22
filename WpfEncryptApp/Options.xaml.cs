@@ -24,5 +24,32 @@ namespace WpfEncryptApp
         {
             InitializeComponent();
         }
+
+        private void H_Click(object sender, RoutedEventArgs e)
+        {
+            Home homepage = new Home();
+            NavigationService.Navigate(homepage);
+        }
+
+        private void S_Click(object sender, RoutedEventArgs e)
+        {
+            ViewSentFiles viewsent = new ViewSentFiles();
+            NavigationService.Navigate(viewsent);
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            LoginPage login = new LoginPage();
+            NavigationService.Navigate(login);
+        }
+
+        private void Theme_Click(object sender, RoutedEventArgs e)
+        {
+            //Switch state uppon clicking and update text on button as well as appearance of everything.
+            //Maybe set a universal Static bool in Home that determines whether the theme is light or dark.
+            //All pages access this variable to set the colors of their background and text.
+            //Whenever clicked, update entry in AccountSetting table in DB corresponding to User ID.
+            //Reload page or otherwise update appearance to be in line with new theme bool value.
+        }
     }
 }

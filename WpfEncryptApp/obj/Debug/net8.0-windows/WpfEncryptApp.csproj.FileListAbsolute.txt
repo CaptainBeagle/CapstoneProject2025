@@ -52,6 +52,7 @@ C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\Home.g.cs
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\LoginPage.g.cs
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\Options.g.cs
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\RecievedFileDisplay.g.cs
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\RecNotif.g.cs
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\SearchBox.g.cs
@@ -64,6 +65,7 @@ C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\Home.baml
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\LoginPage.baml
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\Options.baml
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\RecievedFileDisplay.baml
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\RecNotif.baml
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\SearchBox.baml
@@ -80,5 +82,5 @@ C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp.pdb
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\WpfEncryptApp.genruntimeconfig.cache
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\ref\WpfEncryptApp.dll
-C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\Options.g.cs
-C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\Options.baml
+C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\ViewSentFiles.g.cs
+C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\ViewSentFiles.baml

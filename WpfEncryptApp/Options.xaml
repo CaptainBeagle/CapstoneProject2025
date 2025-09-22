@@ -23,20 +23,31 @@
             <TextBlock x:Name="Header" Text="Options" Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="48" />
             <TextBlock x:Name="General" Text="General" Grid.Column="1" Grid.Row="1" Foreground="White" FontSize="20"/>
             <TextBlock x:Name="Account" Text="Account" Grid.Column="1" Grid.Row="3" Foreground="White" FontSize="20"/>
-            <Button x:Name="H" Content="Home" Grid.Column="0" FontSize="20" Margin="0,0,0,58" Grid.RowSpan="3"/>
-            <Button x:Name="S" Content="Sent Files" Grid.Column="0" FontSize="20" Margin="0,57,0,156" Grid.RowSpan="3" Grid.Row="2"/>
-            <Button x:Name="O" Content="Options" Grid.Column="0" FontSize="20"  Grid.Row="4" Margin="0,44,0,-10"/>
+            <Button x:Name="H" Content="Home" Grid.Column="0" FontSize="20" Margin="0,0,0,58" Grid.RowSpan="3" Click="H_Click"/>
+            <Button x:Name="S" Content="Sent Files" Grid.Column="0" FontSize="20" Margin="0,57,0,136" Grid.RowSpan="3" Grid.Row="2" Click="S_Click"/>
+            <Button x:Name="O" Content="Options" Grid.Column="0" FontSize="20"  Grid.Row="4" Margin="0,64,0,-10"/>
             <Grid Grid.Column="1" Grid.Row="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
+                <Label Content="Theme:" Grid.Row="1" VerticalAlignment="Center" Margin="226,0,403,0" FontSize="18" Foreground="White" />
+                <ToggleButton x:Name="Theme" Content="Placeholder" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Click="Theme_Click"/>
             </Grid>
             <Grid Grid.Column="1" Grid.Row="4">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ChangePassword" Content="Change Password" Grid.Row="1" Grid.Column="0" Margin="5" FontSize="18"/>
+                <Button x:Name="LogOut" Content="Log Out" Grid.Row="1" Grid.Column="2" Margin="5" FontSize="18" Click="LogOut_Click"/>
             </Grid>
         </Grid>
     </Viewbox>

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\App.xaml
-9934348492
+10-1318114187
 
-12-1270360997
+13671787019
 225774287671
-FileSendDisplay.xaml;Home.xaml;LoginPage.xaml;MainWindow.xaml;Options.xaml;RecievedFileDisplay.xaml;RecNotif.xaml;SearchBox.xaml;SearchPopupContent.xaml;
+FileSendDisplay.xaml;Home.xaml;LoginPage.xaml;MainWindow.xaml;Options.xaml;RecievedFileDisplay.xaml;RecNotif.xaml;SearchBox.xaml;SearchPopupContent.xaml;ViewSentFiles.xaml;
 
 False
 

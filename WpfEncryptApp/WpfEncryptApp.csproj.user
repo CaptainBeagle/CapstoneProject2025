@@ -16,7 +16,7 @@
     <Compile Update="LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Options.xaml.cs">
+    <Compile Update="Options1.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RecievedFileDisplay.xaml.cs">

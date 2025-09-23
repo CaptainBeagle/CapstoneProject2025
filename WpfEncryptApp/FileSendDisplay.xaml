@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="FileSendDisplay" Height="450" Width="800">
 
-    <Grid>
+    <Grid x:Name="Display">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>

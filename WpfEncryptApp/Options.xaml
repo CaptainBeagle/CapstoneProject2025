@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Options">
     <Viewbox>
-        <Grid Background="#FF3C3B3B" Height="460" Width="800">
+        <Grid x:Name="background" Background="#FF3C3B3B" Height="460" Width="800">
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="35"/>
@@ -32,7 +32,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
-                <Label Content="Theme:" Grid.Row="1" VerticalAlignment="Center" Margin="226,0,403,0" FontSize="18" Foreground="White" />
+                <Label x:Name="Label" Content="Theme:" Grid.Row="1" VerticalAlignment="Center" Margin="226,0,403,0" FontSize="18" Foreground="White" />
                 <ToggleButton x:Name="Theme" Content="Placeholder" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Click="Theme_Click"/>
             </Grid>
             <Grid Grid.Column="1" Grid.Row="4">

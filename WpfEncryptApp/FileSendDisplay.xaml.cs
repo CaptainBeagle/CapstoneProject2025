@@ -211,7 +211,18 @@ namespace WpfEncryptApp
         public FileSendDisplay()
         {
             InitializeComponent();
-            
+            if(Home.DarkLight == true)
+            {
+                Display.Background = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
+                UL.Foreground = new SolidColorBrush(System.Windows.Media.Colors.White);
+                Content.Foreground = new SolidColorBrush(System.Windows.Media.Colors.White);
+            }
+            else
+            {
+                Display.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
+                UL.Foreground = new SolidColorBrush(System.Windows.Media.Colors.Black);
+                Content.Foreground = new SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
             //Determines file extension and use right method for extension
             string FilePath = Home.filename;
             

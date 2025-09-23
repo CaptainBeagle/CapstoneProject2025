@@ -29,6 +29,16 @@ namespace WpfEncryptApp
         public ViewSentFiles()
         {
             InitializeComponent();
+            if (Home.DarkLight == true)
+            {
+                HomeGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
+                Welcome.Foreground = new SolidColorBrush(Colors.White);
+            }
+            else
+            {
+                HomeGrid.Background = new SolidColorBrush(Colors.White);
+                Welcome.Foreground = new SolidColorBrush(Colors.Black);
+            }
             DisplayRecievedFiledata();
         }
 

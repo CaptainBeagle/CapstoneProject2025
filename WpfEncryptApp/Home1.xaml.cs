@@ -34,6 +34,7 @@ namespace WpfEncryptApp
         public string UsableName;
         public System.IO.MemoryStream Message;
         public static bool ToOrFrom = false; //False: Message is sent to current user by another user. True: Message is sent by current user to another user.
+        public static bool DarkLight; //True: Dark Mode. False: Light Mode.
         public Home()
         {
             InitializeComponent();
@@ -43,7 +44,6 @@ namespace WpfEncryptApp
             connection.Open();  //opening the connection
             //Grab user data from database using public string Userid
             string query = "SELECT FirstName FROM users WHERE UserID = @Userid";
-            //string Output = "";
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@Userid", LoginPage.Userid);
@@ -53,9 +53,32 @@ namespace WpfEncryptApp
                     //maybe modify query and reader to get both first and lastname for labels in SearchPopupContent
                     Output = reader.GetString(0);
                 }
+                reader.Close();
             }
             Welcome.Text = "Welcome, " + Output + ".";
-
+            string query2 = "SELECT Theme FROM accountinfo WHERE AccID = @Userid";
+            using (MySqlCommand command = new MySqlCommand(query2, connection))
+            {
+                command.Parameters.AddWithValue("@Userid", LoginPage.Userid);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader.GetString(0) == "Dark")
+                    {
+                        DarkLight = true;
+                    }
+                    else if (reader.GetString(0) == "Light")
+                    {
+                        DarkLight = false;
+                    }
+                    else
+                    {
+                        DarkLight = true;
+                    }
+                }
+                reader.Close();
+            }
+            ChangeAppearance();
             DisplayRecievedFiledata();
         }
 
@@ -235,6 +258,32 @@ namespace WpfEncryptApp
         {
             ViewSentFiles viewsent = new ViewSentFiles();
             NavigationService.Navigate(viewsent);
+        }
+
+        private void ChangeAppearance()
+        {
+            if (DarkLight == true)
+            {
+                HomeGrid.Background = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
+                Welcome.Foreground = new SolidColorBrush(Colors.White);
+                NewF.Foreground = new SolidColorBrush(Colors.White);
+                Add.Foreground = new SolidColorBrush(Colors.White);
+                Add.BorderBrush = new SolidColorBrush(Colors.White);
+                Add.Background = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
+                Notice.Foreground = new SolidColorBrush(Colors.White);
+                Inbox.Foreground = new SolidColorBrush(Colors.White);
+            }
+            else
+            {
+                HomeGrid.Background = new SolidColorBrush(Colors.White);
+                Welcome.Foreground = new SolidColorBrush (Colors.Black);
+                NewF.Foreground = new SolidColorBrush(Colors.Black);
+                Add.Foreground = new SolidColorBrush(Colors.Black);
+                Add.BorderBrush = new SolidColorBrush(Colors.Black);
+                Add.Background = new SolidColorBrush(Colors.White);
+                Notice.Foreground = new SolidColorBrush(Colors.Black);
+                Inbox.Foreground = new SolidColorBrush(Colors.Black);
+            }
         }
     }
 }

@@ -53,6 +53,18 @@ namespace WpfEncryptApp
             SenderName.Text = Sender;
             M = Msg;
             this.MouseLeftButtonUp += RecNotif_MouseLeftButtonUp;
+            if (Home.DarkLight == true)
+            {
+                Bar.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
+                FileName.Foreground = new SolidColorBrush(Colors.White);
+                SenderName.Foreground = new SolidColorBrush(Colors.White);
+            }
+            else
+            {
+                Bar.Background = new SolidColorBrush(Colors.White);
+                FileName.Foreground= new SolidColorBrush(Colors.Black);
+                SenderName.Foreground = new SolidColorBrush(Colors.Black);
+            }
         }
 
         private void RecNotif_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

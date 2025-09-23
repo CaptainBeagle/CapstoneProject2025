@@ -15,7 +15,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AWS.Cryptography.EncryptionSDK;
 using AWS.Cryptography.MaterialProviders;
-using MySql.Data.MySqlClient;
 
 namespace WpfEncryptApp
 {
@@ -27,6 +26,7 @@ namespace WpfEncryptApp
         public RecievedFileDisplay(MemoryStream data, string sender, string title)
         {
             InitializeComponent();
+            ChangeAppearance();
             FileTitle.Text = title;
             if (Home.ToOrFrom == false)
             {
@@ -96,6 +96,24 @@ namespace WpfEncryptApp
             {
                 ViewSentFiles viewsent = new ViewSentFiles();
                 NavigationService.Navigate(viewsent);
+            }
+        }
+
+        private void ChangeAppearance()
+        {
+            if (Home.DarkLight == true)
+            {
+                Display.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
+                FileTitle.Foreground = new SolidColorBrush(Colors.White);
+                FileSender.Foreground = new SolidColorBrush(Colors.White);
+                Content.Foreground = new SolidColorBrush(Colors.White);
+            }
+            else
+            {
+                Display.Background = new SolidColorBrush(Colors.White);
+                FileTitle.Foreground = new SolidColorBrush(Colors.Black);
+                FileSender.Foreground = new SolidColorBrush(Colors.Black);
+                Content.Foreground = new SolidColorBrush(Colors.Black);
             }
         }
     }

@@ -215,12 +215,14 @@ namespace WpfEncryptApp
             {
                 Display.Background = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
                 UL.Foreground = new SolidColorBrush(System.Windows.Media.Colors.White);
+                FL.Foreground = new SolidColorBrush(System.Windows.Media.Colors.White);
                 Content.Foreground = new SolidColorBrush(System.Windows.Media.Colors.White);
             }
             else
             {
                 Display.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
                 UL.Foreground = new SolidColorBrush(System.Windows.Media.Colors.Black);
+                FL.Foreground = new SolidColorBrush(System.Windows.Media.Colors.Black);
                 Content.Foreground = new SolidColorBrush(System.Windows.Media.Colors.Black);
             }
             //Determines file extension and use right method for extension
@@ -247,12 +249,15 @@ namespace WpfEncryptApp
             SearchPopup.IsOpen = true;
 
             string searchText = MySearchBox.SearchText;
+            string filter = FilterList.SelectionBoxItem.ToString();
 
             if (SearchPopup != null)
             {
-                Results.SearchUsers(searchText);
+                Results.SearchUsers(searchText, filter);
             }
         }
+
+        //add function to process selected option in filter box
 
         private void Send_Click(object sender, RoutedEventArgs e)
         {
@@ -274,12 +279,16 @@ namespace WpfEncryptApp
                         while (reader.Read())
                         {
                             string ID = reader.GetString(0);
-                            if (ID != null)
+                            if (ID != null && ID != LoginPage.Userid)
                             {
                                 Data = Content.Text;
                                 uID = ID;
                                 this.DialogResult = true;
                                 this.Close();
+                            }
+                            else if (ID == LoginPage.Userid)
+                            {
+                                MessageBox.Show("Cannot send file to yourself.");
                             }
                             else
                             {

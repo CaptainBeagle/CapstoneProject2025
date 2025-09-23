@@ -43,7 +43,7 @@ namespace WpfEncryptApp
             MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);   //setting up the connection
             connection.Open();  //opening the connection
             //Grab user data from database using public string Userid
-            string query = "SELECT FirstName FROM users WHERE UserID = @Userid";
+            string query = "SELECT FirstName, LastName FROM users WHERE UserID = @Userid";
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@Userid", LoginPage.Userid);
@@ -51,7 +51,7 @@ namespace WpfEncryptApp
                 while (reader.Read())
                 {
                     //maybe modify query and reader to get both first and lastname for labels in SearchPopupContent
-                    Output = reader.GetString(0);
+                    Output = reader["FirstName"] + " " + reader["LastName"];
                 }
                 reader.Close();
             }

@@ -27,19 +27,29 @@ namespace WpfEncryptApp
             InitializeComponent();
         }
 
-        public void SearchUsers(string searchText)
+        public void SearchUsers(string searchText, string filter)
         {
             string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";    //Database credentials. If this were to be put into production,
                                                                                                     //a secure password would be set up along with other security measures.
+            string query = "";
 
+            if (filter != null)
+            {
+                query = "SELECT FirstName, LastName FROM users WHERE FirstName LIKE @input AND Position LIKE @filter";
+            }
+            else
+            {
+                query = "SELECT FirstName, LastName FROM users WHERE FirstName LIKE @input";
+            }
             using (MySqlConnection connection = new MySqlConnection(connectionString))
-            using (MySqlCommand command = new MySqlCommand("SELECT FirstName, LastName FROM users WHERE FirstName LIKE @input", connection))
+            using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 try
                 {
                     connection.Open();
 
                     command.Parameters.AddWithValue("@input", searchText + "%");
+                    command.Parameters.AddWithValue("@filter", filter);
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -52,8 +62,11 @@ namespace WpfEncryptApp
                             newLabel.Background = new SolidColorBrush(Colors.White);
                             newLabel.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(ClickLabel);
                             Results.Children.Add(newLabel);
-                            //find a way to remove the label that has the current User's name on it
-                            //maybe check if label content is like user name text in Home.xaml.cs
+                            //Remove the label that has the current User's name on it
+                            if(Home.Output == newLabel.Content.ToString())
+                            {
+                                Results.Children.Remove(newLabel);
+                            }
                         }
                     }
                     connection.Close();

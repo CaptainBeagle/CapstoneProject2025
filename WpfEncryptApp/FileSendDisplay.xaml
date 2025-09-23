@@ -29,7 +29,13 @@
 
             <Label x:Name="UL" Content="Send to: " FontSize="14"/>
             <local:SearchBox x:Name="MySearchBox" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" SearchButtonClick="SearchBox_SearchButtonClick"/>
-            <ComboBox x:Name="FilterList" Grid.Row="1" Grid.Column="2" Margin="10,0,25,0"/>
+            <Label x:Name="FL" Content="Filter:" FontSize="14" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"/>
+            <ComboBox x:Name="FilterList" Grid.Column="2" Margin="42,0,25,0">
+                <ComboBoxItem Content=""/>
+                <ComboBoxItem Content="Accountant"/>
+                <ComboBoxItem Content="Actuary"/>
+                <ComboBoxItem Content="Manager"/>
+            </ComboBox>
             <Button x:Name="Send" Content="Send" Grid.Row="1" Grid.Column="3" Click="Send_Click"/>
             <Button x:Name="Cancel" Content="Cancel" Grid.Row="1" Grid.Column="5" Click="Cancel_Click"/>
             <Popup x:Name="SearchPopup" Placement="Top"

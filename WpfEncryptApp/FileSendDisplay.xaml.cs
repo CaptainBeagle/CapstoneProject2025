@@ -179,24 +179,10 @@ namespace WpfEncryptApp
             {
                 using (PdfDocument Pdf = PdfDocument.Open(path))
                 {
-                    foreach (UglyToad.PdfPig.Content.Page page in Pdf.GetPages())
+                    foreach (var page in Pdf.GetPages())
                     {
-                        // Retrieve all words from the page with bounding box information
-                        var words = page.GetWords(NearestNeighbourWordExtractor.Instance);
-
-                        // Group words into lines based on their vertical position
-                        var lines = words
-                            .OrderBy(word => word.BoundingBox.Bottom)
-                            .GroupBy(word => word.BoundingBox.Bottom);
-
-                        foreach (var line in lines)
-                        {
-                            var sortedWordsInLine = line.OrderBy(word => word.BoundingBox.Left);
-                            result.AppendLine(string.Join(" ", sortedWordsInLine.Select(word => word.Text)));
-                        }
-
-                        result.AppendLine();
-                        result.AppendLine();    // Add 2 blank lines between pages
+                        var text = ContentOrderTextExtractor.GetText(page);
+                        result = result.Append(text);
                     }
                 }
             }

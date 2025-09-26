@@ -22,6 +22,9 @@
                 <ColumnDefinition Width="700"/>
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="Welcome" Text="Sent Files" Grid.Row="0" Grid.Column="1" FontSize="48" HorizontalAlignment="Left" Foreground="White" Width="431"/>
+            <StackPanel x:Name="Notifs" Grid.Row="4" Grid.Column="1">
+                
+            </StackPanel>
             
             <Grid x:Name="SideBar" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Margin="0,0,0,0">
                 <Grid.RowDefinitions>

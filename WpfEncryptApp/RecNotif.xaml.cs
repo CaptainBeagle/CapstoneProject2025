@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
 
 namespace WpfEncryptApp
 {
@@ -50,7 +51,20 @@ namespace WpfEncryptApp
         {
             InitializeComponent();
             FileName.Text = Title;
-            SenderName.Text = Sender;
+            //query to find name using Sender
+            string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
+            MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+            connection.Open();
+            string query = "SELECT FirstName, LastName FROM users WHERE UserID = @Sender";
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Sender", Sender);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    SenderName.Text = reader["FirstName"].ToString() + " " + reader["LastName"].ToString();
+                }
+            }
             M = Msg;
             this.MouseLeftButtonUp += RecNotif_MouseLeftButtonUp;
             if (Home.DarkLight == true)

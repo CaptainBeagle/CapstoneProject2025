@@ -11,7 +11,8 @@
     <Grid x:Name="Display" Background="#FF3C3B3B">
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid Height="100" Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -22,11 +23,13 @@
             <TextBlock x:Name="FileTitle" Grid.Column="1" Foreground="White" FontSize="24"/>
             <TextBlock x:Name="FileSender" Grid.Column="2" Foreground="White" FontSize="16" HorizontalAlignment="Right"/>
             <Button x:Name="Back" Margin="10" Content="Back" FontSize="20" Click="Back_Click"/>
+            
         </Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
             <StackPanel Grid.Row="1">
                 <TextBlock x:Name="Content" Grid.Row="1" FontSize="16" Foreground="White"/>
             </StackPanel>
         </ScrollViewer>
+        <Button x:Name="Export" Margin="5" Grid.Row="2" Content="Export File" FontSize="20" Click="Export_Click"/>
     </Grid>
 </Page>

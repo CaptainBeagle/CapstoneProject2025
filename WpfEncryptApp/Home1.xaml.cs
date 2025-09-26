@@ -50,7 +50,6 @@ namespace WpfEncryptApp
                 MySqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    //maybe modify query and reader to get both first and lastname for labels in SearchPopupContent
                     Output = reader["FirstName"] + " " + reader["LastName"];
                 }
                 reader.Close();
@@ -213,23 +212,11 @@ namespace WpfEncryptApp
                         MemoryStream memstream = new MemoryStream(encryptedBytes);
                         memstream.Position = 0;
                         Message = memstream;
+                        RecNotif newRecNotif = new RecNotif(UsableName, SendID, Message);
+                        newRecNotif.NotifClick += newRecNotif_OnClick;
+                        Notifs.Children.Add(newRecNotif);
                     }
                     reader.Close();
-                    string query2 = "SELECT FirstName, LastName FROM users WHERE UserID = @SendID";
-                    using (MySqlCommand cmd = new MySqlCommand(query2, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@SendID", SendID);
-                        MySqlDataReader reader2 = cmd.ExecuteReader();
-                        while (reader2.Read())
-                        {
-                            RecNotif newRecNotif = new RecNotif(UsableName, reader2["FirstName"].ToString() + " " + reader2["LastName"].ToString(), Message);
-                            newRecNotif.NotifClick += newRecNotif_OnClick;
-                            HomeGrid.Children.Add(newRecNotif);
-                            Grid.SetColumn(newRecNotif, 1);
-                            Grid.SetRow(newRecNotif, 4);
-                        }
-                        reader2.Close();
-                    }
                 }
             }
             catch (Exception ex)

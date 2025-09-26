@@ -83,23 +83,11 @@ namespace WpfEncryptApp
                         MemoryStream memstream = new MemoryStream(encryptedBytes);
                         memstream.Position = 0;
                         Message = memstream;
+                        RecNotif newRecNotif = new RecNotif(UsableName, RecID, Message);
+                        newRecNotif.NotifClick += newRecNotif_OnClick;
+                        Notifs.Children.Add(newRecNotif);
                     }
                     reader.Close();
-                    string query2 = "SELECT FirstName, LastName FROM users WHERE UserID = @RecID";
-                    using (MySqlCommand cmd = new MySqlCommand(query2, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@RecID", RecID);
-                        MySqlDataReader reader2 = cmd.ExecuteReader();
-                        while (reader2.Read())
-                        {
-                            RecNotif newRecNotif = new RecNotif(UsableName, reader2["FirstName"].ToString() + " " + reader2["LastName"].ToString(), Message);
-                            newRecNotif.NotifClick += newRecNotif_OnClick;
-                            HomeGrid.Children.Add(newRecNotif);
-                            Grid.SetColumn(newRecNotif, 1);
-                            Grid.SetRow(newRecNotif, 2);
-                        }
-                        reader2.Close();
-                    }
                 }
             }
             catch (Exception ex)

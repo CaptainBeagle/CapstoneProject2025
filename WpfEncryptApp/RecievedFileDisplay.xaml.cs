@@ -15,13 +15,18 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AWS.Cryptography.EncryptionSDK;
 using AWS.Cryptography.MaterialProviders;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.Win32;
 
 namespace WpfEncryptApp
 {
     /// <summary>
     /// Interaction logic for RecievedFileDisplay.xaml
     /// </summary>
-    public partial class RecievedFileDisplay : Page
+    public partial class RecievedFileDisplay : System.Windows.Controls.Page
     {
         public RecievedFileDisplay(MemoryStream data, string sender, string title)
         {
@@ -103,17 +108,142 @@ namespace WpfEncryptApp
         {
             if (Home.DarkLight == true)
             {
-                Display.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
-                FileTitle.Foreground = new SolidColorBrush(Colors.White);
-                FileSender.Foreground = new SolidColorBrush(Colors.White);
-                Content.Foreground = new SolidColorBrush(Colors.White);
+                Display.Background = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
+                FileTitle.Foreground = new SolidColorBrush(System.Windows.Media.Colors.White);
+                FileSender.Foreground = new SolidColorBrush(System.Windows.Media.Colors.White);
+                Content.Foreground = new SolidColorBrush(System.Windows.Media.Colors.White);
             }
             else
             {
-                Display.Background = new SolidColorBrush(Colors.White);
-                FileTitle.Foreground = new SolidColorBrush(Colors.Black);
-                FileSender.Foreground = new SolidColorBrush(Colors.Black);
-                Content.Foreground = new SolidColorBrush(Colors.Black);
+                Display.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
+                FileTitle.Foreground = new SolidColorBrush(System.Windows.Media.Colors.Black);
+                FileSender.Foreground = new SolidColorBrush(System.Windows.Media.Colors.Black);
+                Content.Foreground = new SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            if (FileTitle.Text.Contains(".docx"))
+            {
+                //Create Word Doc file on computer with content
+                using (MemoryStream mem = new MemoryStream())
+                {
+                    using (WordprocessingDocument wordDocument =
+                        WordprocessingDocument.Create(mem, WordprocessingDocumentType.Document, true))
+                    {
+                        //Add a main document part. 
+                        MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
+                        //Create the document structure and add some text.
+                        mainPart.Document = new Document();
+                        Body docBody = new Body();
+
+                        //Preserve content over multiple lines
+                        string[] lines = Content.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                        
+                        //Put each line of content into a new paragraph
+                        foreach (string line in lines)
+                        {
+                            DocumentFormat.OpenXml.Wordprocessing.Paragraph p = new DocumentFormat.OpenXml.Wordprocessing.Paragraph();
+                            DocumentFormat.OpenXml.Wordprocessing.Run r = new DocumentFormat.OpenXml.Wordprocessing.Run();
+
+                            DocumentFormat.OpenXml.Wordprocessing.Text t = new DocumentFormat.OpenXml.Wordprocessing.Text(line);
+                            r.Append(t);
+                            p.Append(r);
+                            docBody.Append(p);
+                        }
+                        mainPart.Document.Append(docBody);
+                    }
+                    Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+                    saveFileDialog.FileName = "Document";
+                    saveFileDialog.DefaultExt = ".docx";
+                    saveFileDialog.Filter = "Word documents (.docx)|*.docx";
+
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        string filePath = saveFileDialog.FileName;
+
+                        try
+                        {
+                            File.WriteAllBytes(filePath, mem.ToArray());
+                            MessageBox.Show("Document saved successfully!");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"An error occurred while saving the document: {ex.Message}");
+                        }
+                    }
+                }
+            }
+            else if (FileTitle.Text.Contains(".xlsx"))
+            {
+                //Create Excel file on computer with content
+                using MemoryStream mem = new MemoryStream();
+                {
+                    using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(mem, SpreadsheetDocumentType.Workbook))
+                    {
+                        //Add a WorkbookPart to the document
+                        WorkbookPart workbookPart = spreadsheetDocument.AddWorkbookPart();
+                        workbookPart.Workbook = new Workbook();
+
+                        //Add a WorksheetPart to the WorkbookPart
+                        WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+                        worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+                        //Separate content into lines
+                        string[] rows = Content.Text.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
+
+                        //Add Sheets to the Workbook
+                        Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(new Sheets());
+                        Sheet sheet = new Sheet() { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "MySheet" };
+                        sheets.Append(sheet);
+
+                        SheetData sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
+
+                        foreach (string rowText in rows)
+                        {
+                            //Separate further into individual cells
+                            string[] cells = rowText.Split('\t');
+
+                            Row newRow = new Row();
+
+                            foreach (string cellText in cells)
+                            {
+                                Cell newCell = new Cell
+                                {
+                                    CellValue = new CellValue(cellText),
+                                    DataType = CellValues.String
+                                };
+                                newRow.Append(newCell);
+                            }
+                            sheetData.Append(newRow);
+                        }
+                    }
+                    //Save the document
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
+                    saveFileDialog.DefaultExt = ".xlsx";
+                    saveFileDialog.FileName = "Document";
+
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        string filePath = saveFileDialog.FileName;
+
+                        try
+                        {
+                            File.WriteAllBytes(filePath, mem.ToArray());
+                            MessageBox.Show("Spreadsheet saved successfully!");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"An error occurred while saving the file: {ex.Message}");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //Create PDF file on computer with content
             }
         }
     }

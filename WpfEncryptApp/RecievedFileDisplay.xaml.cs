@@ -25,6 +25,7 @@ using UglyToad.PdfPig.Writer;
 using K4os.Compression.LZ4.Internal;
 using DocumentFormat.OpenXml.Drawing;
 using UglyToad.PdfPig.Core;
+using UglyToad.PdfPig.Fonts.Type1;
 
 namespace WpfEncryptApp
 {
@@ -252,18 +253,20 @@ namespace WpfEncryptApp
                 PdfPageBuilder page = builder.AddPage(UglyToad.PdfPig.Content.PageSize.A4);
                 PdfDocumentBuilder.AddedFont font = builder.AddStandard14Font(UglyToad.PdfPig.Fonts.Standard14Fonts.Standard14Font.Helvetica);
 
-                //Implement ability to prevent text from overflowing right margin.
-
                 string NewText = Content.Text.Replace("\r\n", "\n").Replace("\r", "\n");
                 string[] lines = NewText.Split("\n");
 
                 int PageHeight = 842;
+                int PageWidth = 1150;
+                int LeftMargin = 25;
+                int RightMargin = 25;
                 int TopMargin = 50;
                 int BottomMargin = 50;
-                int startX = 25;
+                int startX = LeftMargin;
                 double startY = PageHeight - TopMargin;
-                int fontsize = 16;
+                int fontsize = 12;
                 double linespacing = fontsize * 1.5;
+                int MaxWidth = PageWidth - LeftMargin - RightMargin;
 
                 foreach (string line in lines)
                 {
@@ -279,11 +282,74 @@ namespace WpfEncryptApp
                         startY -= linespacing;
                         continue;
                     }
-                    
+
                     UglyToad.PdfPig.Core.PdfPoint position = new UglyToad.PdfPig.Core.PdfPoint(startX, startY);
 
-                    page.AddText(line, fontsize, position, font);
-                    startY -= linespacing;
+                    string[] words = line.Split(' ');
+
+                    string ReLine = "";
+
+                    foreach (string word in words)
+                    {
+                        string testline = string.IsNullOrEmpty(ReLine) ? word : ReLine + " " + word;
+
+                        var letters = page.MeasureText(testline, fontsize, position, font);
+
+                        var letters2 = page.MeasureText(word, fontsize, position, font);
+
+                        double textwidth = 0;
+
+                        double wordwidth = 0;
+
+                        if (letters.Any())
+                        {
+                            var firstletterx = letters.First().Location.X;
+                            var lastletterx = letters.Last().Location.X + letters.Last().Width;
+
+                            textwidth = lastletterx - startX;
+                        }
+
+                        if (letters2.Any())
+                        {
+                            var firstletterx = letters.First().Location.X;
+                            var lastletterx = letters.Last().Location.X + letters.Last().Width;
+
+                            wordwidth = lastletterx - startX;
+                        }
+
+                        if (textwidth > MaxWidth)
+                        {
+                            if (startY - linespacing < BottomMargin)
+                            {
+                                startY = PageHeight - TopMargin;
+
+                                page = builder.AddPage(UglyToad.PdfPig.Content.PageSize.A4);
+                            }
+
+                            position = new UglyToad.PdfPig.Core.PdfPoint(startX, startY);
+                            page.AddText(ReLine, fontsize, position, font);
+                            startY -= linespacing;
+                            ReLine = word;
+                            continue;
+                        }
+                        else
+                        {
+                            ReLine += " " + word;
+                        }
+                    }
+
+                    if(!string.IsNullOrEmpty(ReLine))
+                    {
+                        if (startY - linespacing < BottomMargin)
+                        {
+                            startY = PageHeight - TopMargin;
+
+                            page = builder.AddPage(UglyToad.PdfPig.Content.PageSize.A4);
+                        }
+                        position = new UglyToad.PdfPig.Core.PdfPoint(startX, startY);
+                        page.AddText(ReLine, fontsize, position, font);
+                        startY -= linespacing;
+                    }
                 }
 
                 byte[] documentBytes = builder.Build();

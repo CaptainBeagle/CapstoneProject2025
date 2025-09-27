@@ -20,6 +20,11 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.Win32;
+using UglyToad.PdfPig;
+using UglyToad.PdfPig.Writer;
+using K4os.Compression.LZ4.Internal;
+using DocumentFormat.OpenXml.Drawing;
+using UglyToad.PdfPig.Core;
 
 namespace WpfEncryptApp
 {
@@ -87,12 +92,12 @@ namespace WpfEncryptApp
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
-            
+
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            if(Home.ToOrFrom == false)
+            if (Home.ToOrFrom == false)
             {
                 Home home = new Home();
                 NavigationService.Navigate(home);
@@ -140,7 +145,7 @@ namespace WpfEncryptApp
 
                         //Preserve content over multiple lines
                         string[] lines = Content.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-                        
+
                         //Put each line of content into a new paragraph
                         foreach (string line in lines)
                         {
@@ -191,7 +196,7 @@ namespace WpfEncryptApp
                         worksheetPart.Worksheet = new Worksheet(new SheetData());
 
                         //Separate content into lines
-                        string[] rows = Content.Text.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
+                        string[] rows = Content.Text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
 
                         //Add Sheets to the Workbook
                         Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(new Sheets());
@@ -219,7 +224,6 @@ namespace WpfEncryptApp
                             sheetData.Append(newRow);
                         }
                     }
-                    //Save the document
                     SaveFileDialog saveFileDialog = new SaveFileDialog();
                     saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
                     saveFileDialog.DefaultExt = ".xlsx";
@@ -244,6 +248,65 @@ namespace WpfEncryptApp
             else
             {
                 //Create PDF file on computer with content
+                PdfDocumentBuilder builder = new PdfDocumentBuilder();
+                PdfPageBuilder page = builder.AddPage(UglyToad.PdfPig.Content.PageSize.A4);
+                PdfDocumentBuilder.AddedFont font = builder.AddStandard14Font(UglyToad.PdfPig.Fonts.Standard14Fonts.Standard14Font.Helvetica);
+
+                //Implement ability to prevent text from overflowing right margin.
+
+                string NewText = Content.Text.Replace("\r\n", "\n").Replace("\r", "\n");
+                string[] lines = NewText.Split("\n");
+
+                int PageHeight = 842;
+                int TopMargin = 50;
+                int BottomMargin = 50;
+                int startX = 25;
+                double startY = PageHeight - TopMargin;
+                int fontsize = 16;
+                double linespacing = fontsize * 1.5;
+
+                foreach (string line in lines)
+                {
+                    if (startY - linespacing < BottomMargin)
+                    {
+                        startY = PageHeight - TopMargin;
+
+                        page = builder.AddPage(UglyToad.PdfPig.Content.PageSize.A4);
+                    }
+
+                    if (string.IsNullOrWhiteSpace(line))
+                    {
+                        startY -= linespacing;
+                        continue;
+                    }
+                    
+                    UglyToad.PdfPig.Core.PdfPoint position = new UglyToad.PdfPig.Core.PdfPoint(startX, startY);
+
+                    page.AddText(line, fontsize, position, font);
+                    startY -= linespacing;
+                }
+
+                byte[] documentBytes = builder.Build();
+                
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
+                saveFileDialog.DefaultExt = ".pdf";
+                saveFileDialog.FileName = "Document";
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    try
+                    {
+                        File.WriteAllBytes(filePath, documentBytes);
+                        MessageBox.Show("PDF saved successfully!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred while saving the file: {ex.Message}");
+                    }
+                }
             }
         }
     }

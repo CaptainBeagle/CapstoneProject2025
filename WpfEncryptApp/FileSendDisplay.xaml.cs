@@ -20,6 +20,8 @@ using UglyToad.PdfPig;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.WordExtractor;
 using UglyToad.PdfPig.Content;
+using UglyToad.PdfPig.DocumentLayoutAnalysis.PageSegmenter;
+using UglyToad.PdfPig.DocumentLayoutAnalysis.ReadingOrderDetector;
 
 
 namespace WpfEncryptApp
@@ -179,10 +181,84 @@ namespace WpfEncryptApp
             {
                 using (PdfDocument Pdf = PdfDocument.Open(path))
                 {
-                    foreach (var page in Pdf.GetPages())
+                    /*foreach (var page in Pdf.GetPages())
                     {
                         var text = ContentOrderTextExtractor.GetText(page);
                         result = result.Append(text);
+                    }*/
+
+                    //Alternate code that still doesn't display it properly
+                    foreach (var page in Pdf.GetPages())
+                    {
+                        var letters = page.Letters;
+
+                        var wordExtractorOptions = new NearestNeighbourWordExtractor.NearestNeighbourWordExtractorOptions()
+                        {
+                            Filter = (pivot, candidate) =>
+                            {
+                                // check if white space (default implementation of 'Filter')
+                                if (string.IsNullOrWhiteSpace(candidate.Value))
+                                {
+                                    // pivot and candidate letters cannot belong to the same word 
+                                    // if candidate letter is null or white space.
+                                    // ('FilterPivot' already checks if the pivot is null or white space by default)
+                                    return false;
+                                }
+
+                                // check for height difference
+                                var maxHeight = Math.Max(pivot.PointSize, candidate.PointSize);
+                                var minHeight = Math.Min(pivot.PointSize, candidate.PointSize);
+                                if (minHeight != 0 && maxHeight / minHeight > 2.0)
+                                {
+                                    // pivot and candidate letters cannot belong to the same word 
+                                    // if one letter is more than twice the size of the other.
+                                    return false;
+                                }
+
+                                // check for colour difference
+                                var pivotRgb = pivot.Color.ToRGBValues();
+                                var candidateRgb = candidate.Color.ToRGBValues();
+                                if (!pivotRgb.Equals(candidateRgb))
+                                {
+                                    // pivot and candidate letters cannot belong to the same word 
+                                    // if they don't have the same colour.
+                                    return false;
+                                }
+
+                                return true;
+                            }
+                        };
+                        var wordExtractor = new NearestNeighbourWordExtractor(wordExtractorOptions);
+                        var words = wordExtractor.GetWords(letters);
+
+                        var pageSegmenterOptions = new DocstrumBoundingBoxes.DocstrumBoundingBoxesOptions()
+                        {
+                            
+                            BetweenLineMultiplier = 0.45,
+                            WithinLineMultiplier = 8
+                            //tweak values until you have a result that looks decently similar
+                        };
+
+                        var pageSegmenter = new DocstrumBoundingBoxes(pageSegmenterOptions);
+                        var textBlocks = pageSegmenter.GetBlocks(words);
+
+                        var readingOrder = UnsupervisedReadingOrderDetector.Instance;
+                        var orderedTextBlocks = readingOrder.Get(textBlocks);
+
+                        foreach (var block in orderedTextBlocks)
+                        {
+                            var lines = block.TextLines; // Get the lines within the TextBlock
+                            foreach (var line in lines)
+                            {
+                                // Append the line's text and then a new line character
+                                result.Append(line.Text.Normalize(NormalizationForm.FormKC));
+                                result.AppendLine();
+                            }
+
+                            // Optional: Add an extra line break between distinct TextBlocks 
+                            // (e.g., between paragraphs or columns) if desired.
+                            // result.AppendLine(); 
+                        }
                     }
                 }
             }

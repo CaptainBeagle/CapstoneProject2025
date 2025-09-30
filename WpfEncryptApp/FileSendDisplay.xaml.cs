@@ -179,15 +179,14 @@ namespace WpfEncryptApp
 
             try
             {
+                const double LineTolerance = 11.0145;
+
+                const double ToleranceMulti = 2.86;
+
+                const double MaxGapToleranceMultiplier = 2.0;
+
                 using (PdfDocument Pdf = PdfDocument.Open(path))
                 {
-                    /*foreach (var page in Pdf.GetPages())
-                    {
-                        var text = ContentOrderTextExtractor.GetText(page);
-                        result = result.Append(text);
-                    }*/
-
-                    //Alternate code that still doesn't display it properly
                     foreach (var page in Pdf.GetPages())
                     {
                         var letters = page.Letters;
@@ -208,7 +207,7 @@ namespace WpfEncryptApp
                                 // check for height difference
                                 var maxHeight = Math.Max(pivot.PointSize, candidate.PointSize);
                                 var minHeight = Math.Min(pivot.PointSize, candidate.PointSize);
-                                if (minHeight != 0 && maxHeight / minHeight > 2.0)
+                                if (minHeight != 0 && maxHeight / minHeight > 1.5)
                                 {
                                     // pivot and candidate letters cannot belong to the same word 
                                     // if one letter is more than twice the size of the other.
@@ -231,33 +230,95 @@ namespace WpfEncryptApp
                         var wordExtractor = new NearestNeighbourWordExtractor(wordExtractorOptions);
                         var words = wordExtractor.GetWords(letters);
 
-                        var pageSegmenterOptions = new DocstrumBoundingBoxes.DocstrumBoundingBoxesOptions()
+                        var spaces = letters.Where(l => l.Value == " " && l.Width > 0).ToList();
+                        double avgspace = 0;
+                        if (spaces.Any())
                         {
-                            
-                            BetweenLineMultiplier = 0.45,
-                            WithinLineMultiplier = 8
-                            //tweak values until you have a result that looks decently similar
-                        };
-
-                        var pageSegmenter = new DocstrumBoundingBoxes(pageSegmenterOptions);
-                        var textBlocks = pageSegmenter.GetBlocks(words);
-
-                        var readingOrder = UnsupervisedReadingOrderDetector.Instance;
-                        var orderedTextBlocks = readingOrder.Get(textBlocks);
-
-                        foreach (var block in orderedTextBlocks)
+                            avgspace = spaces.Average(l => l.Width);
+                        }
+                        else
                         {
-                            var lines = block.TextLines; // Get the lines within the TextBlock
-                            foreach (var line in lines)
+                            var printletters = letters.Where(l => !string.IsNullOrWhiteSpace(l.Value) && l.Width > 0);
+                            if (printletters.Any())
                             {
-                                // Append the line's text and then a new line character
-                                result.Append(line.Text.Normalize(NormalizationForm.FormKC));
-                                result.AppendLine();
+                                avgspace = printletters.Average(l => l.Width) * 0.5;
                             }
+                            else
+                            {
+                                avgspace = 6;
+                            }
+                        }
 
-                            // Optional: Add an extra line break between distinct TextBlocks 
-                            // (e.g., between paragraphs or columns) if desired.
-                            // result.AppendLine(); 
+                        var textWords = new List<Word>();
+                        var underscoreWords = new List<Word>();
+
+                        foreach (var word in words)
+                        {
+                            if (word.Text.Length > 2 && word.Text.All(c => c == '_' || c == '-'))
+                            {
+                                underscoreWords.Add(word);
+                            }
+                            else
+                            {
+                                textWords.Add(word);
+                            }
+                        }
+
+                        var textWordsWithMedian = textWords
+                            .Select(w => new
+                            {
+                                Word = w,
+                                MedianY = (w.BoundingBox.Top + w.BoundingBox.Bottom) / 2
+                            })
+                            .ToList();
+
+                        var cleanLines = textWordsWithMedian
+                            .GroupBy(w => Math.Round(w.MedianY / ToleranceMulti) * ToleranceMulti)
+                            .OrderByDescending(g => g.Key)
+                            .ToDictionary(g => g.Key, g => g.ToList());
+
+                        foreach (var uWord in underscoreWords)
+                        {
+                            var uMedianY = (uWord.BoundingBox.Top + uWord.BoundingBox.Bottom) / 2;
+
+                            var nearestLineKey = cleanLines.Keys
+                                .Where(key => key > uMedianY)
+                                .OrderBy(key => key - uMedianY)
+                                .FirstOrDefault();
+
+                            if (cleanLines.ContainsKey(nearestLineKey))
+                            {
+                                cleanLines[nearestLineKey].Add(new { Word = uWord, MedianY = uMedianY });
+                            }
+                        }
+
+                        foreach (var linegroup in cleanLines.OrderByDescending(kvp => kvp.Key).Select(kvp => kvp.Value))
+                        {
+                            var wordsOnLine = linegroup
+                                .Select(w => w.Word)
+                                .OrderBy(w => w.BoundingBox.Left)
+                                .ToList();
+
+                            double currentX = 0;
+                            foreach (var word in wordsOnLine)
+                            {
+                                double SpaceWidth = avgspace;
+                                double reqspace = word.BoundingBox.Left - currentX;
+                                double maxGapSize = SpaceWidth * MaxGapToleranceMultiplier;
+
+                                if (reqspace > SpaceWidth)
+                                {
+                                    int insertspaces = (int)Math.Round(reqspace / SpaceWidth);
+                                    result.Append(' ', insertspaces);
+                                }
+                                else if (reqspace > 0)
+                                {
+                                    result.Append(' ');
+                                }
+                                result.Append(word.Text.Normalize(NormalizationForm.FormKC));
+                                currentX = word.BoundingBox.Right;
+                            }
+                            result.AppendLine();
                         }
                     }
                 }

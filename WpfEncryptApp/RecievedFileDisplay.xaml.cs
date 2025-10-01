@@ -257,7 +257,7 @@ namespace WpfEncryptApp
                 string[] lines = NewText.Split("\n");
 
                 int PageHeight = 842;
-                int PageWidth = 1150;
+                int PageWidth = 1100;
                 int LeftMargin = 25;
                 int RightMargin = 25;
                 int TopMargin = 50;
@@ -300,6 +300,7 @@ namespace WpfEncryptApp
                         double textwidth = 0;
 
                         double wordwidth = 0;
+
 
                         if (letters.Any())
                         {

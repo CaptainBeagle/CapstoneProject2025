@@ -179,8 +179,6 @@ namespace WpfEncryptApp
 
             try
             {
-                const double LineTolerance = 11.0145;
-
                 const double ToleranceMulti = 2.86;
 
                 const double MaxGapToleranceMultiplier = 2.0;
@@ -230,6 +228,7 @@ namespace WpfEncryptApp
                         var wordExtractor = new NearestNeighbourWordExtractor(wordExtractorOptions);
                         var words = wordExtractor.GetWords(letters);
 
+                        //finding the average length of the space character
                         var spaces = letters.Where(l => l.Value == " " && l.Width > 0).ToList();
                         double avgspace = 0;
                         if (spaces.Any())
@@ -249,6 +248,37 @@ namespace WpfEncryptApp
                             }
                         }
 
+                        //Calculate the median height for all words.
+                        var allMedians = words
+                            .Select(w => (w.BoundingBox.Top + w.BoundingBox.Bottom) / 2)
+                            .OrderByDescending(m => m)
+                            .ToList();
+
+                        //Find the vertical difference (gap) between consecutive lines.
+                        var lineGaps = new List<double>();
+                        for (int i = 0; i < allMedians.Count - 1; i++)
+                        {
+                            //Only calculate gap if the difference is significant (i.e., not words on the same line)
+                            double gap = allMedians[i] - allMedians[i + 1];
+                            if (gap > 1.0)
+                            {
+                                lineGaps.Add(gap);
+                            }
+                        }
+
+                        //group the gaps
+                        var dominantLineHeightGroup = lineGaps
+                            .GroupBy(g => Math.Round(g / 2.0) * 2.0)
+                            .OrderByDescending(g => g.Count())
+                            .FirstOrDefault();
+
+                        //Use the key of the largest group, or a safe default like 12.0m (a common PDF font size/line height)
+                        double fixedLineHeight = dominantLineHeightGroup?.Key ?? 12.0;
+
+                        //Sanity check: ensure it's a positive number
+                        if (fixedLineHeight < 5.0) fixedLineHeight = 12.0;
+
+                        
                         var textWords = new List<Word>();
                         var underscoreWords = new List<Word>();
 
@@ -264,6 +294,7 @@ namespace WpfEncryptApp
                             }
                         }
 
+                        //align normal words by position of average median line of words
                         var textWordsWithMedian = textWords
                             .Select(w => new
                             {
@@ -273,10 +304,11 @@ namespace WpfEncryptApp
                             .ToList();
 
                         var cleanLines = textWordsWithMedian
-                            .GroupBy(w => Math.Round(w.MedianY / ToleranceMulti) * ToleranceMulti)
+                            .GroupBy(w => Math.Round(w.MedianY / fixedLineHeight) * fixedLineHeight)
                             .OrderByDescending(g => g.Key)
                             .ToDictionary(g => g.Key, g => g.ToList());
 
+                        //snap underscores to nearest line
                         foreach (var uWord in underscoreWords)
                         {
                             var uMedianY = (uWord.BoundingBox.Top + uWord.BoundingBox.Bottom) / 2;
@@ -292,6 +324,7 @@ namespace WpfEncryptApp
                             }
                         }
 
+                        //the final lines
                         foreach (var linegroup in cleanLines.OrderByDescending(kvp => kvp.Key).Select(kvp => kvp.Value))
                         {
                             var wordsOnLine = linegroup
@@ -299,6 +332,7 @@ namespace WpfEncryptApp
                                 .OrderBy(w => w.BoundingBox.Left)
                                 .ToList();
 
+                            //horizontal allignment
                             double currentX = 0;
                             foreach (var word in wordsOnLine)
                             {

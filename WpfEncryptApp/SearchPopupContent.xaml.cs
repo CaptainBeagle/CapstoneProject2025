@@ -33,13 +33,14 @@ namespace WpfEncryptApp
                                                                                                     //a secure password would be set up along with other security measures.
             string query = "";
 
-            if (filter != null)
+            if (filter == "")
             {
-                query = "SELECT FirstName, LastName FROM users WHERE FirstName LIKE @input AND Position LIKE @filter";
+                query = "SELECT FirstName, LastName FROM users WHERE FirstName LIKE @input";
             }
             else
             {
-                query = "SELECT FirstName, LastName FROM users WHERE FirstName LIKE @input";
+                
+                query = "SELECT FirstName, LastName FROM users WHERE FirstName LIKE @input AND Position LIKE @filter";
             }
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             using (MySqlCommand command = new MySqlCommand(query, connection))

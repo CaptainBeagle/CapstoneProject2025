@@ -258,18 +258,74 @@ namespace WpfEncryptApp
 
                 int PageHeight = 842;
                 int PageWidth = 1100;
-                int LeftMargin = 25;
-                int RightMargin = 25;
-                int TopMargin = 50;
-                int BottomMargin = 50;
+                int StandardMargin = 25;
+                int MinMargin = 10;
+                int LeftMargin = StandardMargin;
+                int RightMargin = StandardMargin;
+                int TopMargin = StandardMargin;
+                int BottomMargin = StandardMargin;
                 int startX = LeftMargin;
                 double startY = PageHeight - TopMargin;
                 int fontsize = 12;
                 double linespacing = fontsize * 1.5;
                 int MaxWidth = PageWidth - LeftMargin - RightMargin;
+                double longestLineMeasuredWidth = 0;
 
                 foreach (string line in lines)
                 {
+                    UglyToad.PdfPig.Core.PdfPoint position = new UglyToad.PdfPig.Core.PdfPoint(LeftMargin, PageHeight - TopMargin);
+                    var measuredLetters = page.MeasureText(line, fontsize, position, font);
+
+                    double currentLineWidth = 0;
+                    if (measuredLetters.Any())
+                    {
+                        currentLineWidth = measuredLetters.Last().Location.X + measuredLetters.Last().Width - LeftMargin;
+                    }
+
+                    if (currentLineWidth > longestLineMeasuredWidth)
+                    {
+                        longestLineMeasuredWidth = currentLineWidth;
+                    }
+
+                    if (longestLineMeasuredWidth > MaxWidth)
+                    {
+                        double extraWidthNeeded = longestLineMeasuredWidth - MaxWidth;
+
+                        int totalMarginReductionRequired = (int)Math.Ceiling(extraWidthNeeded + 2);
+
+                        int currentTotalMargin = LeftMargin + RightMargin;
+                        int newTotalMargin = currentTotalMargin - totalMarginReductionRequired;
+
+                        if (newTotalMargin < (MinMargin * 2))
+                        {
+                            LeftMargin = MinMargin;
+                            RightMargin = MinMargin;
+                        }
+                        else
+                        {
+                            LeftMargin = newTotalMargin / 2;
+                            RightMargin = newTotalMargin / 2;
+                        }
+
+                        MaxWidth = PageWidth - (LeftMargin + RightMargin);
+                    }
+
+                    if (longestLineMeasuredWidth > MaxWidth)
+                    {
+                        double scaleFactor = MaxWidth / longestLineMeasuredWidth;
+
+                        int oldFontSize = 12;
+                        int newFontSize = (int)Math.Floor(oldFontSize * scaleFactor);
+
+                        if (newFontSize < 8)
+                        {
+                            newFontSize = 8;
+                        }
+
+                        fontsize = newFontSize;
+                        linespacing = fontsize * 1.5;
+                    }
+
                     if (startY - linespacing < BottomMargin)
                     {
                         startY = PageHeight - TopMargin;
@@ -283,7 +339,7 @@ namespace WpfEncryptApp
                         continue;
                     }
 
-                    UglyToad.PdfPig.Core.PdfPoint position = new UglyToad.PdfPig.Core.PdfPoint(startX, startY);
+                    position = new UglyToad.PdfPig.Core.PdfPoint(startX, startY);
 
                     string[] words = line.Split(' ');
 

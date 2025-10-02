@@ -135,7 +135,7 @@ namespace WpfEncryptApp
                     {
                         {"purpose", "Send Message"}
                     };
-                    byte[] Transfer = Encoding.ASCII.GetBytes(FileSendDisplay.Data);    //Transfering string data into a byte array to be put into a MemoryStream to be accepted by the function. It hopefully works.
+                    byte[] Transfer = Encoding.UTF8.GetBytes(FileSendDisplay.Data);    //Transfering string data into a byte array to be put into a MemoryStream to be accepted by the function. It hopefully works.
                     MemoryStream message = new(Transfer);                               //This solution is brought to you by the lovely users at stackoverflow.
                     
                     //Define the encrypt input object
@@ -203,7 +203,6 @@ namespace WpfEncryptApp
                     MySqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        //find a way to dynamically find an encrpyted document's name
                         SendID = reader["SendID"].ToString();
                         byte[] encryptedBytes = (byte[])reader["Message"];
                         UsableName = reader["FileName"].ToString();

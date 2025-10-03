@@ -22,6 +22,9 @@ using UglyToad.PdfPig.DocumentLayoutAnalysis.WordExtractor;
 using UglyToad.PdfPig.Content;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.PageSegmenter;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.ReadingOrderDetector;
+using PageSize = DocumentFormat.OpenXml.Wordprocessing.PageSize;
+using Style = DocumentFormat.OpenXml.Wordprocessing.Style;
+using DocumentFormat.OpenXml.Drawing;
 
 
 namespace WpfEncryptApp
@@ -57,21 +60,106 @@ namespace WpfEncryptApp
                 using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(Path, false))
                 {
                     var mainPart = wordDoc.MainDocumentPart;
-                    if (mainPart == null || mainPart.Document == null || mainPart.Document.Body == null)
+                    if (mainPart?.Document?.Body == null)
                     {
                         return string.Empty;
                     }
 
-                    //The following code formats the displayed output to be the same as the original word document.
-                    StringBuilder textBuilder = new StringBuilder();
+                    //default Doc dimensions
+                    var body = mainPart.Document.Body;
+                    uint pageWidthTwips = 12240;
+                    uint leftMarginTwips = 1440;
+                    uint rightMarginTwips = 1440;
+                    const int TwipsPerCharacter = 120;
 
-                    // Iterate through each paragraph in the document's body
+                    var sectionProperties = body.GetFirstChild<SectionProperties>();
+                    if (sectionProperties != null)
+                    {
+                        var pageSize = sectionProperties.GetFirstChild<PageSize>();
+                        var pageMargin = sectionProperties.GetFirstChild<PageMargin>();
+                        if (pageSize?.Width?.Value != null)
+                        {
+                            pageWidthTwips = pageSize.Width.Value;
+                        }
+                        if (pageMargin?.Left?.Value != null)
+                        {
+                            leftMarginTwips = pageMargin.Left.Value;
+                        }
+                        if (pageMargin?.Right?.Value != null)
+                        {
+                            rightMarginTwips = pageMargin.Right.Value;
+                        }
+                    }
+                    uint textWidthTwips = pageWidthTwips - leftMarginTwips - rightMarginTwips;
+                    int availableSpace = (int)(textWidthTwips / TwipsPerCharacter);
+
+
+                    string normalStyleJustification = null;
+                    var stylePart = mainPart.StyleDefinitionsPart;
+                    if (stylePart?.Styles != null)
+                    {
+                        var normalStyle = stylePart.Styles.Elements<Style>().FirstOrDefault(s => s.StyleId == "Normal");
+                        if (normalStyle?.StyleParagraphProperties?.Justification != null)
+                        {
+                            normalStyleJustification = normalStyle.StyleParagraphProperties.Justification.Val.ToString();
+                        }
+                    }
+
+                    //defining the paragraph's alignment
+                    StringBuilder textBuilder = new StringBuilder();
                     foreach (DocumentFormat.OpenXml.Wordprocessing.Paragraph paragraph in mainPart.Document.Body.Descendants<DocumentFormat.OpenXml.Wordprocessing.Paragraph>())
                     {
-                        // Append the text of the current paragraph
-                        textBuilder.Append(paragraph.InnerText);
+                        string text = paragraph.InnerText;
+                        string alignment = normalStyleJustification ?? "left";
 
-                        // Append a new line to separate paragraphs
+                        DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties paraProperties = paragraph.ParagraphProperties;
+                        if (paraProperties != null)
+                        {
+                            if (paraProperties.Justification != null)
+                            {
+                                alignment = paraProperties.Justification.Val.ToString();
+                            }
+                            else if (paraProperties.ParagraphStyleId != null)
+                            {
+                                string styleId = paraProperties.ParagraphStyleId.Val.Value;
+                                if (stylePart?.Styles != null)
+                                {
+                                    var paraStyle = stylePart.Styles.Elements<Style>().FirstOrDefault(s => s.StyleId == styleId);
+                                    if (paraStyle?.StyleParagraphProperties?.Justification != null)
+                                    {
+                                        alignment = paraStyle.StyleParagraphProperties.Justification.Val.ToString();
+                                    }
+                                }
+                            }
+                        }
+
+                        //extract list labels (if any)
+                        var numberingPart = mainPart.NumberingDefinitionsPart;
+                        var listCounters = new Dictionary<string, int>();
+
+
+                        //format and append the text
+                        switch (alignment.ToLower())
+                        {
+                            case "right":
+                                textBuilder.Append(text.PadLeft(availableSpace));
+                                break;
+                            case "center":
+                                int padding = availableSpace - text.Length;
+                                if (padding > 0)
+                                {
+                                    int halfpadding = padding / 2;
+                                    textBuilder.Append(new string(' ', halfpadding) + text + new string(' ', padding - halfpadding));
+                                }
+                                else
+                                {
+                                    textBuilder.Append(text);
+                                }
+                                break;
+                            default:
+                                textBuilder.Append(text.PadRight(availableSpace));
+                                break;
+                        }
                         textBuilder.AppendLine();
                     }
 
@@ -80,8 +168,7 @@ namespace WpfEncryptApp
             }
             catch (System.Exception ex)
             {
-                //Console log to report the exception.
-                Console.WriteLine($"An error occurred while processing the document: {ex.Message}");
+                MessageBox.Show(ex.Message);
                 return string.Empty;
             }
         }

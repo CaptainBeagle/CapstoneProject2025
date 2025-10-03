@@ -25,6 +25,8 @@ using UglyToad.PdfPig.DocumentLayoutAnalysis.ReadingOrderDetector;
 using PageSize = DocumentFormat.OpenXml.Wordprocessing.PageSize;
 using Style = DocumentFormat.OpenXml.Wordprocessing.Style;
 using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Office2013.Drawing.Chart;
+using DocumentFormat.OpenXml.Drawing.Charts;
 
 
 namespace WpfEncryptApp
@@ -111,6 +113,7 @@ namespace WpfEncryptApp
                     {
                         string text = paragraph.InnerText;
                         string alignment = normalStyleJustification ?? "left";
+                        string prefix = string.Empty;
 
                         DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties paraProperties = paragraph.ParagraphProperties;
                         if (paraProperties != null)
@@ -135,29 +138,70 @@ namespace WpfEncryptApp
 
                         //extract list labels (if any)
                         var numberingPart = mainPart.NumberingDefinitionsPart;
-                        var listCounters = new Dictionary<string, int>();
+                        var listCounters = new Dictionary<int, int>();
+                        var numprop = paraProperties.GetFirstChild<NumberingProperties>();
 
+                        if (numprop != null && numberingPart != null)
+                        {
+                            var numId = numprop.GetFirstChild<NumberingId>();
+                            var lvl = numprop.GetFirstChild<NumberingLevelReference>();
+
+                            if (numId != null && lvl != null)
+                            {
+                                var numinst = numberingPart.Numbering.Elements<NumberingInstance>().FirstOrDefault(n => n.NumberID?.Value == numId.Val?.Value);
+                                if (numinst?.AbstractNumId?.Val != null)
+                                {
+                                    var abstractnum = numberingPart.Numbering.Elements<AbstractNum>().FirstOrDefault(a => a.AbstractNumberId?.Value == numinst.AbstractNumId?.Val?.Value);
+                                    var level = abstractnum?.Elements<DocumentFormat.OpenXml.Wordprocessing.Level>().FirstOrDefault(l => l.LevelIndex?.Value == lvl.Val.Value);
+
+                                    if (level?.LevelText?.Val != null)
+                                    {
+                                        string listformat = level.LevelText.Val.Value;
+
+                                        //checking if list is bulletpoint or numbered
+                                        if (level.NumberingFormat?.Val == NumberFormatValues.Bullet)
+                                        {
+                                            prefix = listformat;
+                                        }
+                                        else if (level.NumberingFormat?.Val == NumberFormatValues.Decimal || level.NumberingFormat?.Val == NumberFormatValues.LowerLetter)
+                                        {
+                                            int counterkey = numId.Val.Value;
+                                            if (!listCounters.ContainsKey(counterkey))
+                                            {
+                                                listCounters[counterkey] = 1;
+                                            }
+                                            else
+                                            {
+                                                listCounters[counterkey]++;
+                                            }
+                                            prefix = listCounters[counterkey] + ". ";
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                         //format and append the text
+                        string propertext = prefix + text;
                         switch (alignment.ToLower())
                         {
                             case "right":
-                                textBuilder.Append(text.PadLeft(availableSpace));
+                                textBuilder.Append(propertext.PadLeft(availableSpace));
                                 break;
                             case "center":
                                 int padding = availableSpace - text.Length;
                                 if (padding > 0)
                                 {
                                     int halfpadding = padding / 2;
-                                    textBuilder.Append(new string(' ', halfpadding) + text + new string(' ', padding - halfpadding));
+                                    textBuilder.Append(new string(' ', halfpadding) + propertext + new string(' ', padding - halfpadding));
                                 }
                                 else
                                 {
-                                    textBuilder.Append(text);
+                                    textBuilder.Append(propertext);
                                 }
                                 break;
                             default:
-                                textBuilder.Append(text.PadRight(availableSpace));
+                                textBuilder.Append(propertext.PadRight(availableSpace));
                                 break;
                         }
                         textBuilder.AppendLine();

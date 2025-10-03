@@ -114,6 +114,7 @@ namespace WpfEncryptApp
                         string text = paragraph.InnerText;
                         string alignment = normalStyleJustification ?? "left";
                         string prefix = string.Empty;
+                        bool islist = false;
 
                         DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties paraProperties = paragraph.ParagraphProperties;
                         if (paraProperties != null)
@@ -138,16 +139,74 @@ namespace WpfEncryptApp
 
                         //extract list labels (if any)
                         var numberingPart = mainPart.NumberingDefinitionsPart;
-                        var listCounters = new Dictionary<int, int>();
+                        var listCounters = new Dictionary<string, int>();
                         var numprop = paraProperties.GetFirstChild<NumberingProperties>();
+                        int? prevnumId = null;
+                        int? prevlvl = null;
+                        bool isprevparalist = false;
+
+                        if (numprop != null && paraProperties.ParagraphStyleId != null)
+                        {
+                            string styleid = paraProperties.ParagraphStyleId.Val.Value;
+                            if (stylePart?.Styles != null)
+                            {
+                                NumberingId stylenumid = null;
+                                NumberingLevelReference stylelvl = null;
+                                var currentstyle = stylePart.Styles.Elements<Style>().FirstOrDefault(s => s.StyleId == styleid);
+
+                                while (currentstyle != null)
+                                {
+                                    if (currentstyle?.StyleParagraphProperties?.NumberingProperties != null)
+                                    {
+                                        stylenumid = currentstyle.StyleParagraphProperties.NumberingProperties.GetFirstChild<NumberingId>();
+                                        stylelvl = currentstyle.StyleParagraphProperties.NumberingProperties.GetFirstChild<NumberingLevelReference>();
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        currentstyle = null;
+                                    }
+                                }
+
+                                if (stylenumid != null && stylelvl != null)
+                                {
+                                    numprop = new NumberingProperties (stylenumid, stylelvl);
+                                }
+                            }
+                        }
 
                         if (numprop != null && numberingPart != null)
                         {
                             var numId = numprop.GetFirstChild<NumberingId>();
                             var lvl = numprop.GetFirstChild<NumberingLevelReference>();
+                            islist = numId != null && lvl != null;
 
-                            if (numId != null && lvl != null)
+                            if (islist)
                             {
+                                int numidval = numId.Val.Value;
+                                int lvlval = lvl.Val.Value;
+                                string counterkey = $"{numidval}_{lvlval}";
+
+                                if (!isprevparalist)
+                                {
+                                    for (int i = lvlval; i < 9; i++)
+                                    {
+                                        listCounters[$"{numidval}_{i}"] = 0;
+                                    }
+                                    listCounters[counterkey] = 1;
+                                }
+                                else
+                                {
+                                   if (listCounters.ContainsKey(counterkey))
+                                   {
+                                        listCounters[counterkey]++;
+                                   }
+                                   else
+                                   {
+                                        listCounters[counterkey] = 1;
+                                   }
+                                }
+
                                 var numinst = numberingPart.Numbering.Elements<NumberingInstance>().FirstOrDefault(n => n.NumberID?.Value == numId.Val?.Value);
                                 if (numinst?.AbstractNumId?.Val != null)
                                 {
@@ -165,21 +224,13 @@ namespace WpfEncryptApp
                                         }
                                         else if (level.NumberingFormat?.Val == NumberFormatValues.Decimal || level.NumberingFormat?.Val == NumberFormatValues.LowerLetter)
                                         {
-                                            int counterkey = numId.Val.Value;
-                                            if (!listCounters.ContainsKey(counterkey))
-                                            {
-                                                listCounters[counterkey] = 1;
-                                            }
-                                            else
-                                            {
-                                                listCounters[counterkey]++;
-                                            }
                                             prefix = listCounters[counterkey] + ". ";
                                         }
                                     }
                                 }
                             }
                         }
+                        isprevparalist = islist;
 
                         //format and append the text
                         string propertext = prefix + text;

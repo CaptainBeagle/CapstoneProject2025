@@ -107,6 +107,11 @@ namespace WpfEncryptApp
                         }
                     }
 
+                    var listCounters = new Dictionary<string, int>();
+                    bool isprevparalist = false;
+                    int? prevnumId = null;
+                    int? prevlvl = null;
+
                     //defining the paragraph's alignment
                     StringBuilder textBuilder = new StringBuilder();
                     foreach (DocumentFormat.OpenXml.Wordprocessing.Paragraph paragraph in mainPart.Document.Body.Descendants<DocumentFormat.OpenXml.Wordprocessing.Paragraph>())
@@ -139,11 +144,8 @@ namespace WpfEncryptApp
 
                         //extract list labels (if any)
                         var numberingPart = mainPart.NumberingDefinitionsPart;
-                        var listCounters = new Dictionary<string, int>();
+                        
                         var numprop = paraProperties.GetFirstChild<NumberingProperties>();
-                        int? prevnumId = null;
-                        int? prevlvl = null;
-                        bool isprevparalist = false;
 
                         if (numprop != null && paraProperties.ParagraphStyleId != null)
                         {

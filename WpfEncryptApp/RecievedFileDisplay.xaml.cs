@@ -138,22 +138,21 @@ namespace WpfEncryptApp
                     using (WordprocessingDocument wordDocument =
                         WordprocessingDocument.Create(mem, WordprocessingDocumentType.Document, true))
                     {
-                        //Add a main document part. 
                         MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
-                        //Create the document structure and add some text.
                         mainPart.Document = new Document();
                         Body docBody = new Body();
 
-                        //Preserve content over multiple lines
                         string[] lines = Content.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
-                        //Put each line of content into a new paragraph
                         foreach (string line in lines)
                         {
                             DocumentFormat.OpenXml.Wordprocessing.Paragraph p = new DocumentFormat.OpenXml.Wordprocessing.Paragraph();
+
                             DocumentFormat.OpenXml.Wordprocessing.Run r = new DocumentFormat.OpenXml.Wordprocessing.Run();
 
                             DocumentFormat.OpenXml.Wordprocessing.Text t = new DocumentFormat.OpenXml.Wordprocessing.Text(line);
+
+                            t.Space = SpaceProcessingModeValues.Preserve;
                             r.Append(t);
                             p.Append(r);
                             docBody.Append(p);

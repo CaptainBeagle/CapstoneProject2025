@@ -10,12 +10,13 @@
         <Border BorderBrush="#FFC8C8C8" BorderThickness="2">
             <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="65"/>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="450"/>
-                <ColumnDefinition Width="185"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
                 <Label x:Name="Placeholder" Grid.Column="0" Background="#FFFFFEFE"/>
+                <Image x:Name="Icon" Grid.Column="0"/>
                 <TextBlock x:Name="FileName" Text="" Grid.Column="2" Foreground="White" FontSize="20"/>
                 <TextBlock x:Name="SenderName" Text="" Grid.Column="3" Foreground="White" FontSize="20"/>
             </Grid>

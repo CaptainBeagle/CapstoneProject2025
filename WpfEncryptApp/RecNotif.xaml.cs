@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DocumentFormat.OpenXml.Office2016.Drawing.Command;
 using MySql.Data.MySqlClient;
 
 namespace WpfEncryptApp
@@ -78,6 +79,35 @@ namespace WpfEncryptApp
                 Bar.Background = new SolidColorBrush(Colors.White);
                 FileName.Foreground= new SolidColorBrush(Colors.Black);
                 SenderName.Foreground = new SolidColorBrush(Colors.Black);
+            }
+
+            if (Title.Contains(".doc"))
+            {
+                BitmapImage BitmapIcon = new BitmapImage();
+                BitmapIcon.BeginInit();
+                Icon.Width = BitmapIcon.DecodePixelWidth = 65;
+                BitmapIcon.UriSource = new Uri("C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Icons\\Word.png");
+                BitmapIcon.EndInit();
+                Icon.Source = BitmapIcon;
+                
+            }
+            else if (Title.Contains(".xlsx"))
+            {
+                BitmapImage BitmapIcon = new BitmapImage();
+                BitmapIcon.BeginInit();
+                Icon.Width = BitmapIcon.DecodePixelWidth = 65;
+                BitmapIcon.UriSource = new Uri("C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Icons\\Excel.png");
+                BitmapIcon.EndInit();
+                Icon.Source = BitmapIcon;
+            }
+            else
+            {
+                BitmapImage BitmapIcon = new BitmapImage();
+                BitmapIcon.BeginInit();
+                Icon.Width = BitmapIcon.DecodePixelWidth = 65;
+                BitmapIcon.UriSource = new Uri("C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Icons\\PDF.png");
+                BitmapIcon.EndInit();
+                Icon.Source = BitmapIcon;
             }
         }
 

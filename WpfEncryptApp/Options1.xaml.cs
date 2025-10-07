@@ -45,6 +45,12 @@ namespace WpfEncryptApp
             NavigationService.Navigate(login);
         }
 
+        private void ChangePass_Click(object sender, RoutedEventArgs e)
+        {
+            //link this to button
+            //database call to alter password data in record with loginpage.userid
+        }
+
         private void Theme_Click(object sender, RoutedEventArgs e)
         {
             //Switch state uppon clicking and update text on button as well as appearance of everything.

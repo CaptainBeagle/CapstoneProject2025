@@ -19,7 +19,7 @@
     <Compile Update="Options1.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="RecievedFileDisplay.xaml.cs">
+    <Compile Update="RecievedFileDisplay1.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RecNotif.xaml.cs">
@@ -51,7 +51,7 @@
     <Page Update="Options.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="RecievedFileDisplay.xaml">
+    <Page Update="RecievedFileDisplay1.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RecNotif.xaml">

@@ -46,7 +46,7 @@
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="ChangePassword" Content="Change Password" Grid.Row="1" Grid.Column="0" Margin="5" FontSize="18"/>
+                <Button x:Name="ChangePassword" Content="Change Password" Grid.Row="1" Grid.Column="0" Margin="5" FontSize="18" Click="ChangePass_Click"/>
                 <Button x:Name="LogOut" Content="Log Out" Grid.Row="1" Grid.Column="2" Margin="5" FontSize="18" Click="LogOut_Click"/>
             </Grid>
         </Grid>

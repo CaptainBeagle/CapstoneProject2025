@@ -25,9 +25,11 @@
             <Button x:Name="Add" Click ="Add_Click" Content="+" Grid.Row="2" Grid.Column="1" FontSize="40" Margin="0,0,537,0" Foreground="White" BorderBrush="White" Background="#FF3C3B3B"/>
             <TextBlock x:Name="Notice" Text="Only accepts txt, docx, xlsx, pdf" Grid.Row="2" Grid.Column="1" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Height="61" Width="189" Margin="206,0,0,0" TextWrapping="WrapWithOverflow"/>
             <TextBlock x:Name="Inbox" Text="Inbox/Recieved Files" Grid.Row="3" Grid.Column="1" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-            <StackPanel x:Name="Notifs" Grid.Row="4" Grid.Column="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="4" Grid.Column="1">
+                <StackPanel x:Name="Notifs">
 
-            </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
             <Grid x:Name="SideBar" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Margin="0,0,0,-215">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

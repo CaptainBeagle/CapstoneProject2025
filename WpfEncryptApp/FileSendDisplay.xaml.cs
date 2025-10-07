@@ -304,15 +304,52 @@ namespace WpfEncryptApp
 
                         foreach (Row r in SData.Elements<Row>())
                         {
-                            bool firstCell = true;
+                            bool firstcell = true;
+                            int currentcolumnindex = 0;
                             foreach (Cell c in r.Elements<Cell>())
                             {
-                                if (!firstCell)
+                                int cellcolumnindex = 0;
+                                if (!firstcell)
                                 {
-                                    result.Append('\t');    //Add tab space between cells
+                                    result.Append('\t');
+                                }
+                                if (string.IsNullOrEmpty(c.CellReference))
+                                {
+                                    cellcolumnindex = -1;
+                                }
+                                
+                                string columnname = "";
+                                foreach (char a in c.CellReference.ToString())
+                                {
+                                    if (char.IsLetter(a))
+                                    {
+                                        columnname += a;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                int columnindex = 0;
+                                int power = 1;
+
+                                for (int i = columnname.Length - 1; i >= 0; i--)
+                                {
+                                    columnindex += (columnname[i] - 'A' + 1) * power;
+                                    power *= 26;
+                                }
+
+                                cellcolumnindex = columnindex + 1;
+
+                                while (currentcolumnindex < cellcolumnindex)
+                                {
+                                    result.Append('\t');
+                                    currentcolumnindex++;
                                 }
                                 result.Append(GetCellValue(c, StringTable));
-                                firstCell = false;
+                                currentcolumnindex = cellcolumnindex + 1;
+                                firstcell = false;
                             }
                             result.AppendLine();    //Separating rows of data
                         }
@@ -331,6 +368,7 @@ namespace WpfEncryptApp
         {
             if (cell.CellValue == null)
             {
+                //return '\t'.ToString();
                 return string.Empty;
             }
 

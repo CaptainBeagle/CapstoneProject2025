@@ -25,9 +25,9 @@
             <Button x:Name="Back" Margin="10" Content="Back" FontSize="20" Click="Back_Click"/>
             
         </Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
             <StackPanel Grid.Row="1">
-                <TextBlock x:Name="Content" Grid.Row="1" FontSize="16" Foreground="White" TextWrapping="Wrap"/>
+                <TextBlock x:Name="Content" Grid.Row="1" FontSize="16" Foreground="White"/>
             </StackPanel>
         </ScrollViewer>
         <Button x:Name="Export" Margin="5" Grid.Row="2" Content="Export File" FontSize="20" Click="Export_Click"/>

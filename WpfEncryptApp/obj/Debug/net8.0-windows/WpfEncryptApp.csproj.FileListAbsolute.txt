@@ -84,3 +84,5 @@ C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\ViewSentFiles.baml
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\RecievedFileDisplay1.g.cs
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\RecievedFileDisplay1.baml
+C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\NewPassword.g.cs
+C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\NewPassword.baml

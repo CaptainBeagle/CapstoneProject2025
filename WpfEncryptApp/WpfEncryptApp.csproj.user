@@ -16,7 +16,10 @@
     <Compile Update="LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Options1.xaml.cs">
+    <Compile Update="NewPassword.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Options2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RecievedFileDisplay1.xaml.cs">
@@ -46,6 +49,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="NewPassword.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Options.xaml">

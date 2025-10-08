@@ -47,8 +47,27 @@ namespace WpfEncryptApp
 
         private void ChangePass_Click(object sender, RoutedEventArgs e)
         {
-            //link this to button
             //database call to alter password data in record with loginpage.userid
+            string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
+            MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+            connection.Open();
+            string update = "UPDATE users SET Password = @pass WHERE users.UserID = @ID";
+
+            //open dialogue box with input field for new password and password requirements
+            NewPassword Win = new NewPassword();
+            bool? Pass = Win.ShowDialog();
+            //If result confirmed, alter password data in DB
+            if (Pass == true)
+            {
+                using (MySqlCommand command = new MySqlCommand(update, connection))
+                {
+                    command.Parameters.AddWithValue("@pass", Win.npassword);
+                    command.Parameters.AddWithValue("@ID", LoginPage.Userid);
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+                MessageBox.Show("Password Changed Successfully!");
+            }
         }
 
         private void Theme_Click(object sender, RoutedEventArgs e)

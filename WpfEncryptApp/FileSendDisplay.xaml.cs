@@ -636,7 +636,6 @@ namespace WpfEncryptApp
             }
         }
 
-        //add function to process selected option in filter box
 
         private void Send_Click(object sender, RoutedEventArgs e)
         {

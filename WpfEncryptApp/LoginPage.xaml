@@ -20,7 +20,8 @@
             <RowDefinition Height="80"/>
 
         </Grid.RowDefinitions>
-        <TextBlock x:Name="Label" Text="Encryption App" Grid.Row="0" FontSize="48" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,10" TextWrapping="WrapWithOverflow" Width="339"/>
+        <Image x:Name="MainIcon" Grid.Row="0" HorizontalAlignment="Left" Width="70" Height="70" Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Lock.png" Margin="131,0,0,0"/>
+        <TextBlock x:Name="Label" Text="Encryption App" Grid.Row="0" FontSize="48" Foreground="#8900b5" HorizontalAlignment="Center" Margin="0,0,0,10" TextWrapping="WrapWithOverflow" Width="378" FontFamily="Segoe UI Black"/>
         <TextBlock x:Name="UserLabel" Grid.Row="1" Text="Username" FontSize="24" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="106"/>
         <TextBlock x:Name="PassLabel" Grid.Row="3" Text="Password" FontSize="24" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100"/>
         <TextBox x:Name="UserName" Grid.Row="2" TextWrapping="Wrap" AcceptsReturn="True" Margin="260,0,260,0" FontSize="24"/>

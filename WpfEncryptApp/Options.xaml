@@ -20,9 +20,14 @@
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="700"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="Header" Text="Options" Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="48" />
-            <TextBlock x:Name="General" Text="General" Grid.Column="1" Grid.Row="1" Foreground="White" FontSize="20"/>
-            <TextBlock x:Name="Account" Text="Account" Grid.Column="1" Grid.Row="3" Foreground="White" FontSize="20"/>
+            <Border Grid.Row="0" Grid.Column="1">
+                <Border.Background>
+                    <SolidColorBrush Color="#FF8900B5" Opacity="0.5"/>
+                </Border.Background>
+            </Border>
+            <TextBlock x:Name="Header" Text="Options" Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="48" Margin="5"/>
+            <TextBlock x:Name="General" Text="General" Grid.Column="1" Grid.Row="1" Foreground="White" FontSize="20" Margin="5, 0, 0, 0"/>
+            <TextBlock x:Name="Account" Text="Account" Grid.Column="1" Grid.Row="3" Foreground="White" FontSize="20" Margin="5, 0, 0, 0"/>
             <Button x:Name="H" Content="Home" Grid.Column="0" FontSize="20" Margin="0,0,0,58" Grid.RowSpan="3" Click="H_Click"/>
             <Button x:Name="S" Content="Sent Files" Grid.Column="0" FontSize="20" Margin="0,57,0,136" Grid.RowSpan="3" Grid.Row="2" Click="S_Click"/>
             <Button x:Name="O" Content="Options" Grid.Column="0" FontSize="20"  Grid.Row="4" Margin="0,64,0,-10"/>

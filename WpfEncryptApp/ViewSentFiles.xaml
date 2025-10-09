@@ -21,7 +21,12 @@
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="700"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="Welcome" Text="Sent Files" Grid.Row="0" Grid.Column="1" FontSize="48" HorizontalAlignment="Left" Foreground="White" Width="431"/>
+            <Border Grid.Row="0" Grid.Column="1">
+                <Border.Background>
+                    <SolidColorBrush Color="#FF8900B5" Opacity="0.5"/>
+                </Border.Background>
+            </Border>
+            <TextBlock x:Name="Welcome" Text="Sent Files" Grid.Row="0" Grid.Column="1" FontSize="48" HorizontalAlignment="Left" Foreground="White" Width="431" Margin="5, 0, 0, 0"/>
             <StackPanel x:Name="Notifs" Grid.Row="4" Grid.Column="1">
                 
             </StackPanel>

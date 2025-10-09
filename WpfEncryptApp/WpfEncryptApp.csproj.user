@@ -19,7 +19,7 @@
     <Compile Update="NewPassword.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Options2.xaml.cs">
+    <Compile Update="Options3.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RecievedFileDisplay1.xaml.cs">

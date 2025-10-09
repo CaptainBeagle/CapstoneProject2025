@@ -4,6 +4,113 @@
              xmlns:local="clr-namespace:WpfEncryptApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="LightGray"/>
+                <Setter Property="BorderBrush" Value="Gray"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}"
+                        SnapsToDevicePixels="True">
+
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      RecognizesAccessKey="True"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Gray"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Trigger>
+
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="#A0A0A0"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="SpecialButtonHoverStyle" TargetType="Button">
+                <Setter Property="Background" Value="#FF3C3B3B"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderBrush" Value="White"/>
+                <Setter Property="BorderThickness" Value="2"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="ButtonBorder" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <ColorAnimation To="Gray" 
+                                                Storyboard.TargetName="ButtonBorder" 
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      RecognizesAccessKey="True"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="ToggleButton">
+                <Setter Property="Background" Value="LightGray"/>
+                <Setter Property="BorderBrush" Value="Gray"/>
+                <Setter Property="Foreground" Value="Black"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="True">
+
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    RecognizesAccessKey="True"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Gray"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Trigger>
+
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="#A0A0A0"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

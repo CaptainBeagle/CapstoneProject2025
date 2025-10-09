@@ -22,7 +22,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="Welcome" Text="" Grid.Row="0" Grid.Column="1" FontSize="48" HorizontalAlignment="Left" Foreground="White" Width="Auto"/>
             <TextBlock x:Name="NewF" Text="Send new file" Grid.Row="1" Grid.Column="1" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-            <Button x:Name="Add" Click ="Add_Click" Content="+" Grid.Row="2" Grid.Column="1" FontSize="40" Margin="0,0,537,0" Foreground="White" BorderBrush="White" Background="#FF3C3B3B"/>
+            <Button x:Name="Add" Click ="Add_Click" Content="+" Grid.Row="2" Grid.Column="1" FontSize="40" Margin="0,0,537,0" Style="{StaticResource SpecialButtonHoverStyle}"/>
             <TextBlock x:Name="Notice" Text="Only accepts txt, docx, xlsx, pdf" Grid.Row="2" Grid.Column="1" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Height="61" Width="189" Margin="206,0,0,0" TextWrapping="WrapWithOverflow"/>
             <TextBlock x:Name="Inbox" Text="Inbox/Recieved Files" Grid.Row="3" Grid.Column="1" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="4" Grid.Column="1">

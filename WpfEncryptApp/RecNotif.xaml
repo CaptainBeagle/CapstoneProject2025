@@ -6,8 +6,17 @@
              xmlns:local="clr-namespace:WpfEncryptApp"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="700">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="GlowBrushKey" x:Name="GlowBrush" Color="#FF3C3B3B"/>
+        <Storyboard x:Key="OnMouseEnter">
+            <ColorAnimation Storyboard.TargetName="GlowBorder" Storyboard.TargetProperty="(Border.Background).Color" To="#33FFFFFF" Duration="0:0:0.005"/>
+        </Storyboard>
+        <Storyboard x:Key="OnMouseLeave">
+            <ColorAnimation Storyboard.TargetName="GlowBorder" Storyboard.TargetProperty="(Border.Background).Color" To="#FF3C3B3B" Duration="0:0:0.005"/>
+        </Storyboard>
+    </UserControl.Resources>
     <Grid x:Name="Bar" Background="#FF3C3B3B">
-        <Border BorderBrush="#FFC8C8C8" BorderThickness="2">
+        <Border x:Name="GlowBorder" BorderBrush="#FFC8C8C8" BorderThickness="2" Background="#FF3C3B3B">
             <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="65"/>
@@ -21,5 +30,13 @@
                 <TextBlock x:Name="SenderName" Text="" Grid.Column="3" Foreground="White" FontSize="20"/>
             </Grid>
         </Border>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="MouseEnter">
+                <BeginStoryboard Storyboard="{StaticResource OnMouseEnter}"/>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="MouseLeave">
+                <BeginStoryboard Storyboard="{StaticResource OnMouseLeave}"/>
+            </EventTrigger>
+        </Grid.Triggers>
     </Grid>
 </UserControl>

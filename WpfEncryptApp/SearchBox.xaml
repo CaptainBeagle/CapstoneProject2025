@@ -13,10 +13,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="255" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
         <TextBox x:Name="Search" Text="{Binding SearchText, ElementName=ThisControl, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="0" Height="30" FontSize="16" BorderBrush="#FF7E7E80" />
-        <Button x:Name="Sbutton" Grid.Row="1" Grid.Column="1" Content="Search" Click="ActiveSearch" />
+        
     </Grid>
 </UserControl>

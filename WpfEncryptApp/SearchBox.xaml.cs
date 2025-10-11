@@ -23,7 +23,7 @@ namespace WpfEncryptApp
     public partial class SearchBox : UserControl
     {
         public static DependencyProperty SearchTextProperty =
-        DependencyProperty.Register("SearchText", typeof(string), typeof(SearchBox), new PropertyMetadata(string.Empty));
+        DependencyProperty.Register("SearchText", typeof(string), typeof(SearchBox), new PropertyMetadata(string.Empty, OnSearchTextChanged));
 
         public string SearchText
         {
@@ -31,13 +31,13 @@ namespace WpfEncryptApp
             set { SetValue(SearchTextProperty, value); }
         }
 
-        public static readonly RoutedEvent SearchButtonClickEvent =
-        EventManager.RegisterRoutedEvent("SearchButtonClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SearchBox));
+        public static readonly RoutedEvent SearchTextChangedEvent =
+        EventManager.RegisterRoutedEvent("SearchTextChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SearchBox));
 
-        public event RoutedEventHandler SearchButtonClick
+        public event RoutedEventHandler SearchTextChanged
         {
-            add { AddHandler(SearchButtonClickEvent, value); }
-            remove { RemoveHandler(SearchButtonClickEvent, value); }
+            add { AddHandler(SearchTextChangedEvent, value); }
+            remove { RemoveHandler(SearchTextChangedEvent, value); }
         }
 
         public SearchBox()
@@ -45,10 +45,16 @@ namespace WpfEncryptApp
             InitializeComponent();
         }
 
+        public static void OnSearchTextChanged (DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            SearchBox searchBox = (SearchBox)d;
+            searchBox.RaiseEvent(new RoutedEventArgs(SearchTextChangedEvent));
+        }
+
         public void ActiveSearch(object sender, EventArgs e)
         {
             
-            RaiseEvent(new RoutedEventArgs(SearchButtonClickEvent));
+            //RaiseEvent(new RoutedEventArgs(SearchButtonClickEvent));
         }
     }
 }

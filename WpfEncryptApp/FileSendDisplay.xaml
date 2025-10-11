@@ -28,9 +28,9 @@
             </Grid.ColumnDefinitions>
 
             <Label x:Name="UL" Content="Send to: " FontSize="14"/>
-            <local:SearchBox x:Name="MySearchBox" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" SearchButtonClick="SearchBox_SearchButtonClick"/>
+            <local:SearchBox x:Name="MySearchBox" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" SearchTextChanged="MySearchBox_SearchTextChanged"/>
             <Label x:Name="FL" Content="Filter:" FontSize="14" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"/>
-            <ComboBox x:Name="FilterList" Grid.Column="2" Margin="42,0,25,0">
+            <ComboBox x:Name="FilterList" Grid.Column="2" Margin="42,0,25,0" SelectionChanged="FilterList_SelectionChanged">
                 <ComboBoxItem Content=""/>
                 <ComboBoxItem Content="Accountant"/>
                 <ComboBoxItem Content="Actuary"/>

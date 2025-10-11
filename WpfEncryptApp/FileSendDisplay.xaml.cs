@@ -141,11 +141,17 @@ namespace WpfEncryptApp
                                 }
                             }
                         }
+                        
 
                         //extract list labels (if any)
                         var numberingPart = mainPart.NumberingDefinitionsPart;
+                        NumberingProperties numprop = null;
+
+                        if (paraProperties != null)
+                        {
+                            numprop = paraProperties.GetFirstChild<NumberingProperties>();
+                        }
                         
-                        var numprop = paraProperties.GetFirstChild<NumberingProperties>();
 
                         if (numprop != null && paraProperties.ParagraphStyleId != null)
                         {
@@ -623,26 +629,17 @@ namespace WpfEncryptApp
             }
         }
 
-        private void SearchBox_SearchButtonClick(object sender, RoutedEventArgs e)
-        {
-            SearchPopup.IsOpen = true;
-
-            string searchText = MySearchBox.SearchText;
-            string filter = FilterList.SelectionBoxItem.ToString();
-
-            if (SearchPopup != null)
-            {
-                Results.SearchUsers(searchText, filter);
-            }
-        }
-
-
         private void Send_Click(object sender, RoutedEventArgs e)
         {
             string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";    //Database credentials. If this were to be put into production,
                                                                                                     //a secure password would be set up along with other security measures.
 
             string searchText = MySearchBox.SearchText;
+            if (string.IsNullOrEmpty(searchText))
+            {
+                MessageBox.Show("You must specify who you are sending the file to using the search box below.");
+                return;
+            }
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             using (MySqlCommand command = new MySqlCommand("SELECT UserID FROM users WHERE CONCAT(FirstName, ' ', LastName) = @search ", connection))
             {
@@ -687,6 +684,43 @@ namespace WpfEncryptApp
         {
             this.DialogResult = false;
             this.Close();
+        }
+
+        private void MySearchBox_SearchTextChanged(object sender, RoutedEventArgs e)
+        {
+            SearchPopup.IsOpen = true;
+
+            string searchText = MySearchBox.SearchText;
+            string filter = FilterList.SelectionBoxItem.ToString();
+
+            if (SearchPopup != null)
+            {
+                Results.SearchUsers(searchText, filter);
+            }
+        }
+
+        private void FilterList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+            {
+                return;
+            }
+            else
+            {
+                ComboBoxItem selecteditem = e.AddedItems[0] as ComboBoxItem;
+
+                if (selecteditem != null)
+                {
+                    string searchText = MySearchBox.SearchText;
+                    string filter = selecteditem.Content?.ToString() ?? "";
+
+                    if (SearchPopup != null)
+                    {
+                        SearchPopup.IsOpen = true;
+                        Results.SearchUsers(searchText, filter);
+                    }
+                }
+            }
         }
     }
 }

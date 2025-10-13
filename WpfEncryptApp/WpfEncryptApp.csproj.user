@@ -16,7 +16,7 @@
     <Compile Update="LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="NewPassword.xaml.cs">
+    <Compile Update="NewPassword1.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Options3.xaml.cs">
@@ -51,7 +51,7 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="NewPassword.xaml">
+    <Page Update="NewPassword1.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Options.xaml">

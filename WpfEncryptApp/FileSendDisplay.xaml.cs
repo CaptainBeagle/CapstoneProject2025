@@ -397,6 +397,10 @@ namespace WpfEncryptApp
         //Extracts text from pdf files
         public static string ExtractTextFromPdf(string path)
         {
+            //Find a way to extract images from PDF
+            //Find a way to include it in the content of the file to be encrypted, stored, and displayed
+            //Maybe include a conditional statment to grab images only if there is no text in the file
+            //And ensure there is a way to grab the image data if there is no text in content
             if (!File.Exists(path))
             {
                 Console.WriteLine($"Error: The file was not found at path: {path}");
@@ -421,7 +425,6 @@ namespace WpfEncryptApp
                         {
                             Filter = (pivot, candidate) =>
                             {
-                                // check if white space (default implementation of 'Filter')
                                 if (string.IsNullOrWhiteSpace(candidate.Value))
                                 {
                                     // pivot and candidate letters cannot belong to the same word 

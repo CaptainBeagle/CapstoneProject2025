@@ -68,7 +68,7 @@ namespace WpfEncryptApp
                 }
             }
 
-            if (Input.Text.Length > 7 && Input.Text.Length < 41)
+            if (Input.Text.Length > 9 && Input.Text.Length < 41)
             {
                 char[] specialchars = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')'};
                 if (Input.Text.Any(c => specialchars.Contains(c)))
@@ -86,7 +86,7 @@ namespace WpfEncryptApp
             }
             else
             {
-                Error.Text = "Password too short/long. Must be in between 8 and 40 characters long.";
+                Error.Text = "Password too short/long. Must be in between 10 and 40 characters long.";
                 Error.Visibility = Visibility.Visible;
                 return;
             }

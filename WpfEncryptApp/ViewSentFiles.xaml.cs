@@ -33,11 +33,13 @@ namespace WpfEncryptApp
             {
                 HomeGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
                 Welcome.Foreground = new SolidColorBrush(Colors.White);
+                Labels.Foreground = new SolidColorBrush(Colors.White);
             }
             else
             {
                 HomeGrid.Background = new SolidColorBrush(Colors.White);
                 Welcome.Foreground = new SolidColorBrush(Colors.Black);
+                Labels.Foreground = new SolidColorBrush(Colors.Black);
             }
             DisplayRecievedFiledata();
         }

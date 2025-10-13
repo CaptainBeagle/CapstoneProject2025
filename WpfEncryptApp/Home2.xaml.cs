@@ -258,6 +258,7 @@ namespace WpfEncryptApp
                 Add.Background = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
                 Notice.Foreground = new SolidColorBrush(Colors.White);
                 Inbox.Foreground = new SolidColorBrush(Colors.White);
+                Labels.Foreground = new SolidColorBrush(Colors.White);
             }
             else
             {
@@ -269,6 +270,7 @@ namespace WpfEncryptApp
                 Add.Background = new SolidColorBrush(Colors.White);
                 Notice.Foreground = new SolidColorBrush(Colors.Black);
                 Inbox.Foreground = new SolidColorBrush(Colors.Black);
+                Labels.Foreground = new SolidColorBrush(Colors.Black);
             }
         }
     }

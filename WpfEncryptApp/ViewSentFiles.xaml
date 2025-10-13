@@ -27,6 +27,7 @@
                 </Border.Background>
             </Border>
             <TextBlock x:Name="Welcome" Text="Sent Files" Grid.Row="0" Grid.Column="1" FontSize="48" HorizontalAlignment="Left" Foreground="White" Width="431" Margin="5, 0, 0, 0"/>
+            <TextBlock x:Name="Labels" Text="             File name                                                                     Sent to" Grid.Row="1" Grid.Column="1" FontSize="20" Foreground="White"/>
             <StackPanel x:Name="Notifs" Grid.Row="4" Grid.Column="1">
                 
             </StackPanel>
@@ -37,9 +38,63 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="H" Content="Home" Grid.Column="0" FontSize="20" Grid.Row="0" Click="H_Click"/>
-                <Button x:Name="S" Content="Sent Files" Grid.Column="0" FontSize="20" Grid.Row="1"/>
-                <Button x:Name="O" Content="Options" Grid.Column="0" FontSize="20" Grid.Row="2" Click="O_Click"/>
+                <Button x:Name="H" Grid.Column="0" FontSize="20" Grid.Row="0" Click="H_Click">
+                    <StackPanel>
+                        <Image Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Home.png" Width="80"/>
+                        <Label Content="Home" HorizontalAlignment="Center">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <Binding Path="IsMouseOver" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Button}}"/>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="S" Grid.Column="0" FontSize="20" Grid.Row="1">
+                    <StackPanel>
+                        <Image Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Mail.png" Width="80"/>
+                        <Label Content="Sent Files" HorizontalAlignment="Center">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <Binding Path="IsMouseOver" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Button}}"/>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="O" Grid.Column="0" FontSize="20" Grid.Row="2" Click="O_Click">
+                    <StackPanel>
+                        <Image Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Options.png" Width="80"/>
+                        <Label Content="Options" HorizontalAlignment="Center">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <Binding Path="IsMouseOver" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Button}}"/>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                    </StackPanel>
+                </Button>
             </Grid>
         </Grid>
     </Viewbox>

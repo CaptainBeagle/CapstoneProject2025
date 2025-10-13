@@ -245,6 +245,43 @@ namespace WpfEncryptApp
                     }
                 }
             }
+            else if (FileTitle.Text.Contains(".txt"))
+            {
+                //Create Text document on computer with content
+                using MemoryStream mem = new MemoryStream();
+                {
+                    string[] lines = Content.Text.Split(new[] { "\r\n","\n" }, StringSplitOptions.None);
+                    using (StreamWriter writer = new StreamWriter(mem))
+                    {
+                        foreach (string line in lines)
+                        {
+                            writer.WriteLine(line);
+                        }
+
+                        writer.Flush();
+                    }
+
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "Text documents (*.txt)|*.txt";
+                    saveFileDialog.DefaultExt = ".txt";
+                    saveFileDialog.FileName = "Document";
+
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        string filePath = saveFileDialog.FileName;
+
+                        try
+                        {
+                            File.WriteAllBytes(filePath, mem.ToArray());
+                            MessageBox.Show("Document saved successfully!");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"An error occurred while saving the file: {ex.Message}");
+                        }
+                    }
+                }
+            }
             else
             {
                 //Create PDF file on computer with content

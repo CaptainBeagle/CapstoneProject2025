@@ -593,6 +593,21 @@ namespace WpfEncryptApp
             return result.ToString();
         }
 
+        public static string ExtractTextFromTxt (string path)
+        {
+            try
+            {
+                using StreamReader reader = new StreamReader(path);
+                string text = reader.ReadToEnd();
+                return text;
+            }
+            catch
+            {
+                MessageBox.Show("There was an issue reading the file");
+                return string.Empty;
+            }
+        }
+
         public FileSendDisplay()
         {
             InitializeComponent();
@@ -626,6 +641,11 @@ namespace WpfEncryptApp
             if (System.IO.Path.GetExtension(FilePath) == ".pdf")
             {
                 Content.Text = ExtractTextFromPdf(FilePath);
+            }
+
+            if (System.IO.Path.GetExtension(FilePath) == ".txt")
+            {
+                Content.Text = ExtractTextFromTxt(FilePath);
             }
         }
 

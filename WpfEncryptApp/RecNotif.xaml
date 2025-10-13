@@ -24,7 +24,8 @@
                 <ColumnDefinition Width="450"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-                <Label x:Name="Placeholder" Grid.Column="0" Background="#FFFFFEFE"/>
+                <Label x:Name="BG" Grid.Column="0" Background="White" BorderBrush="LightGray" BorderThickness="2"/>
+                <Label x:Name="Placeholder" Grid.Column="0" Content="TXT" VerticalAlignment="Center" HorizontalAlignment="Center" Width="65" Height="65" FontSize="34"/>
                 <Image x:Name="Icon" Grid.Column="0"/>
                 <TextBlock x:Name="FileName" Text="" Grid.Column="2" Foreground="White" FontSize="20"/>
                 <TextBlock x:Name="SenderName" Text="" Grid.Column="3" Foreground="White" FontSize="20"/>

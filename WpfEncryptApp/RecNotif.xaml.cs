@@ -102,6 +102,10 @@ namespace WpfEncryptApp
                 BitmapIcon.EndInit();
                 Icon.Source = BitmapIcon;
             }
+            else if (Title.Contains(".txt"))
+            {
+
+            }
             else
             {
                 BitmapImage BitmapIcon = new BitmapImage();

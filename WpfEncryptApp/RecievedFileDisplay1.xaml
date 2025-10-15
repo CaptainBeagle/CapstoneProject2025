@@ -26,7 +26,7 @@
             
         </Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
-            <StackPanel Grid.Row="1">
+            <StackPanel x:Name="DataHolder" Grid.Row="1">
                 <TextBlock x:Name="Content" Grid.Row="1" FontSize="16" Foreground="White"/>
             </StackPanel>
         </ScrollViewer>

@@ -87,3 +87,4 @@ C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\ref\WpfEncryptApp.dll
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\NewPassword1.g.cs
 C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\obj\Debug\net8.0-windows\NewPassword1.baml
+C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\bin\Debug\net8.0-windows\SixLabors.ImageSharp.dll

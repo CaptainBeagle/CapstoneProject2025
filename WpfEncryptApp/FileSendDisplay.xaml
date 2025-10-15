@@ -13,7 +13,7 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <StackPanel Grid.Row="0">
+            <StackPanel x:Name="DataHolder" Grid.Row="0">
                 <TextBlock x:Name="Content" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Margin="5" FontSize="20"/>
             </StackPanel>
         </ScrollViewer>

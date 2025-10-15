@@ -64,6 +64,10 @@
             "PdfPig": {
               "target": "Package",
               "version": "[0.1.11, )"
+            },
+            "SixLabors.ImageSharp": {
+              "target": "Package",
+              "version": "[3.1.11, )"
             }
           },
           "imports": [

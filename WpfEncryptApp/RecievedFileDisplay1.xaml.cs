@@ -26,6 +26,9 @@ using K4os.Compression.LZ4.Internal;
 using DocumentFormat.OpenXml.Drawing;
 using UglyToad.PdfPig.Core;
 using UglyToad.PdfPig.Fonts.Type1;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using UglyToad.PdfPig.Content;
 
 namespace WpfEncryptApp
 {
@@ -82,6 +85,7 @@ namespace WpfEncryptApp
             };
 
             //calling the Decrypt function
+            string finalstring = "";
             try
             {
                 var decryptOutput = esdk.Decrypt(decryptInput);
@@ -89,11 +93,89 @@ namespace WpfEncryptApp
                 {
                     byte[] plaintextBytes = plaintextStream.ToArray();
                     string decryptedString = Encoding.UTF8.GetString(plaintextBytes);
-                    Content.Text = decryptedString;
+                    finalstring = decryptedString;
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
+            //Add an if statment to determine whether finalstring is actual text for display or image data that needs to be turned into images.
+            if (IsImageData(finalstring) == true)
+            {
+                List<byte[]> imagebyteslist = ConvertToImgBytes(finalstring);
+                foreach (var imagebytes in imagebyteslist)
+                {
+                    var bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+                    using (var ms = new MemoryStream(imagebytes))
+                    {
+                        bitmapImage.BeginInit();
+                        bitmapImage.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+                        bitmapImage.StreamSource = ms;
+                        bitmapImage.EndInit();
+                        bitmapImage.Freeze();
+                    }
+                    var imagecontrol = new System.Windows.Controls.Image();
+                    imagecontrol.Source = bitmapImage;
+                    DataHolder.Children.Add(imagecontrol);
+                }
+            }
+            else
+            {
+                Content.Text = finalstring;
+            }
+        }
+
+        public static bool IsImageData(string base64string)
+        {
+            if (string.IsNullOrEmpty(base64string))
+            {
+                return false;
+            }
+            try
+            {
+                byte[] rawBytes = Convert.FromBase64String(base64string);
+
+            bool isPng = rawBytes[0] == 0x89 &&
+                     rawBytes[1] == 0x50 &&
+                     rawBytes[2] == 0x4E &&
+                     rawBytes[3] == 0x47 &&
+                     rawBytes[4] == 0x0D &&
+                     rawBytes[5] == 0x0A &&
+                     rawBytes[6] == 0x1A &&
+                     rawBytes[7] == 0x0A;
+            if (isPng) return true;
+            return false;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
+        }
+
+        public static List<byte[]> ConvertToImgBytes(string combostring)
+        {
+            var extractedbyteslist = new List<byte[]>();
+            const string separator = "|-IMG-|";
+
+            string[] images = combostring.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string base64 in images)
+            {
+                try
+                {
+                    byte[] imgbytes = Convert.FromBase64String(base64);
+                    extractedbyteslist.Add(imgbytes);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            return extractedbyteslist;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -442,6 +524,60 @@ namespace WpfEncryptApp
                         position = new UglyToad.PdfPig.Core.PdfPoint(startX, startY);
                         page.AddText(ReLine, fontsize, position, font);
                         startY -= linespacing;
+                    }
+                }
+
+                //Add function to extract image data from image controls if they exist.
+                bool exist = DataHolder.Children.OfType<System.Windows.Controls.Image>().Any();
+                if (exist)
+                {
+                    startY = page.PageSize.Height;
+                    double xleft = 0;
+                    //get img data from each control in DataHolder
+                    foreach (var imagecon in DataHolder.Children.OfType<System.Windows.Controls.Image>())
+                    {
+                        var bitmap = imagecon.Source as BitmapSource;
+                        if (bitmap == null) { continue; }
+
+                        byte[] imgbytes;
+                        var encoder = new PngBitmapEncoder();
+                        encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+                        using (var stream = new MemoryStream())
+                        {
+                            encoder.Save(stream);
+                            imgbytes = stream.ToArray();
+                        }
+
+                        using (var imgsharp = SixLabors.ImageSharp.Image.Load<Rgba32>(imgbytes))
+                        {
+                            int width = imgsharp.Width;
+                            int height = imgsharp.Height;
+
+                            var pixelbytes = new byte[width * height * 4];
+                            imgsharp.CopyPixelDataTo(pixelbytes);
+
+                            double desiredwidth = 100;
+                            double desiredheight = (double)height / width * desiredwidth;
+
+                            if ((startY - desiredheight - 5) < 0)
+                            {
+                                page = builder.AddPage(UglyToad.PdfPig.Content.PageSize.A4);
+
+                                startY = page.PageSize.Height;
+                            }
+
+                            double xright = xleft + desiredwidth;
+                            double ybottom = startY - desiredheight;
+                            double ytop = startY;
+
+                            PdfRectangle boundingbox = new PdfRectangle(xleft, ybottom, xright, ytop);
+                            
+                            page.AddPng(imgbytes, boundingbox);
+
+                            startY = ybottom;
+                            startY -= 5;
+                        }
                     }
                 }
 

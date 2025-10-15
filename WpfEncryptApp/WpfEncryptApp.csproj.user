@@ -7,7 +7,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="FileSendDisplay.xaml.cs">
+    <Compile Update="FileSendDisplay1.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Home2.xaml.cs">

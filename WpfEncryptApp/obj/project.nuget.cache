@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "12HKzPDwjaGB0poA/eFBCNVmGYXUxGTxSlAqafTO+TC/tCdrmE7xD7W9fNhZCe3H+DjEiZta2IuimAC6GyNMQg==",
+  "dgSpecHash": "yWqgBacAoaCtbPGsBCYTAjqLCfBET8t0B9jxGfykooOSgNXQYPDSLjMxmkgb0Mz+bYiwDio8ZmrWiCzcM5dU6A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\WpfEncryptApp.csproj",
   "expectedPackageFiles": [
@@ -25,6 +25,7 @@
     "C:\\Users\\Rhian\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\mysql.data\\9.4.0\\mysql.data.9.4.0.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\pdfpig\\0.1.11\\pdfpig.0.1.11.nupkg.sha512",
+    "C:\\Users\\Rhian\\.nuget\\packages\\sixlabors.imagesharp\\3.1.11\\sixlabors.imagesharp.3.1.11.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\system.collections.immutable\\1.7.0\\system.collections.immutable.1.7.0.nupkg.sha512",
     "C:\\Users\\Rhian\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",

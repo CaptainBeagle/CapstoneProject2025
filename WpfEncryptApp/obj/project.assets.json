@@ -381,6 +381,22 @@
           }
         }
       },
+      "SixLabors.ImageSharp/3.1.11": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/SixLabors.ImageSharp.props": {}
+        }
+      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -1344,6 +1360,22 @@
         "pdfpig.0.1.11.nupkg.sha512",
         "pdfpig.nuspec",
         "pdfpig.png"
+      ]
+    },
+    "SixLabors.ImageSharp/3.1.11": {
+      "sha512": "JfPLyigLthuE50yi6tMt7Amrenr/fA31t2CvJyhy/kQmfulIBAqo5T/YFUSRHtuYPXRSaUHygFeh6Qd933EoSw==",
+      "type": "package",
+      "path": "sixlabors.imagesharp/3.1.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "build/SixLabors.ImageSharp.props",
+        "lib/net6.0/SixLabors.ImageSharp.dll",
+        "lib/net6.0/SixLabors.ImageSharp.xml",
+        "sixlabors.imagesharp.128.png",
+        "sixlabors.imagesharp.3.1.11.nupkg.sha512",
+        "sixlabors.imagesharp.nuspec"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -2666,7 +2698,8 @@
       "AWS.Cryptography.EncryptionSDK >= 4.1.0",
       "DocumentFormat.OpenXml >= 3.3.0",
       "MySql.Data >= 9.4.0",
-      "PdfPig >= 0.1.11"
+      "PdfPig >= 0.1.11",
+      "SixLabors.ImageSharp >= 3.1.11"
     ]
   },
   "packageFolders": {
@@ -2733,6 +2766,10 @@
           "PdfPig": {
             "target": "Package",
             "version": "[0.1.11, )"
+          },
+          "SixLabors.ImageSharp": {
+            "target": "Package",
+            "version": "[3.1.11, )"
           }
         },
         "imports": [

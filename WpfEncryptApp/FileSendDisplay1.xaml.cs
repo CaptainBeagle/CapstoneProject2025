@@ -764,6 +764,8 @@ namespace WpfEncryptApp
 
                     command.Parameters.AddWithValue("@search", searchText);
 
+                    bool exist = DataHolder.Children.OfType<System.Windows.Controls.Image>().Any();
+
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -771,7 +773,7 @@ namespace WpfEncryptApp
                             string ID = reader.GetString(0);
                             if (ID != null && ID != LoginPage.Userid)
                             {
-                                if (!string.IsNullOrEmpty(Content.Text))
+                                if (!string.IsNullOrEmpty(Content.Text) && exist == false)
                                 {
                                     Data = Content.Text;
                                 }
@@ -779,8 +781,6 @@ namespace WpfEncryptApp
                                 {
                                     if (DataHolder.Children.Count > 0)
                                     {
-                                        bool exist = DataHolder.Children.OfType<System.Windows.Controls.Image>().Any();
-                                        
                                         if (exist)
                                         {
                                             //call method to combine strings

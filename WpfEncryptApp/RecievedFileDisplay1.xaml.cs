@@ -99,6 +99,8 @@ namespace WpfEncryptApp
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
             //Add an if statment to determine whether finalstring is actual text for display or image data that needs to be turned into images.
+            MessageBox.Show(finalstring.ToString());
+            MessageBox.Show(IsImageData(finalstring).ToString());
             if (IsImageData(finalstring) == true)
             {
                 List<byte[]> imagebyteslist = ConvertToImgBytes(finalstring);
@@ -126,24 +128,31 @@ namespace WpfEncryptApp
 
         public static bool IsImageData(string base64string)
         {
+            //The string of the img data of multiple images is triggering a FormatException catch
+            //possibly not recognizing it as base64string
+            const string separator = "|-IMG-|";
             if (string.IsNullOrEmpty(base64string))
             {
                 return false;
             }
             try
             {
-                byte[] rawBytes = Convert.FromBase64String(base64string);
+                string[] strings = base64string.Split(separator);
+                foreach (string s in strings)
+                {
+                    byte[] rawBytes = Convert.FromBase64String(base64string);
 
-            bool isPng = rawBytes[0] == 0x89 &&
-                     rawBytes[1] == 0x50 &&
-                     rawBytes[2] == 0x4E &&
-                     rawBytes[3] == 0x47 &&
-                     rawBytes[4] == 0x0D &&
-                     rawBytes[5] == 0x0A &&
-                     rawBytes[6] == 0x1A &&
-                     rawBytes[7] == 0x0A;
-            if (isPng) return true;
-            return false;
+                    bool isPng = rawBytes[0] == 0x89 &&
+                         rawBytes[1] == 0x50 &&
+                         rawBytes[2] == 0x4E &&
+                         rawBytes[3] == 0x47 &&
+                         rawBytes[4] == 0x0D &&
+                         rawBytes[5] == 0x0A &&
+                         rawBytes[6] == 0x1A &&
+                         rawBytes[7] == 0x0A;
+                    if (isPng) return true;
+                }
+                return false;
             }
             catch (FormatException)
             {
@@ -533,6 +542,8 @@ namespace WpfEncryptApp
                 {
                     startY = page.PageSize.Height;
                     double xleft = 0;
+                    const double sizeconversion = 96.0 / 72.0;
+                    bool firstimg = true;
                     //get img data from each control in DataHolder
                     foreach (var imagecon in DataHolder.Children.OfType<System.Windows.Controls.Image>())
                     {
@@ -551,16 +562,15 @@ namespace WpfEncryptApp
 
                         using (var imgsharp = SixLabors.ImageSharp.Image.Load<Rgba32>(imgbytes))
                         {
+                            
                             int width = imgsharp.Width;
                             int height = imgsharp.Height;
 
-                            var pixelbytes = new byte[width * height * 4];
-                            imgsharp.CopyPixelDataTo(pixelbytes);
+                            //300 is a set resolution. 72 is a conversion from the pixelwidth units to PDF points
+                            double desiredwidth = (width / 300) * 72;
+                            double desiredheight = (height / 300) * 72;
 
-                            double desiredwidth = 100;
-                            double desiredheight = (double)height / width * desiredwidth;
-
-                            if ((startY - desiredheight - 5) < 0)
+                            if ((startY - desiredheight - 5) < 0 && firstimg == false)
                             {
                                 page = builder.AddPage(UglyToad.PdfPig.Content.PageSize.A4);
 
@@ -575,8 +585,9 @@ namespace WpfEncryptApp
                             
                             page.AddPng(imgbytes, boundingbox);
 
-                            startY = ybottom;
-                            startY -= 5;
+                            startY = ybottom - 5;
+
+                            firstimg = false;
                         }
                     }
                 }

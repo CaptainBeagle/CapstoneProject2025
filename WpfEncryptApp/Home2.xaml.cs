@@ -225,8 +225,15 @@ namespace WpfEncryptApp
             connection.Close();
         }
 
+        private bool inprogress = false;
+
         private void newRecNotif_OnClick(object sender, RecNotif.ClickEventArgs e)
         {
+            if (inprogress == true)
+            {
+                return;
+            }
+            inprogress = true;
             MemoryStream DisData = e.data;
             string senduser = e.user;
             string fn = e.title;

@@ -560,21 +560,8 @@ namespace WpfEncryptApp
 
                         using (var imgsharp = SixLabors.ImageSharp.Image.Load<Rgba32>(imgbytes))
                         {
-                            //images that are resized here have low resolution, look into potential fixes
-                            //Maybe change it to recursively change the desiredwidth and desiredheight variables until they fit within the page width
-                            //int newwidth = width
-                            //int res = 10
-                            //while (newwidth > MaxImgWidth)
-                            //{
-                            //  newwidth = (newwidth / res) * 72;
-                            //}
-                            //newheight = height * (newwidth / width)
-                            //desiredwidth = newwidth;
-                            //desiredheight = newheight;
-
-                            //just directly use desiredwidth and desiredheight in while loop
-
-                            const double MaxImgWidth = 594;
+                            const double MaxImgWidth = 594.5;
+                            const double MaxImgHeight = 841.8;
 
                             int width = imgsharp.Width;
                             int height = imgsharp.Height;
@@ -584,19 +571,12 @@ namespace WpfEncryptApp
 
                             if (width > MaxImgWidth)
                             {
-                                double ratio = MaxImgWidth / width;
-                                int newwidth = (int)MaxImgWidth;
-                                int newheight = (int)(height * ratio);
-
-                                imgsharp.Mutate(x => x.Resize(newwidth, newheight));
-
-                                desiredwidth = MaxImgWidth;
-                                desiredheight = MaxImgWidth * newheight / newwidth;
-
-                                using (var ms = new MemoryStream())
+                                int res = 20;
+                                while(desiredwidth > MaxImgWidth || desiredheight > MaxImgHeight)
                                 {
-                                    imgsharp.SaveAsPng(ms);
-                                    imgbytes = ms.ToArray();
+                                    desiredwidth = (width / res) * 72;
+                                    desiredheight = (height / res) * 72;
+                                    res += 20;
                                 }
                             }
                             else

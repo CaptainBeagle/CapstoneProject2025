@@ -22,7 +22,12 @@
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="FileTitle" Grid.Column="1" Foreground="White" FontSize="24"/>
             <TextBlock x:Name="FileSender" Grid.Column="2" Foreground="White" FontSize="16" HorizontalAlignment="Right"/>
-            <Button x:Name="Back" Margin="10" Content="Back" FontSize="20" Click="Back_Click"/>
+            <Button x:Name="Back" Margin="10" FontSize="18" Click="Back_Click">
+                <Grid>
+                    <Image Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Back.png"/>
+                    <Label Content="Back" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
             
         </Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">

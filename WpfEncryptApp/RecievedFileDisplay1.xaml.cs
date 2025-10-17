@@ -29,6 +29,7 @@ using UglyToad.PdfPig.Fonts.Type1;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using UglyToad.PdfPig.Content;
+using SixLabors.ImageSharp.Processing;
 
 namespace WpfEncryptApp
 {
@@ -99,8 +100,6 @@ namespace WpfEncryptApp
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
             //Add an if statment to determine whether finalstring is actual text for display or image data that needs to be turned into images.
-            MessageBox.Show(finalstring.ToString());
-            MessageBox.Show(IsImageData(finalstring).ToString());
             if (IsImageData(finalstring) == true)
             {
                 List<byte[]> imagebyteslist = ConvertToImgBytes(finalstring);
@@ -137,10 +136,10 @@ namespace WpfEncryptApp
             }
             try
             {
-                string[] strings = base64string.Split(separator);
+                string[] strings = base64string.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string s in strings)
                 {
-                    byte[] rawBytes = Convert.FromBase64String(base64string);
+                    byte[] rawBytes = Convert.FromBase64String(s);
 
                     bool isPng = rawBytes[0] == 0x89 &&
                          rawBytes[1] == 0x50 &&
@@ -536,13 +535,12 @@ namespace WpfEncryptApp
                     }
                 }
 
-                //Add function to extract image data from image controls if they exist.
+                //function to extract image data from image controls if they exist.
                 bool exist = DataHolder.Children.OfType<System.Windows.Controls.Image>().Any();
                 if (exist)
                 {
                     startY = page.PageSize.Height;
                     double xleft = 0;
-                    const double sizeconversion = 96.0 / 72.0;
                     bool firstimg = true;
                     //get img data from each control in DataHolder
                     foreach (var imagecon in DataHolder.Children.OfType<System.Windows.Controls.Image>())
@@ -562,13 +560,51 @@ namespace WpfEncryptApp
 
                         using (var imgsharp = SixLabors.ImageSharp.Image.Load<Rgba32>(imgbytes))
                         {
-                            
+                            //images that are resized here have low resolution, look into potential fixes
+                            //Maybe change it to recursively change the desiredwidth and desiredheight variables until they fit within the page width
+                            //int newwidth = width
+                            //int res = 10
+                            //while (newwidth > MaxImgWidth)
+                            //{
+                            //  newwidth = (newwidth / res) * 72;
+                            //}
+                            //newheight = height * (newwidth / width)
+                            //desiredwidth = newwidth;
+                            //desiredheight = newheight;
+
+                            //just directly use desiredwidth and desiredheight in while loop
+
+                            const double MaxImgWidth = 594;
+
                             int width = imgsharp.Width;
                             int height = imgsharp.Height;
 
-                            //300 is a set resolution. 72 is a conversion from the pixelwidth units to PDF points
-                            double desiredwidth = (width / 300) * 72;
-                            double desiredheight = (height / 300) * 72;
+                            double desiredwidth = width;
+                            double desiredheight = height;
+
+                            if (width > MaxImgWidth)
+                            {
+                                double ratio = MaxImgWidth / width;
+                                int newwidth = (int)MaxImgWidth;
+                                int newheight = (int)(height * ratio);
+
+                                imgsharp.Mutate(x => x.Resize(newwidth, newheight));
+
+                                desiredwidth = MaxImgWidth;
+                                desiredheight = MaxImgWidth * newheight / newwidth;
+
+                                using (var ms = new MemoryStream())
+                                {
+                                    imgsharp.SaveAsPng(ms);
+                                    imgbytes = ms.ToArray();
+                                }
+                            }
+                            else
+                            {
+                                //160 is a set resolution. 72 is a conversion from the pixelwidth units to PDF points
+                                desiredwidth = (width / 160) * 72;
+                                desiredheight = (height / 160) * 72;
+                            }
 
                             if ((startY - desiredheight - 5) < 0 && firstimg == false)
                             {

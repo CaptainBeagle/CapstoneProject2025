@@ -30,6 +30,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using UglyToad.PdfPig.Content;
 using SixLabors.ImageSharp.Processing;
+using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 
 namespace WpfEncryptApp
 {
@@ -248,6 +249,57 @@ namespace WpfEncryptApp
                             docBody.Append(p);
                         }
                         mainPart.Document.Append(docBody);
+
+                        //function to extract img data from images if they exist
+                        bool exist = DataHolder.Children.OfType<System.Windows.Controls.Image>().Any();
+                        if (exist)
+                        {
+                            foreach(var imagecon in DataHolder.Children.OfType<System.Windows.Controls.Image>())
+                            {
+                                var bitmap = imagecon.Source as BitmapSource;
+                                if (bitmap == null) { continue; }
+
+                                byte[] imgbytes;
+                                var encoder = new PngBitmapEncoder();
+                                encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+                                using (var stream = new MemoryStream())
+                                {
+                                    encoder.Save(stream);
+                                    imgbytes = stream.ToArray();
+                                }
+
+                                ImagePart imgpart = mainPart.AddImagePart(ImagePartType.Png);
+                                using (var stream = new MemoryStream(imgbytes))
+                                {
+                                    imgpart.FeedData(stream);
+                                }
+
+                                string imgid = mainPart.GetIdOfPart(imgpart);
+
+                                //get width and height of image and adjust to fit within page
+                                using (var imgsharp = SixLabors.ImageSharp.Image.Load<Rgba32>(imgbytes))
+                                {
+                                    int width = imgsharp.Width;
+                                    int height = imgsharp.Height;
+                                    int DPI = 96;
+
+                                    long imgwidth = (long)((width * 914400) / DPI);
+                                    long imgheight = (long)((height * 914400) / DPI);
+
+
+                                }
+
+                                //creating the drawing element structure (it looks scary and I appologize)
+                                //work in progress
+                                var element9 = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(
+                                    new DocumentFormat.OpenXml.Wordprocessing.Run(
+                                        new DocumentFormat.OpenXml.Wordprocessing.Drawing(
+                                            new DW.Inline(
+                                                new DW.Extent() { }
+                                                ))));
+                            }
+                        }
                     }
                     Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
                     saveFileDialog.FileName = "Document";

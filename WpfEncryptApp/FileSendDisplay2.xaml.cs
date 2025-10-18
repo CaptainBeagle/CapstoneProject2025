@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Spreadsheet;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
@@ -24,7 +25,9 @@ using UglyToad.PdfPig.DocumentLayoutAnalysis.PageSegmenter;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.ReadingOrderDetector;
 using PageSize = DocumentFormat.OpenXml.Wordprocessing.PageSize;
 using Style = DocumentFormat.OpenXml.Wordprocessing.Style;
+using Run = DocumentFormat.OpenXml.Wordprocessing.Style;
 using SixLabors.ImageSharp;
+using System.Collections;
 
 
 namespace WpfEncryptApp
@@ -47,7 +50,7 @@ namespace WpfEncryptApp
             set { Userid = value; }
         }
         //extracts text from docx files
-        public static string ExtractTextFromDocx(string Path)
+        public string ExtractTextFromDocx(string Path)
         {
             if (!File.Exists(Path))
             {
@@ -264,6 +267,47 @@ namespace WpfEncryptApp
                         textBuilder.AppendLine();
                     }
 
+                    //add logic to extract images (only run if no content in textBuilder.ToString()
+                    if(string.IsNullOrWhiteSpace(textBuilder.ToString()))
+                    {
+                        var docimgs = new List<byte[]>();
+                        var imgs = mainPart.Document.Descendants<DocumentFormat.OpenXml.Drawing.Wordprocessing.Inline>();
+
+                        foreach (var img in imgs)
+                        {
+                            Blip blip = img.Descendants<Blip>().FirstOrDefault();
+
+                            if(blip.Embed?.Value != null)
+                            {
+                                string embedID = blip.Embed.Value;
+
+                                ImagePart imgpart = (ImagePart)mainPart.GetPartById(embedID);
+
+                                if(imgpart != null)
+                                {
+                                    using(Stream stream = imgpart.GetStream())
+                                    {
+                                        docimgs.Add(ReadStreamFully(stream));
+                                    }
+                                }
+                            }
+                        }
+                        foreach (byte[] imagebytes in docimgs)
+                        {
+                            var image = new BitmapImage();
+                            using (var ms = new MemoryStream(imagebytes))
+                            {
+                                image.BeginInit();
+                                image.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+                                image.StreamSource = ms;
+                                image.EndInit();
+                                image.Freeze();
+                            }
+                            var imagecontrol = new System.Windows.Controls.Image();
+                            imagecontrol.Source = image;
+                            DataHolder.Children.Add(imagecontrol);
+                        }
+                    }
                     return textBuilder.ToString();
                 }
             }
@@ -271,6 +315,20 @@ namespace WpfEncryptApp
             {
                 MessageBox.Show(ex.Message);
                 return string.Empty;
+            }
+        }
+
+        private static byte[] ReadStreamFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
             }
         }
 
@@ -372,7 +430,6 @@ namespace WpfEncryptApp
         {
             if (cell.CellValue == null)
             {
-                //return '\t'.ToString();
                 return string.Empty;
             }
 
@@ -421,29 +478,22 @@ namespace WpfEncryptApp
                             {
                                 if (string.IsNullOrWhiteSpace(candidate.Value))
                                 {
-                                    // pivot and candidate letters cannot belong to the same word 
-                                    // if candidate letter is null or white space.
-                                    // ('FilterPivot' already checks if the pivot is null or white space by default)
                                     return false;
                                 }
 
-                                // check for height difference
+                                //check for height difference
                                 var maxHeight = Math.Max(pivot.PointSize, candidate.PointSize);
                                 var minHeight = Math.Min(pivot.PointSize, candidate.PointSize);
                                 if (minHeight != 0 && maxHeight / minHeight > 1.5)
                                 {
-                                    // pivot and candidate letters cannot belong to the same word 
-                                    // if one letter is more than twice the size of the other.
                                     return false;
                                 }
 
-                                // check for colour difference
+                                //check for colour difference
                                 var pivotRgb = pivot.Color.ToRGBValues();
                                 var candidateRgb = candidate.Color.ToRGBValues();
                                 if (!pivotRgb.Equals(candidateRgb))
                                 {
-                                    // pivot and candidate letters cannot belong to the same word 
-                                    // if they don't have the same colour.
                                     return false;
                                 }
 
@@ -582,12 +632,11 @@ namespace WpfEncryptApp
 
                         if (string.IsNullOrEmpty(result.ToString()))
                         {
-                            //Find a way to include it in the content of the file to be encrypted, stored, and displayed
                             List<byte[]> imagelist = ExtractImagesFromPDF(path);
                             foreach (byte[] image in imagelist)
                             {
                                 //create a bitmap image and image control for each image in the pdf
-                                var bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+                                var bitmapImage = new BitmapImage();
                                 using (var ms = new MemoryStream(image))
                                 {
                                     bitmapImage.BeginInit();
@@ -768,9 +817,10 @@ namespace WpfEncryptApp
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
+                        string ID = "";
                         while (reader.Read())
                         {
-                            string ID = reader.GetString(0);
+                            ID = reader.GetString(0);
                             if (ID != null && ID != LoginPage.Userid)
                             {
                                 if (!string.IsNullOrEmpty(Content.Text) && exist == false)
@@ -796,10 +846,10 @@ namespace WpfEncryptApp
                             {
                                 MessageBox.Show("Cannot send file to yourself.");
                             }
-                            else
-                            {
-                                MessageBox.Show("Invalid User Credentials. Check for typos");
-                            }
+                        }
+                        if (string.IsNullOrEmpty(ID))
+                        {
+                            MessageBox.Show("Invalid User Credentials. Check for typos");
                         }
                     }
                 }

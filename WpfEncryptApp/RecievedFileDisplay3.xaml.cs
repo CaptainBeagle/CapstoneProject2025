@@ -246,7 +246,10 @@ namespace WpfEncryptApp
                             t.Space = SpaceProcessingModeValues.Preserve;
                             r.Append(t);
                             p.Append(r);
-                            docBody.Append(p);
+                            if(!string.IsNullOrWhiteSpace(line))
+                            {
+                                docBody.Append(p);
+                            }
                         }
                         mainPart.Document.Append(docBody);
 
@@ -280,24 +283,80 @@ namespace WpfEncryptApp
                                 //get width and height of image and adjust to fit within page
                                 using (var imgsharp = SixLabors.ImageSharp.Image.Load<Rgba32>(imgbytes))
                                 {
+                                    long maxpagewidth = 5943600;    //assuming a usable width of 6 inches
                                     int width = imgsharp.Width;
                                     int height = imgsharp.Height;
                                     int DPI = 96;
 
-                                    long imgwidth = (long)((width * 914400) / DPI);
-                                    long imgheight = (long)((height * 914400) / DPI);
+                                    double imgwidth = ((width * 914400) / DPI);
+                                    double imgheight = ((height * 914400) / DPI);
 
+                                    if (imgwidth > maxpagewidth)
+                                    {
+                                        double scale = ((double)maxpagewidth) / imgwidth;
+                                        imgwidth = (double)maxpagewidth;
+                                        imgheight = imgheight * scale;
+                                    }
 
-                                }
+                                    long finalwidth = (long)Math.Round(imgwidth);
+                                    long finalheight = (long)Math.Round(imgheight);
 
-                                //creating the drawing element structure (it looks scary and I appologize)
-                                //work in progress
-                                var element9 = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(
+                                    //creating the drawing element structure for the image (it looks scary and I appologize)
+                                    var element = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(
                                     new DocumentFormat.OpenXml.Wordprocessing.Run(
                                         new DocumentFormat.OpenXml.Wordprocessing.Drawing(
                                             new DW.Inline(
-                                                new DW.Extent() { }
-                                                ))));
+                                                new DW.Extent() { Cx = finalwidth, Cy = finalheight},
+                                                new DW.EffectExtent()
+                                                {
+                                                    LeftEdge = 0L,
+                                                    TopEdge = 0L,
+                                                    RightEdge = 0L,
+                                                    BottomEdge = 0L
+                                                },
+                                                new DW.DocProperties()
+                                                {
+                                                    Id = (UInt32Value)1U,
+                                                    Name = "Image"
+                                                },
+                                                new DW.NonVisualGraphicFrameDrawingProperties(),
+                                                new Graphic(
+                                                    new GraphicData(
+                                                        new DocumentFormat.OpenXml.Drawing.Pictures.Picture(
+                                                            new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureProperties(
+                                                                new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualDrawingProperties()
+                                                                {
+                                                                    Id = (UInt32Value)0U,
+                                                                    Name = "Image.png"
+                                                                },
+                                                                new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureDrawingProperties(new GraphicFrameLocks() { NoChangeAspect = true})),
+                                                                new DocumentFormat.OpenXml.Drawing.Pictures.BlipFill(
+                                                                    new Blip(
+                                                                        new BlipExtensionList(
+                                                                            new BlipExtension()
+                                                                            {
+                                                                                Uri = "{28A0092B-C50C-408E-A602-E8E7D1CE5AA8}"
+                                                                            }
+                                                                            ))
+                                                                    { Embed = imgid, CompressionState = BlipCompressionValues.Print},
+                                                                    new DocumentFormat.OpenXml.Drawing.Stretch(new FillRectangle())),
+                                                                new DocumentFormat.OpenXml.Drawing.Pictures.ShapeProperties(
+                                                                    new Transform2D(
+                                                                        new Offset() { X = 0L, Y = 0L},
+                                                                        new Extents() { Cx = finalwidth, Cy = finalheight}),
+                                                                    new PresetGeometry(new AdjustValueList()) { Preset = ShapeTypeValues.Rectangle}))
+                                                                        )
+                                                    { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+                                                            )
+                                            {
+                                                DistanceFromTop = (UInt32Value)0U,
+                                                DistanceFromBottom = (UInt32Value)0U,
+                                                DistanceFromLeft = (UInt32Value)0U,
+                                                DistanceFromRight = (UInt32Value)0U,
+                                                EditId = "50D07946"
+                                            })));
+                                    docBody.Append(element);
+                                }
                             }
                         }
                     }

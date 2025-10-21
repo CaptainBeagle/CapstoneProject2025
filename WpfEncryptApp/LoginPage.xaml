@@ -5,10 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfEncryptApp"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="460" d:DesignWidth="800"
       Title="LoginPage">
-
-    <Grid Background="#FF3C3B3B">
+    <Viewbox>
+        <Grid Background="#FF3C3B3B" Height="460" Width="800">
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
             <RowDefinition Height="75"/>
@@ -20,7 +20,7 @@
             <RowDefinition Height="80"/>
 
         </Grid.RowDefinitions>
-        <Image x:Name="MainIcon" Grid.Row="0" HorizontalAlignment="Left" Width="70" Height="70" Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Lock.png" Margin="131,0,0,0"/>
+        <Image x:Name="MainIcon" Grid.Row="0" HorizontalAlignment="Left" Width="70" Height="70" Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Lock.png" Margin="94,2,0,3" RenderTransformOrigin="-0.447,0.52"/>
         <TextBlock x:Name="Label" Text="Encryption App" Grid.Row="0" FontSize="48" Foreground="#8900b5" HorizontalAlignment="Center" Margin="0,0,0,10" TextWrapping="WrapWithOverflow" Width="378" FontFamily="Segoe UI Black"/>
         <TextBlock x:Name="UserLabel" Grid.Row="1" Text="Username" FontSize="24" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="106"/>
         <TextBlock x:Name="PassLabel" Grid.Row="3" Text="Password" FontSize="24" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100"/>
@@ -29,4 +29,5 @@
         <TextBlock x:Name="ErrorMsg" Text="Incorrect username or password" Grid.Row="5" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Width="260" Foreground="#FFFFA6A6"/>
         <Button x:Name="Submit" Grid.Row="7" Content="Sign In" FontSize="25" Click="SignIn" Margin="309,0,327,40"/>
     </Grid>
+    </Viewbox>
 </Page>

@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using AWS.Cryptography.EncryptionSDK;
 using AWS.Cryptography.MaterialProviders;
 using DocumentFormat.OpenXml.Packaging;
@@ -20,23 +11,17 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.Win32;
-using UglyToad.PdfPig;
 using UglyToad.PdfPig.Writer;
-using K4os.Compression.LZ4.Internal;
 using DocumentFormat.OpenXml.Drawing;
 using UglyToad.PdfPig.Core;
-using UglyToad.PdfPig.Fonts.Type1;
-using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using UglyToad.PdfPig.Content;
-using SixLabors.ImageSharp.Processing;
 using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 
 namespace WpfEncryptApp
 {
-    /// <summary>
-    /// Interaction logic for RecievedFileDisplay.xaml
-    /// </summary>
+    //The frame that opens when the user clicks on a RecNotif control.
+    //Decrypts and displays file content.
+    //Allows user to export content to a new file on their coputer.
     public partial class RecievedFileDisplay : System.Windows.Controls.Page
     {
         public RecievedFileDisplay(MemoryStream data, string sender, string title)
@@ -57,11 +42,11 @@ namespace WpfEncryptApp
             var esdk = new ESDK(new AwsEncryptionSdkConfig());
             var mpl = new MaterialProviders(new MaterialProvidersConfig());
 
-            var keyNameSpace = "KeyNS01";   //These values are important identifiers for the encryption key. These same values must be used to generate a corresponding key for decryption.
+            var keyNameSpace = "KeyNS01";
             var keyName = "Key01";
 
             string privatekeypath = "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\private_key.pem";
-            byte[] rawprivatekey = System.IO.File.ReadAllBytes(privatekeypath); //getting data from private key file
+            byte[] rawprivatekey = File.ReadAllBytes(privatekeypath); //getting data from private key file
 
             var encryptionContext = new Dictionary<string, string>()
             {
@@ -91,7 +76,7 @@ namespace WpfEncryptApp
             try
             {
                 var decryptOutput = esdk.Decrypt(decryptInput);
-                using (MemoryStream plaintextStream = (MemoryStream)decryptOutput.Plaintext)    //separating the decrypted message to be displayed in the MainWindow
+                using (MemoryStream plaintextStream = decryptOutput.Plaintext)    //separating the decrypted message to be displayed in the MainWindow
                 {
                     byte[] plaintextBytes = plaintextStream.ToArray();
                     string decryptedString = Encoding.UTF8.GetString(plaintextBytes);
@@ -106,11 +91,11 @@ namespace WpfEncryptApp
                 List<byte[]> imagebyteslist = ConvertToImgBytes(finalstring);
                 foreach (var imagebytes in imagebyteslist)
                 {
-                    var bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+                    var bitmapImage = new BitmapImage();
                     using (var ms = new MemoryStream(imagebytes))
                     {
                         bitmapImage.BeginInit();
-                        bitmapImage.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                         bitmapImage.StreamSource = ms;
                         bitmapImage.EndInit();
                         bitmapImage.Freeze();
@@ -360,7 +345,7 @@ namespace WpfEncryptApp
                             }
                         }
                     }
-                    Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
                     saveFileDialog.FileName = "Document";
                     saveFileDialog.DefaultExt = ".docx";
                     saveFileDialog.Filter = "Word documents (.docx)|*.docx";
@@ -576,7 +561,7 @@ namespace WpfEncryptApp
                         continue;
                     }
 
-                    position = new UglyToad.PdfPig.Core.PdfPoint(startX, startY);
+                    position = new PdfPoint(startX, startY);
 
                     string[] words = line.Split(' ');
 
@@ -620,7 +605,7 @@ namespace WpfEncryptApp
                                 page = builder.AddPage(UglyToad.PdfPig.Content.PageSize.A4);
                             }
 
-                            position = new UglyToad.PdfPig.Core.PdfPoint(startX, startY);
+                            position = new PdfPoint(startX, startY);
                             page.AddText(ReLine, fontsize, position, font);
                             startY -= linespacing;
                             ReLine = word;
@@ -640,7 +625,7 @@ namespace WpfEncryptApp
 
                             page = builder.AddPage(UglyToad.PdfPig.Content.PageSize.A4);
                         }
-                        position = new UglyToad.PdfPig.Core.PdfPoint(startX, startY);
+                        position = new PdfPoint(startX, startY);
                         page.AddText(ReLine, fontsize, position, font);
                         startY -= linespacing;
                     }

@@ -1,40 +1,25 @@
 ﻿using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Spreadsheet;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
 using UglyToad.PdfPig;
-using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.WordExtractor;
 using UglyToad.PdfPig.Content;
-using UglyToad.PdfPig.DocumentLayoutAnalysis.PageSegmenter;
-using UglyToad.PdfPig.DocumentLayoutAnalysis.ReadingOrderDetector;
 using PageSize = DocumentFormat.OpenXml.Wordprocessing.PageSize;
 using Style = DocumentFormat.OpenXml.Wordprocessing.Style;
-using Run = DocumentFormat.OpenXml.Wordprocessing.Style;
 using SixLabors.ImageSharp;
-using System.Collections;
 
 
 namespace WpfEncryptApp
 {
-    /// <summary>
-    /// Interaction logic for FileSendDisplay.xaml
-    /// </summary>
+    //Window that opens and displays the content of the file the user selected. The user is given the option to send the file to another user here.
     public partial class FileSendDisplay : Window
     {
         private static string dataContent;
@@ -220,7 +205,7 @@ namespace WpfEncryptApp
                                 if (numinst?.AbstractNumId?.Val != null)
                                 {
                                     var abstractnum = numberingPart.Numbering.Elements<AbstractNum>().FirstOrDefault(a => a.AbstractNumberId?.Value == numinst.AbstractNumId?.Val?.Value);
-                                    var level = abstractnum?.Elements<DocumentFormat.OpenXml.Wordprocessing.Level>().FirstOrDefault(l => l.LevelIndex?.Value == lvl.Val.Value);
+                                    var level = abstractnum?.Elements<Level>().FirstOrDefault(l => l.LevelIndex?.Value == lvl.Val.Value);
 
                                     if (level?.LevelText?.Val != null)
                                     {
@@ -298,7 +283,7 @@ namespace WpfEncryptApp
                             using (var ms = new MemoryStream(imagebytes))
                             {
                                 image.BeginInit();
-                                image.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+                                image.CacheOption = BitmapCacheOption.OnLoad;
                                 image.StreamSource = ms;
                                 image.EndInit();
                                 image.Freeze();
@@ -533,7 +518,6 @@ namespace WpfEncryptApp
                         var lineGaps = new List<double>();
                         for (int i = 0; i < allMedians.Count - 1; i++)
                         {
-                            //Only calculate gap if the difference is significant (i.e., not words on the same line)
                             double gap = allMedians[i] - allMedians[i + 1];
                             if (gap > 1.0)
                             {
@@ -550,7 +534,7 @@ namespace WpfEncryptApp
                         //Use the key of the largest group, or a safe default like 12.0m (a common PDF font size/line height)
                         double fixedLineHeight = dominantLineHeightGroup?.Key ?? 12.0;
 
-                        //Sanity check: ensure it's a positive number
+                        //ensure it's a positive number
                         if (fixedLineHeight < 5.0) fixedLineHeight = 12.0;
 
                         
@@ -640,7 +624,7 @@ namespace WpfEncryptApp
                                 using (var ms = new MemoryStream(image))
                                 {
                                     bitmapImage.BeginInit();
-                                    bitmapImage.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+                                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                                     bitmapImage.StreamSource = ms;
                                     bitmapImage.EndInit();
                                     bitmapImage.Freeze();

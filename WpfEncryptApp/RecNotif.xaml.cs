@@ -1,26 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DocumentFormat.OpenXml.Office2016.Drawing.Command;
 using MySql.Data.MySqlClient;
 
 namespace WpfEncryptApp
 {
-    /// <summary>
-    /// Interaction logic for RecNotif.xaml
-    /// </summary>
+    //The visual display of a file on the home and sent files pages.
+    //Contains the file name and sender/reciever name
     public partial class RecNotif : UserControl
     {
         public System.IO.MemoryStream M;
@@ -54,7 +43,7 @@ namespace WpfEncryptApp
             FileName.Text = Title;
             //query to find name using Sender
             string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
-            MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+            MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
             string query = "SELECT FirstName, LastName FROM users WHERE UserID = @Sender";
             using (MySqlCommand command = new MySqlCommand(query, connection))
@@ -88,7 +77,8 @@ namespace WpfEncryptApp
                 BitmapImage BitmapIcon = new BitmapImage();
                 BitmapIcon.BeginInit();
                 Icon.Width = BitmapIcon.DecodePixelWidth = 65;
-                BitmapIcon.UriSource = new Uri("C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Icons\\Word.png");
+                var fullpath = Path.GetFullPath("Icons/Word.png");
+                BitmapIcon.UriSource = new Uri(fullpath, UriKind.Absolute);
                 BitmapIcon.EndInit();
                 Icon.Source = BitmapIcon;
                 
@@ -98,7 +88,8 @@ namespace WpfEncryptApp
                 BitmapImage BitmapIcon = new BitmapImage();
                 BitmapIcon.BeginInit();
                 Icon.Width = BitmapIcon.DecodePixelWidth = 65;
-                BitmapIcon.UriSource = new Uri("C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Icons\\Excel.png");
+                var fullpath = Path.GetFullPath("Icons/Excel.png");
+                BitmapIcon.UriSource = new Uri(fullpath, UriKind.Absolute);
                 BitmapIcon.EndInit();
                 Icon.Source = BitmapIcon;
             }
@@ -111,7 +102,8 @@ namespace WpfEncryptApp
                 BitmapImage BitmapIcon = new BitmapImage();
                 BitmapIcon.BeginInit();
                 Icon.Width = BitmapIcon.DecodePixelWidth = 65;
-                BitmapIcon.UriSource = new Uri("C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\Icons\\PDF.png");
+                var fullpath = Path.GetFullPath("Icons/PDF.png");
+                BitmapIcon.UriSource = new Uri(fullpath, UriKind.Absolute);
                 BitmapIcon.EndInit();
                 Icon.Source = BitmapIcon;
             }

@@ -1,32 +1,16 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Printing;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Microsoft.Win32;
 using System.IO;
 using AWS.Cryptography.EncryptionSDK;
 using AWS.Cryptography.MaterialProviders;
-using System.Reflection;
 
 namespace WpfEncryptApp
 {
-    /// <summary>
-    /// Interaction logic for Home.xaml
-    /// </summary>
+    //First page user sees after logging in
     public partial class Home : Page
     {
         public static string filename;
@@ -40,7 +24,7 @@ namespace WpfEncryptApp
             InitializeComponent();
             string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";    //Database credentials. If this were meant to be put into production,
                                                                                                     //a secure password would be set up along with other security measures.
-            MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);   //setting up the connection
+            MySqlConnection connection = new MySqlConnection(connectionString);   //setting up the connection
             connection.Open();  //opening the connection
             //Grab user data from database using public string Userid
             string query = "SELECT FirstName, LastName FROM users WHERE UserID = @Userid";
@@ -113,10 +97,10 @@ namespace WpfEncryptApp
                     var keyName = "Key01";
 
                     //If in production, a key management service like AWS KMS should be used to generate and store keys.
-                    //Unfortunately, I am broke and cannot aford AWS KMS. So I will be generating the public and private keys in the program to prototype the application.
-
-                    string publickeypath = "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\public_key.pem";
-                    byte[] rawpublickey = System.IO.File.ReadAllBytes(publickeypath);   //getting data from private key file
+                    //Unfortunately, I am broke and cannot aford AWS KMS. So I have generated the public and private keys in OpenSSL.
+                    string publickeypath = "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\public_key.pem";    //All files in this project should ideally use relative file paths.
+                                                                                                                                                        //I had to make them absolute file paths because the app/Visual Studio could not find the files otherwise.
+                    byte[] rawpublickey = File.ReadAllBytes(publickeypath);   //getting data from private key file
 
 
                     var encryptKeyringInput = new CreateRawRsaKeyringInput
@@ -136,7 +120,7 @@ namespace WpfEncryptApp
                         {"purpose", "Send Message"}
                     };
                     byte[] Transfer = Encoding.UTF8.GetBytes(FileSendDisplay.Data);    //Transfering string data into a byte array to be put into a MemoryStream to be accepted by the function. It hopefully works.
-                    MemoryStream message = new(Transfer);                               //This solution is brought to you by the lovely users at stackoverflow.
+                    MemoryStream message = new(Transfer);                              //This solution is brought to you by the lovely users at stackoverflow.
                     
                     //Define the encrypt input object
                     var encryptInput = new EncryptInput
@@ -156,7 +140,7 @@ namespace WpfEncryptApp
 
                     //send to recipient/add to DB
                     string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
-                    MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+                    MySqlConnection connection = new MySqlConnection(connectionString);
                     connection.Open();
                     string insert = "INSERT INTO files (IDNum, RecID, Message, SendID, FileName) VALUES (NULL, @rec, @msg, @send, @fn)";
                     string rec = FileSendDisplay.uID;
@@ -188,7 +172,7 @@ namespace WpfEncryptApp
         {
             //recieve data from files table that has RecID the same as Login UID
             string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
-            MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+            MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
             string query = "SELECT Message, SendID, FileName FROM files WHERE RecID = @LoginID";
             string LoginID = LoginPage.Userid;
@@ -257,12 +241,12 @@ namespace WpfEncryptApp
         {
             if (DarkLight == true)
             {
-                HomeGrid.Background = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
+                HomeGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
                 Welcome.Foreground = new SolidColorBrush(Colors.White);
                 NewF.Foreground = new SolidColorBrush(Colors.White);
                 Add.Foreground = new SolidColorBrush(Colors.White);
                 Add.BorderBrush = new SolidColorBrush(Colors.White);
-                Add.Background = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
+                Add.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C3B3B"));
                 Notice.Foreground = new SolidColorBrush(Colors.White);
                 Inbox.Foreground = new SolidColorBrush(Colors.White);
                 Labels.Foreground = new SolidColorBrush(Colors.White);

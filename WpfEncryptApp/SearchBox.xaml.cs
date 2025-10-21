@@ -1,25 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace WpfEncryptApp
 {
-    /// <summary>
-    /// Interaction logic for SearchBox.xaml
-    /// </summary>
+    //The text box that the user is searching for other users in
     public partial class SearchBox : UserControl
     {
         public static DependencyProperty SearchTextProperty =
@@ -49,12 +33,6 @@ namespace WpfEncryptApp
         {
             SearchBox searchBox = (SearchBox)d;
             searchBox.RaiseEvent(new RoutedEventArgs(SearchTextChangedEvent));
-        }
-
-        public void ActiveSearch(object sender, EventArgs e)
-        {
-            
-            //RaiseEvent(new RoutedEventArgs(SearchButtonClickEvent));
         }
     }
 }

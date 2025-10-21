@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 
 namespace WpfEncryptApp
 {
-    /// <summary>
-    /// Interaction logic for Options.xaml
-    /// </summary>
+    //Options page. Has options to change visual appearance of app, change password, and log out.
     public partial class Options : Page
     {
         public Options()
@@ -49,7 +37,7 @@ namespace WpfEncryptApp
         {
             //database call to alter password data in record with loginpage.userid
             string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
-            MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+            MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
             string update = "UPDATE users SET Password = @pass WHERE users.UserID = @ID";
 
@@ -75,7 +63,7 @@ namespace WpfEncryptApp
             //Switch state uppon clicking and update text on button as well as appearance of everything.
             //Update entry in AccountSetting table in DB corresponding to User ID.
             string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
-            MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+            MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
             string update = "UPDATE accountinfo SET Theme = @theme WHERE accountinfo.AccID = @ID";
             using (MySqlCommand command = new MySqlCommand(update, connection))

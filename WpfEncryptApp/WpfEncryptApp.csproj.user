@@ -22,7 +22,7 @@
     <Compile Update="Options3.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="RecievedFileDisplay3.xaml.cs">
+    <Compile Update="RecievedFileDisplay4.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RecNotif.xaml.cs">

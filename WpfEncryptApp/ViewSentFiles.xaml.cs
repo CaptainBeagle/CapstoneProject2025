@@ -1,26 +1,13 @@
 ﻿using MySql.Data.MySqlClient;
-using software.amazon.cryptography.services.dynamodb.internaldafny.types;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WpfEncryptApp
 {
-    /// <summary>
-    /// Interaction logic for ViewSentFiles.xaml
-    /// </summary>
+    //Page to view the files that the user sent to other users.
     public partial class ViewSentFiles : Page
     {
         public string UsableName;
@@ -61,7 +48,7 @@ namespace WpfEncryptApp
         {
             //recieve data from files table that has SendID the same as Login UID
             string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
-            MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+            MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
             string query = "SELECT Message, RecID, FileName FROM files WHERE SendID = @LoginID";
             string LoginID = LoginPage.Userid;
@@ -76,7 +63,6 @@ namespace WpfEncryptApp
                     MySqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        //find a way to dynamically find an encrpyted document's name
                         RecID = reader["RecID"].ToString();
                         byte[] encryptedBytes = (byte[])reader["Message"];
                         UsableName = reader["FileName"].ToString();

@@ -1,24 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+﻿using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using DocumentFormat.OpenXml.Drawing;
 using MySql.Data.MySqlClient;
 
 namespace WpfEncryptApp
 {
-    /// <summary>
-    /// Interaction logic for NewPassword.xaml
-    /// </summary>
+    //Window where user can enter new password.
     public partial class NewPassword : Window
     {
         public string npassword = "";
@@ -46,7 +32,7 @@ namespace WpfEncryptApp
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
             string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";
-            MySql.Data.MySqlClient.MySqlConnection connection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+            MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
             string query = "SELECT Password FROM users WHERE UserID = @ID";
             using (MySqlCommand command = new MySqlCommand(query, connection))

@@ -30,7 +30,7 @@
             <TextBlock x:Name="NewF" Text="Send New File" Grid.Row="1" Grid.Column="1" FontSize="20" Foreground="White" Grid.ColumnSpan="2" Margin="5, 0, 0, 0"/>
             <Button x:Name="Add" Click ="Add_Click" Grid.Row="2" Grid.Column="1" FontSize="40" Margin="5,0,537,0" Style="{StaticResource SpecialButtonHoverStyle}">
                 <StackPanel>
-                    <Image Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Send.png" Width="100"/>
+                    <Image x:Name="Aimg" Source="Icons/Send.png" Width="100"/>
                 </StackPanel>
             </Button>
             <TextBlock x:Name="Notice" Text="Only accepts txt, docx, xlsx, pdf" Grid.Row="2" Grid.Column="1" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Height="61" Width="189" Margin="206,0,0,0" TextWrapping="WrapWithOverflow"/>
@@ -49,7 +49,7 @@
                 </Grid.RowDefinitions>
                 <Button x:Name="H" Grid.Column="0" FontSize="20" Grid.Row="0">
                     <StackPanel>
-                        <Image Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Home.png" Width="80"/>
+                        <Image x:Name="Himg" Source="Icons/Home.png" Width="80"/>
                         <Label Content="Home" HorizontalAlignment="Center">
                             <Label.Style>
                                 <Style TargetType="Label">
@@ -68,7 +68,7 @@
                 </Button>
                 <Button x:Name="S" Grid.Column="0" FontSize="20" Grid.Row="1" Click="S_Click">
                     <StackPanel>
-                        <Image Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Mail.png" Width="80"/>
+                        <Image x:Name="Mimg" Source="Icons/Mail.png" Width="80"/>
                         <Label Content="Sent Files" HorizontalAlignment="Center">
                             <Label.Style>
                                 <Style TargetType="Label">
@@ -87,7 +87,7 @@
                 </Button>
                 <Button x:Name="O" Grid.Column="0" FontSize="20" Grid.Row="2" Click="O_Click">
                     <StackPanel>
-                        <Image Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Options.png" Width="80"/>
+                        <Image x:Name="Oimg" Source="Icons\Options.png" Width="80"/>
                         <Label Content="Options" HorizontalAlignment="Center">
                             <Label.Style>
                                 <Style TargetType="Label">

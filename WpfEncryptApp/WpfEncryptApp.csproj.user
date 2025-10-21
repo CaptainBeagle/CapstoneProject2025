@@ -10,7 +10,7 @@
     <Compile Update="FileSendDisplay2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Home2.xaml.cs">
+    <Compile Update="Home3.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="LoginPage.xaml.cs">

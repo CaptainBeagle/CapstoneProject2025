@@ -42,7 +42,7 @@
                 </Grid.RowDefinitions>
                 <Button x:Name="H" Grid.Column="0" FontSize="20" Grid.Row="0" Click="H_Click">
                     <StackPanel>
-                        <Image Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Home.png" Width="80"/>
+                        <Image x:Name="Himg" Source="Icons/Home.png" Width="80"/>
                         <Label Content="Home" HorizontalAlignment="Center">
                             <Label.Style>
                                 <Style TargetType="Label">
@@ -61,7 +61,7 @@
                 </Button>
                 <Button x:Name="S" Grid.Column="0" FontSize="20" Grid.Row="1">
                     <StackPanel>
-                        <Image Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Mail.png" Width="80"/>
+                        <Image x:Name="Mimg" Source="Icons\Mail.png" Width="80"/>
                         <Label Content="Sent Files" HorizontalAlignment="Center">
                             <Label.Style>
                                 <Style TargetType="Label">
@@ -80,7 +80,7 @@
                 </Button>
                 <Button x:Name="O" Grid.Column="0" FontSize="20" Grid.Row="2" Click="O_Click">
                     <StackPanel>
-                        <Image Source="C:\Users\Rhian\OneDrive\Desktop\GitRepository\CapstoneProject2025\WpfEncryptApp\Icons\Options.png" Width="80"/>
+                        <Image x:Name="Oimg" Source="Icons\Options.png" Width="80"/>
                         <Label Content="Options" HorizontalAlignment="Center">
                             <Label.Style>
                                 <Style TargetType="Label">

@@ -7,6 +7,7 @@ using System.Windows.Navigation;
 using System.IO;
 using AWS.Cryptography.EncryptionSDK;
 using AWS.Cryptography.MaterialProviders;
+using System.Windows.Media.Imaging;
 
 namespace WpfEncryptApp
 {
@@ -22,6 +23,35 @@ namespace WpfEncryptApp
         public Home()
         {
             InitializeComponent();
+            //Programatically setting the file paths so it should work on a different computer 
+            BitmapImage BitmapIcon = new BitmapImage();
+            BitmapIcon.BeginInit();
+            var fullpath1 = Path.GetFullPath("Icons/Send.png");
+            BitmapIcon.UriSource = new Uri(fullpath1, UriKind.Absolute);
+            BitmapIcon.EndInit();
+            Aimg.Source = BitmapIcon;
+
+            BitmapImage BitmapIcon2 = new BitmapImage();
+            BitmapIcon2.BeginInit();
+            var fullpath2 = Path.GetFullPath("Icons/Home.png");
+            BitmapIcon2.UriSource = new Uri(fullpath2, UriKind.Absolute);
+            BitmapIcon2.EndInit();
+            Himg.Source = BitmapIcon2;
+
+            BitmapImage BitmapIcon3 = new BitmapImage();
+            BitmapIcon3.BeginInit();
+            var fullpath3 = Path.GetFullPath("Icons/Mail.png");
+            BitmapIcon3.UriSource = new Uri(fullpath3, UriKind.Absolute);
+            BitmapIcon3.EndInit();
+            Mimg.Source = BitmapIcon3;
+
+            BitmapImage BitmapIcon4 = new BitmapImage();
+            BitmapIcon4.BeginInit();
+            var fullpath4 = Path.GetFullPath("Icons/Options.png");
+            BitmapIcon4.UriSource = new Uri(fullpath4, UriKind.Absolute);
+            BitmapIcon4.EndInit();
+            Oimg.Source = BitmapIcon4;
+
             string connectionString = "Server=localhost;Database=capstoneprojdb;Uid=root;Pwd=;";    //Database credentials. If this were meant to be put into production,
                                                                                                     //a secure password would be set up along with other security measures.
             MySqlConnection connection = new MySqlConnection(connectionString);   //setting up the connection
@@ -98,8 +128,9 @@ namespace WpfEncryptApp
 
                     //If in production, a key management service like AWS KMS should be used to generate and store keys.
                     //Unfortunately, I am broke and cannot aford AWS KMS. So I have generated the public and private keys in OpenSSL.
-                    string publickeypath = "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\public_key.pem";    //All files in this project should ideally use relative file paths.
-                                                                                                                                                        //I had to make them absolute file paths because the app/Visual Studio could not find the files otherwise.
+                    string fullpublicpath = Path.GetFullPath("public_key.pem");
+                    string publickeypath = fullpublicpath;    //All files in this project should be accessible through methods to get their absolute file paths
+
                     byte[] rawpublickey = File.ReadAllBytes(publickeypath);   //getting data from private key file
 
 

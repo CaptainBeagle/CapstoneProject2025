@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using MySql.Data.MySqlClient;
 
@@ -23,6 +25,13 @@ namespace WpfEncryptApp
         {
             InitializeComponent();
             ErrorMsg.Visibility = Visibility.Collapsed;
+            //Programatically setting the file path so it should hopefully work on a different computer
+            BitmapImage BitmapIcon = new BitmapImage();
+            BitmapIcon.BeginInit();
+            var fullpath = Path.GetFullPath("Icons/Lock.png");
+            BitmapIcon.UriSource = new Uri(fullpath, UriKind.Absolute);
+            BitmapIcon.EndInit();
+            MainIcon.Source = BitmapIcon;
         }
 
         private void SignIn(object sender, EventArgs e)

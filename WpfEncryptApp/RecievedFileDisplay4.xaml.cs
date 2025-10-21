@@ -45,7 +45,8 @@ namespace WpfEncryptApp
             var keyNameSpace = "KeyNS01";
             var keyName = "Key01";
 
-            string privatekeypath = "C:\\Users\\Rhian\\OneDrive\\Desktop\\GitRepository\\CapstoneProject2025\\WpfEncryptApp\\private_key.pem";
+            string fullprivatepath = System.IO.Path.GetFullPath("private_key.pem");
+            string privatekeypath = fullprivatepath;
             byte[] rawprivatekey = File.ReadAllBytes(privatekeypath); //getting data from private key file
 
             var encryptionContext = new Dictionary<string, string>()

@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
 namespace WpfEncryptApp
@@ -28,6 +29,27 @@ namespace WpfEncryptApp
                 Welcome.Foreground = new SolidColorBrush(Colors.Black);
                 Labels.Foreground = new SolidColorBrush(Colors.Black);
             }
+            //Programatically setting the file paths so it should work on a different computer 
+            BitmapImage BitmapIcon2 = new BitmapImage();
+            BitmapIcon2.BeginInit();
+            var fullpath2 = Path.GetFullPath("Icons/Home.png");
+            BitmapIcon2.UriSource = new Uri(fullpath2, UriKind.Absolute);
+            BitmapIcon2.EndInit();
+            Himg.Source = BitmapIcon2;
+
+            BitmapImage BitmapIcon3 = new BitmapImage();
+            BitmapIcon3.BeginInit();
+            var fullpath3 = Path.GetFullPath("Icons/Mail.png");
+            BitmapIcon3.UriSource = new Uri(fullpath3, UriKind.Absolute);
+            BitmapIcon3.EndInit();
+            Mimg.Source = BitmapIcon3;
+
+            BitmapImage BitmapIcon4 = new BitmapImage();
+            BitmapIcon4.BeginInit();
+            var fullpath4 = Path.GetFullPath("Icons/Options.png");
+            BitmapIcon4.UriSource = new Uri(fullpath4, UriKind.Absolute);
+            BitmapIcon4.EndInit();
+            Oimg.Source = BitmapIcon4;
             DisplayRecievedFiledata();
         }
 

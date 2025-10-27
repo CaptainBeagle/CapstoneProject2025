@@ -117,7 +117,7 @@ namespace WpfEncryptApp {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/WpfEncryptApp;component/loginpage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/WpfEncryptApp;V1.0.0.0;component/loginpage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\LoginPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -474,7 +474,7 @@ namespace WpfEncryptApp
                                     return false;
                                 }
 
-                                //check for colour difference
+                                //check for color difference
                                 var pivotRgb = pivot.Color.ToRGBValues();
                                 var candidateRgb = candidate.Color.ToRGBValues();
                                 if (!pivotRgb.Equals(candidateRgb))
@@ -508,7 +508,7 @@ namespace WpfEncryptApp
                             }
                         }
 
-                        //Calculate the median height for all words.
+                        //calculate the median height for all words.
                         var allMedians = words
                             .Select(w => (w.BoundingBox.Top + w.BoundingBox.Bottom) / 2)
                             .OrderByDescending(m => m)

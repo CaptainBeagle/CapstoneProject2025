@@ -59,13 +59,24 @@ namespace WpfEncryptApp
                 char[] specialchars = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')'};
                 if (Input.Text.Any(c => specialchars.Contains(c)))
                 {
+                    
+                }
+                else
+                {
+                    Error.Text = "Please add at least 1 special character";
+                    Error.Visibility = Visibility.Visible;
+                    return;
+                }
+                char[] nums = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
+                if (Input.Text.Any(c => nums.Contains(c)))
+                {
                     npassword = Input.Text;
                     this.DialogResult = true;
                     this.Close();
                 }
                 else
                 {
-                    Error.Text = "Please add at least 1 special character";
+                    Error.Text = "Please add at least 1 number";
                     Error.Visibility = Visibility.Visible;
                     return;
                 }

@@ -35,6 +35,8 @@ namespace WpfEncryptApp
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
             string query = "SELECT Password FROM users WHERE UserID = @ID";
+            Error.Text = "";
+            bool wrong = false;
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@ID", LoginPage.Userid);
@@ -44,8 +46,7 @@ namespace WpfEncryptApp
                     if (reader.GetString(0) == Input.Text)
                     {
                         Error.Text = "New password cannot be the same as current password.";
-                        Error.Visibility = Visibility.Visible;
-                        return;
+                        wrong = true;
                     }
                     else
                     {
@@ -56,38 +57,50 @@ namespace WpfEncryptApp
 
             if (Input.Text.Length > 9 && Input.Text.Length < 41)
             {
-                char[] specialchars = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')'};
-                if (Input.Text.Any(c => specialchars.Contains(c)))
-                {
-                    
-                }
-                else
-                {
-                    Error.Text = "Please add at least 1 special character";
-                    Error.Visibility = Visibility.Visible;
-                    return;
-                }
-                char[] nums = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
-                if (Input.Text.Any(c => nums.Contains(c)))
-                {
-                    npassword = Input.Text;
-                    this.DialogResult = true;
-                    this.Close();
-                }
-                else
-                {
-                    Error.Text = "Please add at least 1 number";
-                    Error.Visibility = Visibility.Visible;
-                    return;
-                }
+                
             }
             else
             {
-                Error.Text = "Password too short/long. Must be in between 10 and 40 characters long.";
-                Error.Visibility = Visibility.Visible;
-                return;
+                if (!string.IsNullOrEmpty(Error.Text))
+                {
+                    Error.Text = Error.Text + "\n";
+                }
+                Error.Text = Error.Text + "Password too short/long. Must be in between 10 and 40 characters long.";
+                wrong = true;
             }
-            
+
+            char[] specialchars = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' };
+            if (!Input.Text.Any(c => specialchars.Contains(c)))
+            {
+                if (!string.IsNullOrEmpty(Error.Text))
+                {
+                    Error.Text = Error.Text + "\n";
+                }
+                Error.Text = Error.Text + "Please add at least 1 special character";
+                wrong = true;
+            }
+
+            char[] nums = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
+            if (!Input.Text.Any(c => nums.Contains(c)))
+            {
+                if (!string.IsNullOrEmpty(Error.Text))
+                {
+                    Error.Text = Error.Text + "\n";
+                }
+                Error.Text = Error.Text + "Please add at least 1 number";
+                wrong = true;
+            }
+
+            if (wrong == false)
+            {
+                npassword = Input.Text;
+                this.DialogResult = true;
+                this.Close();
+            }
+            else
+            {
+                Error.Visibility = Visibility.Visible;
+            }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
